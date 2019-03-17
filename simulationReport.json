@@ -1,0 +1,3986 @@
+{
+  "events" : {
+    "[0.0] AddNode" : {
+      "name" : "AddNode",
+      "args" : {
+        "node" : {
+          "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "position" : {
+            "x" : 10.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : false
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ ]
+        }
+      },
+      "time" : 0.0
+    },
+    "[1.0] StartNodeA" : {
+      "name" : "StartNodeA",
+      "args" : { },
+      "time" : 1.0
+    },
+    "[1.0] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : { },
+          "processedPackets" : [ ],
+          "knownDevices" : { },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 1.0,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713617
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713609,
+            "borderNodes" : [ ],
+            "devices" : [ ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 1.0
+    },
+    "[1.0] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 1.0
+    },
+    "[11407.41678381347] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            }
+          }
+        },
+        "neighbors" : [ ]
+      },
+      "time" : 11407.41678381347
+    },
+    "[12407.41678381347] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : { },
+          "processedPackets" : [ ],
+          "knownDevices" : { },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 12407.41678381347,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714107
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714091,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            } ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 12407.41678381347
+    },
+    "[12407.41678381347] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 12407.41678381347
+    },
+    "[20000.0] AddNode" : {
+      "name" : "AddNode",
+      "args" : {
+        "node" : {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : false
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c" ]
+        }
+      },
+      "time" : 20000.0
+    },
+    "[20001.0] StartNodeB" : {
+      "name" : "StartNodeB",
+      "args" : { },
+      "time" : 20001.0
+    },
+    "[20001.0] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : { },
+          "processedPackets" : [ ],
+          "knownDevices" : { },
+          "services" : [ {
+            "friendlyName" : "Node B",
+            "serviceCallbacks" : { },
+            "neighbors" : [ ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 20001.0,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756,
+            "borderNodes" : [ ],
+            "devices" : [ ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 20001.0
+    },
+    "[20001.0] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 20001.0
+    },
+    "[25989.821686433665] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            }
+          }
+        },
+        "neighbors" : [ ]
+      },
+      "time" : 25989.821686433665
+    },
+    "[26989.821686433665] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : { },
+          "processedPackets" : [ ],
+          "knownDevices" : { },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 26989.821686433665,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714107
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714107,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            } ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 26989.821686433665
+    },
+    "[26989.821686433665] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 26989.821686433665
+    },
+    "[32383.03047838717] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "position" : {
+            "x" : 10.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : false
+          }
+        } ]
+      },
+      "time" : 32383.03047838717
+    },
+    "[32383.03047838717] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714122,\"recipient\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 32383.03047838717
+    },
+    "[32385.51161464937] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714122,\"recipient\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 32385.51161464937
+    },
+    "[33383.03047838717] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : false
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714122,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node B",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 33383.03047838717,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756,
+            "borderNodes" : [ ],
+            "devices" : [ ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 33383.03047838717
+    },
+    "[33383.03047838717] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 33383.03047838717
+    },
+    "[41658.998484666125] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : false
+          }
+        } ]
+      },
+      "time" : 41658.998484666125
+    },
+    "[42658.998484666125] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714303,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714324
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714340,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 42658.998484666125,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714340
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714252,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 42658.998484666125
+    },
+    "[42658.998484666125] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 42658.998484666125
+    },
+    "[47847.29865411866] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "position" : {
+            "x" : 10.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 47847.29865411866
+    },
+    "[47847.29865411866] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":2,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714361,\"recipient\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 47847.29865411866
+    },
+    "[47849.92464769368] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":2,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714361,\"recipient\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 47849.92464769368
+    },
+    "[47849.92464769368] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"handshake-response\",\"trace\":{\"1\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}},\"id\":4,\"source\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"data\":{\"dataType\":\"handshake-response\",\"graph\":\"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><graphml xmlns=\\\"http://graphml.graphdrawing.org/xmlns\\\" xsi:schemaLocation=\\\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\">\\r\\n<key id=\\\"key0\\\" for=\\\"node\\\" attr.name=\\\"name\\\" attr.type=\\\"string\\\"/>\\r\\n<key id=\\\"key1\\\" for=\\\"node\\\" attr.name=\\\"isInNetwork\\\" attr.type=\\\"boolean\\\"/>\\r\\n<graph edgedefault=\\\"undirected\\\">\\r\\n<node id=\\\"5a05e48e-8519-45dd-929a-21841039321c\\\">\\r\\n<data key=\\\"key0\\\">Node A</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n</graph>\\r\\n</graphml>\\r\\n\"},\"timestamp\":1552838714369,\"recipient\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 47849.92464769368
+    },
+    "[47851.23809867997] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}},\"id\":5,\"source\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"second\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714374}"
+        }
+      },
+      "time" : 47851.23809867997
+    },
+    "[47851.78740238942] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"handshake-response\",\"trace\":{\"1\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true}},\"id\":4,\"source\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"data\":{\"dataType\":\"handshake-response\",\"graph\":\"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><graphml xmlns=\\\"http://graphml.graphdrawing.org/xmlns\\\" xsi:schemaLocation=\\\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\">\\r\\n<key id=\\\"key0\\\" for=\\\"node\\\" attr.name=\\\"name\\\" attr.type=\\\"string\\\"/>\\r\\n<key id=\\\"key1\\\" for=\\\"node\\\" attr.name=\\\"isInNetwork\\\" attr.type=\\\"boolean\\\"/>\\r\\n<graph edgedefault=\\\"undirected\\\">\\r\\n<node id=\\\"5a05e48e-8519-45dd-929a-21841039321c\\\">\\r\\n<data key=\\\"key0\\\">Node A</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n</graph>\\r\\n</graphml>\\r\\n\"},\"timestamp\":1552838714369,\"recipient\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 47851.78740238942
+    },
+    "[47851.78740238942] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":3,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"action\":100},{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714472}"
+        }
+      },
+      "time" : 47851.78740238942
+    },
+    "[47853.03026916524] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":3,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"action\":100},{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"5a05e48e-8519-45dd-929a-21841039321c\",\"name\":\"Node A\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714472}"
+        }
+      },
+      "time" : 47853.03026916524
+    },
+    "[48847.29865411866] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714122,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714361,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              }, {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714472
+          } ],
+          "knownDevices" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node B",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 48847.29865411866,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714487
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714472,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 48847.29865411866
+    },
+    "[48847.29865411866] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 48847.29865411866
+    },
+    "[50000.0] AddNode" : {
+      "name" : "AddNode",
+      "args" : {
+        "node" : {
+          "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "position" : {
+            "x" : 26.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : false
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38" ]
+        }
+      },
+      "time" : 50000.0
+    },
+    "[50001.0] StartNodeC" : {
+      "name" : "StartNodeC",
+      "args" : { },
+      "time" : 50001.0
+    },
+    "[50001.0] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : { },
+          "processedPackets" : [ ],
+          "knownDevices" : { },
+          "services" : [ {
+            "friendlyName" : "Node C",
+            "serviceCallbacks" : { },
+            "neighbors" : [ ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 50001.0,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756,
+            "borderNodes" : [ ],
+            "devices" : [ ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 50001.0
+    },
+    "[50001.0] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 50001.0
+    },
+    "[55835.22497946632] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 55835.22497946632
+    },
+    "[56835.22497946632] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714303,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714324
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714340,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 4,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714369,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 5,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714374
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 6,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714487,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 56835.22497946632,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714487
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714368,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 56835.22497946632
+    },
+    "[56835.22497946632] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 56835.22497946632
+    },
+    "[60639.86864950889] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "position" : {
+            "x" : 10.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 60639.86864950889
+    },
+    "[61036.496697986746] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 61036.496697986746
+    },
+    "[61036.496697986746] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714503,\"recipient\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 61036.496697986746
+    },
+    "[61039.22571420507] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714503,\"recipient\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 61039.22571420507
+    },
+    "[61039.22571420507] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":5,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714513}"
+        }
+      },
+      "time" : 61039.22571420507
+    },
+    "[61041.50329456304] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":5,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714513}"
+        }
+      },
+      "time" : 61041.50329456304
+    },
+    "[61639.86864950889] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714122,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714361,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              }, {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714472
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 4,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\">\r\n<data key=\"key0\">Node B</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<edge id=\"1\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"5a05e48e-8519-45dd-929a-21841039321c\"/>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714512,
+            "recipient" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 5,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714513
+          } ],
+          "knownDevices" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node B",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 61639.86864950889,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714520
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714511,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 61639.86864950889
+    },
+    "[61639.86864950889] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 61639.86864950889
+    },
+    "[62036.496697986746] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                "name" : "Node C",
+                "inNetwork" : false
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714503,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node C",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : false
+          },
+          "simulator" : {
+            "time" : 62036.496697986746,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838713756,
+            "borderNodes" : [ ],
+            "devices" : [ ]
+          },
+          "inNetwork" : false
+        }
+      },
+      "time" : 62036.496697986746
+    },
+    "[62036.496697986746] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            }
+          }
+        }
+      },
+      "time" : 62036.496697986746
+    },
+    "[71588.87520331783] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 71588.87520331783
+    },
+    "[72588.87520331783] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714303,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714324
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714340,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 4,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714369,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 5,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714374
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 6,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714487,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 7,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714525,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 72588.87520331783,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714487
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714368,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 72588.87520331783
+    },
+    "[72588.87520331783] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 72588.87520331783
+    },
+    "[73561.66513428737] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "position" : {
+            "x" : 10.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          }
+        }, {
+          "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "position" : {
+            "x" : 26.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : false
+          }
+        } ]
+      },
+      "time" : 73561.66513428737
+    },
+    "[73561.66513428737] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":6,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":101},{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714540}"
+        }
+      },
+      "time" : 73561.66513428737
+    },
+    "[73563.65890645637] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":6,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":101},{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714540}"
+        }
+      },
+      "time" : 73563.65890645637
+    },
+    "[73564.62500075504] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":6,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":101},{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714540}"
+        }
+      },
+      "time" : 73564.62500075504
+    },
+    "[73610.08166316587] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 73610.08166316587
+    },
+    "[73610.08166316587] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true}},\"id\":2,\"source\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714556,\"recipient\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 73610.08166316587
+    },
+    "[73612.03232432235] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "to" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true}},\"id\":2,\"source\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552838714556,\"recipient\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 73612.03232432235
+    },
+    "[73612.03232432235] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "data" : "{\"packetType\":\"handshake-response\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":7,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"handshake-response\",\"graph\":\"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><graphml xmlns=\\\"http://graphml.graphdrawing.org/xmlns\\\" xsi:schemaLocation=\\\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\">\\r\\n<key id=\\\"key0\\\" for=\\\"node\\\" attr.name=\\\"name\\\" attr.type=\\\"string\\\"/>\\r\\n<key id=\\\"key1\\\" for=\\\"node\\\" attr.name=\\\"isInNetwork\\\" attr.type=\\\"boolean\\\"/>\\r\\n<graph edgedefault=\\\"undirected\\\">\\r\\n<node id=\\\"5a05e48e-8519-45dd-929a-21841039321c\\\">\\r\\n<data key=\\\"key0\\\">Node A</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<node id=\\\"00f78100-636e-4d47-b0fb-c5f21de3aa38\\\">\\r\\n<data key=\\\"key0\\\">Node B</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<node id=\\\"168fd9b0-a75c-48cb-acce-20339749a232\\\">\\r\\n<data key=\\\"key0\\\">Node C</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<edge id=\\\"1\\\" source=\\\"00f78100-636e-4d47-b0fb-c5f21de3aa38\\\" target=\\\"5a05e48e-8519-45dd-929a-21841039321c\\\"/>\\r\\n<edge id=\\\"2\\\" source=\\\"00f78100-636e-4d47-b0fb-c5f21de3aa38\\\" target=\\\"168fd9b0-a75c-48cb-acce-20339749a232\\\"/>\\r\\n</graph>\\r\\n</graphml>\\r\\n\"},\"timestamp\":1552838714577,\"recipient\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 73612.03232432235
+    },
+    "[73613.7164885827] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":8,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714579}"
+        }
+      },
+      "time" : 73613.7164885827
+    },
+    "[73613.9771394157] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "data" : "{\"packetType\":\"handshake-response\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":7,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"handshake-response\",\"graph\":\"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><graphml xmlns=\\\"http://graphml.graphdrawing.org/xmlns\\\" xsi:schemaLocation=\\\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\">\\r\\n<key id=\\\"key0\\\" for=\\\"node\\\" attr.name=\\\"name\\\" attr.type=\\\"string\\\"/>\\r\\n<key id=\\\"key1\\\" for=\\\"node\\\" attr.name=\\\"isInNetwork\\\" attr.type=\\\"boolean\\\"/>\\r\\n<graph edgedefault=\\\"undirected\\\">\\r\\n<node id=\\\"5a05e48e-8519-45dd-929a-21841039321c\\\">\\r\\n<data key=\\\"key0\\\">Node A</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<node id=\\\"00f78100-636e-4d47-b0fb-c5f21de3aa38\\\">\\r\\n<data key=\\\"key0\\\">Node B</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<node id=\\\"168fd9b0-a75c-48cb-acce-20339749a232\\\">\\r\\n<data key=\\\"key0\\\">Node C</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<edge id=\\\"1\\\" source=\\\"00f78100-636e-4d47-b0fb-c5f21de3aa38\\\" target=\\\"5a05e48e-8519-45dd-929a-21841039321c\\\"/>\\r\\n<edge id=\\\"2\\\" source=\\\"00f78100-636e-4d47-b0fb-c5f21de3aa38\\\" target=\\\"168fd9b0-a75c-48cb-acce-20339749a232\\\"/>\\r\\n</graph>\\r\\n</graphml>\\r\\n\"},\"timestamp\":1552838714577,\"recipient\":{\"id\":\"168fd9b0-a75c-48cb-acce-20339749a232\",\"name\":\"Node C\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 73613.9771394157
+    },
+    "[73614.56521486191] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":8,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":100}]},\"timestamp\":1552838714579}"
+        }
+      },
+      "time" : 73614.56521486191
+    },
+    "[74561.66513428737] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "168fd9b0-a75c-48cb-acce-20339749a232" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            },
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714122,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714361,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              }, {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714472
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 4,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\">\r\n<data key=\"key0\">Node B</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<edge id=\"1\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"5a05e48e-8519-45dd-929a-21841039321c\"/>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714512,
+            "recipient" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 5,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714513
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 6,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 101
+              }, {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                  "name" : "Node C",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714540
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 7,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\">\r\n<data key=\"key0\">Node B</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"168fd9b0-a75c-48cb-acce-20339749a232\">\r\n<data key=\"key0\">Node C</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<edge id=\"1\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"5a05e48e-8519-45dd-929a-21841039321c\"/>\r\n<edge id=\"2\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"168fd9b0-a75c-48cb-acce-20339749a232\"/>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714577,
+            "recipient" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 8,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714579
+          } ],
+          "knownDevices" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "168fd9b0-a75c-48cb-acce-20339749a232" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node B",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 74561.66513428737,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714625
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714576,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }, {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 74561.66513428737
+    },
+    "[74561.66513428737] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 74561.66513428737
+    },
+    "[74610.08166316587] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                "name" : "Node C",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714503,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                "name" : "Node C",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714556,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node C",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 74610.08166316587,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714625
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714625,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }, {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 74610.08166316587
+    },
+    "[74610.08166316587] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 74610.08166316587
+    },
+    "[83700.40556555797] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 83700.40556555797
+    },
+    "[84700.40556555797] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714303,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714324
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714340,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 4,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714369,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 5,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714374
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 6,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714487,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 7,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714525,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                "name" : "Node A",
+                "inNetwork" : true
+              }
+            },
+            "id" : 8,
+            "source" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714625,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node A",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 84700.40556555797,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714487
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714368,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 84700.40556555797
+    },
+    "[84700.40556555797] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 84700.40556555797
+    },
+    "[87294.42585635214] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "position" : {
+            "x" : 10.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "name" : "Node A",
+            "inNetwork" : true
+          }
+        }, {
+          "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "position" : {
+            "x" : 26.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 87294.42585635214
+    },
+    "[87294.42585635214] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":9,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":101}]},\"timestamp\":1552838714648}"
+        }
+      },
+      "time" : 87294.42585635214
+    },
+    "[87296.35278734032] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "168fd9b0-a75c-48cb-acce-20339749a232",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":9,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":101}]},\"timestamp\":1552838714648}"
+        }
+      },
+      "time" : 87296.35278734032
+    },
+    "[87296.46580277452] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "to" : "5a05e48e-8519-45dd-929a-21841039321c",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":9,\"source\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"00f78100-636e-4d47-b0fb-c5f21de3aa38\",\"name\":\"Node B\",\"inNetwork\":true},\"action\":101}]},\"timestamp\":1552838714648}"
+        }
+      },
+      "time" : 87296.46580277452
+    },
+    "[88294.42585635214] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "168fd9b0-a75c-48cb-acce-20339749a232" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714122,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714361,
+            "recipient" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 3,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              }, {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+                  "name" : "Node A",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714472
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 4,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\">\r\n<data key=\"key0\">Node B</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<edge id=\"1\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"5a05e48e-8519-45dd-929a-21841039321c\"/>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714512,
+            "recipient" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : false
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 5,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714513
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 6,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 101
+              }, {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                  "name" : "Node C",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714540
+          }, {
+            "packetType" : "handshake-response",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 7,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "handshake-response",
+              "graph" : "<?xml version=\"1.0\" encoding=\"UTF-8\"?><graphml xmlns=\"http://graphml.graphdrawing.org/xmlns\" xsi:schemaLocation=\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n<key id=\"key0\" for=\"node\" attr.name=\"name\" attr.type=\"string\"/>\r\n<key id=\"key1\" for=\"node\" attr.name=\"isInNetwork\" attr.type=\"boolean\"/>\r\n<graph edgedefault=\"undirected\">\r\n<node id=\"5a05e48e-8519-45dd-929a-21841039321c\">\r\n<data key=\"key0\">Node A</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\">\r\n<data key=\"key0\">Node B</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<node id=\"168fd9b0-a75c-48cb-acce-20339749a232\">\r\n<data key=\"key0\">Node C</data>\r\n<data key=\"key1\">true</data>\r\n</node>\r\n<edge id=\"1\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"5a05e48e-8519-45dd-929a-21841039321c\"/>\r\n<edge id=\"2\" source=\"00f78100-636e-4d47-b0fb-c5f21de3aa38\" target=\"168fd9b0-a75c-48cb-acce-20339749a232\"/>\r\n</graph>\r\n</graphml>\r\n"
+            },
+            "timestamp" : 1552838714577,
+            "recipient" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 8,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 100
+              } ]
+            },
+            "timestamp" : 1552838714579
+          }, {
+            "packetType" : "broadcast-packet",
+            "trace" : {
+              "1" : {
+                "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                "name" : "Node B",
+                "inNetwork" : true
+              }
+            },
+            "id" : 9,
+            "source" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "update-data",
+              "updates" : [ {
+                "first" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "second" : {
+                  "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+                  "name" : "Node B",
+                  "inNetwork" : true
+                },
+                "action" : 101
+              } ]
+            },
+            "timestamp" : 1552838714648
+          } ],
+          "knownDevices" : {
+            "5a05e48e-8519-45dd-929a-21841039321c" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            },
+            "168fd9b0-a75c-48cb-acce-20339749a232" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node B",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 88294.42585635214,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714625
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714576,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }, {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 88294.42585635214
+    },
+    "[88294.42585635214] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 88294.42585635214
+    },
+    "[88900.20492167791] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 88900.20492167791
+    },
+    "[89900.20492167791] MeshStartDiscovery" : {
+      "name" : "MeshStartDiscovery",
+      "args" : {
+        "session" : {
+          "neighbours" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "processedPackets" : [ {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                "name" : "Node C",
+                "inNetwork" : true
+              }
+            },
+            "id" : 1,
+            "source" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714503,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }, {
+            "packetType" : "handshake-request",
+            "trace" : {
+              "1" : {
+                "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+                "name" : "Node C",
+                "inNetwork" : true
+              }
+            },
+            "id" : 2,
+            "source" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            },
+            "data" : {
+              "dataType" : "empty-data"
+            },
+            "timestamp" : 1552838714556,
+            "recipient" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          } ],
+          "knownDevices" : {
+            "00f78100-636e-4d47-b0fb-c5f21de3aa38" : {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          },
+          "services" : [ {
+            "friendlyName" : "Node C",
+            "serviceCallbacks" : { },
+            "neighbors" : [ {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            } ],
+            "ready" : true
+          } ],
+          "networkCallbacks" : null,
+          "longDistanceVectors" : { },
+          "allDevices" : [ ],
+          "localDevice" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "name" : "Node C",
+            "inNetwork" : true
+          },
+          "simulator" : {
+            "time" : 89900.20492167791,
+            "monitor" : {
+              "physicalLayer" : {
+                "height" : 100.0,
+                "width" : 100.0,
+                "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+              }
+            }
+          },
+          "mainJob" : true,
+          "nextDiscoveryEvent$uni_cimbulka_network_MeshNetwork_main" : null,
+          "routingTable$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714625
+          },
+          "networkGraph$uni_cimbulka_network_MeshNetwork_main" : {
+            "timestamp" : 1552838714625,
+            "borderNodes" : [ ],
+            "devices" : [ {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }, {
+              "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+              "name" : "Node B",
+              "inNetwork" : true
+            }, {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            } ]
+          },
+          "inNetwork" : true
+        }
+      },
+      "time" : 89900.20492167791
+    },
+    "[89900.20492167791] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "5a05e48e-8519-45dd-929a-21841039321c", "00f78100-636e-4d47-b0fb-c5f21de3aa38", "168fd9b0-a75c-48cb-acce-20339749a232" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "168fd9b0-a75c-48cb-acce-20339749a232",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 89900.20492167791
+    },
+    "[90000.0] SendPacketFromA-C" : {
+      "name" : "SendPacketFromA-C",
+      "args" : { },
+      "time" : 90000.0
+    },
+    "[99537.92243377381] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "5a05e48e-8519-45dd-929a-21841039321c",
+              "name" : "Node A",
+              "inNetwork" : true
+            }
+          }
+        },
+        "neighbors" : [ {
+          "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+          "position" : {
+            "x" : 18.0,
+            "y" : 10.0
+          },
+          "device" : {
+            "id" : "00f78100-636e-4d47-b0fb-c5f21de3aa38",
+            "name" : "Node B",
+            "inNetwork" : true
+          }
+        } ]
+      },
+      "time" : 99537.92243377381
+    },
+    "[100000.0] Shutdown" : {
+      "name" : "Shutdown",
+      "args" : { },
+      "time" : 100000.0
+    }
+  }
+}

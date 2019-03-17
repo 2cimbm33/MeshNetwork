@@ -1,0 +1,4 @@
+rootProject.name = 'Simulator'
+include 'Core', 'NetworkSimulator', 'MeshNetwork', 'MeshNetworkSimulator', 'SimGui'
+findProject(':SimGui')?.name = 'sim-gui'
+
