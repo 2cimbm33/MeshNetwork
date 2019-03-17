@@ -24,13 +24,6 @@ class MainView : View("Main View") {
             prefWidth = 400.0
             items = listViewItems
 
-            /*onUserSelect {
-                if (::report.isInitialized) {
-                    val event = report.events[it] ?: return@onUserSelect
-                    snapshotView.display(event)
-                }
-            }*/
-
             setOnMouseClicked {
                 val item = this.selectedItem ?: return@setOnMouseClicked
                 if (::report.isInitialized) {
@@ -43,13 +36,12 @@ class MainView : View("Main View") {
 
     init {
         runAsync {
-            val simulator = MeshSimulator()
-            simulator.run()
+            //val simulator = MeshSimulator()
+            //simulator.run()
 
             Report.fromJson(FileLoader.readFile("simulationReport.json"))
         } ui {
             this.report = it
-            //listView.items = FXCollections.observableArrayList(it.events.keys)
             listViewItems.addAll(it.events.keys)
         }
     }
