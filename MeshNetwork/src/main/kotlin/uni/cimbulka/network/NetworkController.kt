@@ -1,9 +1,6 @@
 package uni.cimbulka.network
 
 import kotlinx.coroutines.Job
-import uni.cimbulka.network.data.UpdateData
-import uni.cimbulka.network.events.StartDiscoveryEvent
-import uni.cimbulka.network.events.StartDiscoveryEventArgs
 import uni.cimbulka.network.listeners.CommServiceListener
 import uni.cimbulka.network.listeners.NetworkCallbacks
 import uni.cimbulka.network.models.Device
@@ -37,13 +34,6 @@ class NetworkController(friendlyName: String, private val simulator: Simulator) 
         }
     }
 
-    internal fun updateNetwork(data: UpdateData) {
-        if (data.updates.isNotEmpty()) {
-            val packet = BroadcastPacket(networkSession.incrementPacketCount(), localDevice, data)
-            PacketSender.send(packet, networkSession)
-        }
-    }
-
     fun getDevicesInNetwork(): List<Device> = networkSession.networkGraph.devices.filter { it != networkSession.localDevice }
 
     fun start() {
@@ -54,9 +44,6 @@ class NetworkController(friendlyName: String, private val simulator: Simulator) 
         stopService()
 
         networkSession.mainJob = false
-        networkSession.nextDiscoveryEvent?.let {
-            simulator.cancel(it)
-        }
     }
 
     fun send(packet: BroadcastPacket) {
@@ -77,16 +64,15 @@ class NetworkController(friendlyName: String, private val simulator: Simulator) 
     }
 
     internal fun stopService() {
-        networkSession.services.forEach { it.stopService(); }
+        networkSession.services.forEach {
+            it.stopScanning()
+            it.stopService()
+        }
     }
 
     private fun startMainJob() {
-        simulator.insert(StartDiscoveryEvent(simulator.time, StartDiscoveryEventArgs(networkSession)))
+        networkSession.services.forEach { it.startScanning() }
         networkSession.mainJob = true
-    }
-
-    private fun scan() {
-        networkSession.services.forEach { it.startDiscovery(networkSession.isInNetwork); }
     }
 
     internal fun discoverRoute(target: Device) {

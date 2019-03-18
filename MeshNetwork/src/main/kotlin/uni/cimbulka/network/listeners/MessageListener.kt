@@ -1,11 +1,10 @@
 package uni.cimbulka.network.listeners
 
 import uni.cimbulka.network.NetworkController
+import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.packets.*
 
-internal class MessageListener(private val controller: NetworkController) {
-    private val session = controller.networkSession
-
+internal class MessageListener(private val session: NetworkSession) {
     fun onMessageReceived(json: String) {
         println("MessageListener:onMessageReceived")
 

@@ -1,7 +1,6 @@
 package uni.cimbulka.network
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import uni.cimbulka.network.events.StartDiscoveryEvent
 import uni.cimbulka.network.listeners.NetworkCallbacks
 import uni.cimbulka.network.models.Device
 import uni.cimbulka.network.packets.BasePacket
@@ -45,5 +44,4 @@ class NetworkSession {
     //- Simulation stuff ----------------------------------------------------------------------------
     lateinit var simulator: Simulator
     var mainJob = false
-    internal var nextDiscoveryEvent: StartDiscoveryEvent? = null
 }

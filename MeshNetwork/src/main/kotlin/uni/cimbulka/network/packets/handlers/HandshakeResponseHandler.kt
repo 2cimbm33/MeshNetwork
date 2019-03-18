@@ -5,6 +5,7 @@ import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.data.HandshakeResponseData
 import uni.cimbulka.network.data.UpdateData
 import uni.cimbulka.network.models.Update
+import uni.cimbulka.network.packets.BroadcastPacket
 import uni.cimbulka.network.packets.HandshakeResponse
 import uni.cimbulka.network.packets.PacketSender
 
@@ -37,7 +38,7 @@ internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
             }
 
             println("Sending update data")
-            session.controller.updateNetwork(updateData)
+            PacketSender.send(BroadcastPacket.create(updateData, session.controller), session)
         }
     }
 

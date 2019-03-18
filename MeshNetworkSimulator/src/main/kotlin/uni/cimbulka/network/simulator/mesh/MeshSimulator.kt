@@ -22,7 +22,7 @@ class MeshSimulator : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
         insert(AddNodeEvent(0.0, AddNodeEventArgs(nodeA, phy)))
         insert(1.0, "StartNodeA") {
             nodeA.controller?.let { node ->
-                node.addCommService(BluetoothService(BluetoothAdapter(phy, nodeA), node.localDevice.name))
+                node.addCommService(BluetoothService(BluetoothAdapter(phy, nodeA), node.localDevice.name, this))
                 node.start()
             }
         }
@@ -30,7 +30,7 @@ class MeshSimulator : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
         insert(AddNodeEvent(20.0 * 1000, AddNodeEventArgs(nodeB, phy)))
         insert((20.0 * 1000) + 1.0, "StartNodeB") {
             nodeB.controller?.let { node ->
-                node.addCommService(BluetoothService(BluetoothAdapter(phy, nodeB), node.localDevice.name))
+                node.addCommService(BluetoothService(BluetoothAdapter(phy, nodeB), node.localDevice.name, this))
                 node.start()
             }
         }
@@ -38,7 +38,7 @@ class MeshSimulator : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
         insert(AddNodeEvent(50.0 * 1000, AddNodeEventArgs(nodeC, phy)))
         insert((50.0 * 1000) + 1.0, "StartNodeC") {
             nodeC.controller?.let { node ->
-                node.addCommService(BluetoothService(BluetoothAdapter(phy, nodeC), node.localDevice.name))
+                node.addCommService(BluetoothService(BluetoothAdapter(phy, nodeC), node.localDevice.name, this))
                 node.start()
             }
         }

@@ -3,23 +3,16 @@ package uni.cimbulka.network.listeners
 import uni.cimbulka.network.NetworkController
 import uni.cimbulka.network.models.Device
 
-internal class CommServiceListener(private val controller: NetworkController) : CommServiceCallbacks {
-    private val discoveryListener = DiscoveryListener(controller)
-    private val messageListener = MessageListener(controller)
+internal class CommServiceListener(controller: NetworkController) : CommServiceCallbacks {
+    private val neighborListener = NeighborListener(controller.networkSession)
+    private val messageListener = MessageListener(controller.networkSession)
 
-    override fun onDiscoveryCompleted(devices: Array<Device>) {
-        println("\nCommServiceListener:onDiscoveryComplete\n")
-        discoveryListener.onDiscoveryCompleted(devices)
+    override fun onNeighborsChanged(connected: List<Device>, disconnected: List<Device>) {
+        neighborListener.onChanged(connected, disconnected)
     }
 
     override fun onMessageReceived(packet: String) {
         println("\nCommServiceListener:onMessageReceived\n")
         messageListener.onMessageReceived(packet)
-    }
-
-    override fun onDeviceDisconnected(address: String) {
-        println("\nCommServiceListener:onDeviceDisconnected\n")
-        val session = controller.networkSession
-        session.networkGraph.removeEdge(session.localDevice, session.neighbours[address] ?: return)
     }
 }

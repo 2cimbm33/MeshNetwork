@@ -1,16 +1,9 @@
 package uni.cimbulka.network.listeners
 
 import uni.cimbulka.network.NetworkController
-import uni.cimbulka.network.data.UpdateData
-import uni.cimbulka.network.events.StartDiscoveryEvent
-import uni.cimbulka.network.events.StartDiscoveryEventArgs
-import uni.cimbulka.network.models.Device
-import uni.cimbulka.network.models.Update
-import uni.cimbulka.network.packets.HandshakeRequest
-import uni.cimbulka.network.packets.PacketSender
 
 internal class DiscoveryListener(private val controller: NetworkController) {
-    private val session = controller.networkSession
+    /*private val session = controller.networkSession
 
     fun onDiscoveryCompleted(devices: Array<Device>) {
         println("\nDiscoveryListener:onDiscoveryCompleted\nInput: $devices")
@@ -117,4 +110,5 @@ internal class DiscoveryListener(private val controller: NetworkController) {
         }
         kotlin.io.println("Result: $isInNetwork")
     }
+    */
 }
