@@ -14,6 +14,9 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
             if (data is UpdateData) {
                 processUpdates(data, session)
             }
+
+            // Resend the packet
+            PacketSender.send(packet, session)
         }
     }
 
