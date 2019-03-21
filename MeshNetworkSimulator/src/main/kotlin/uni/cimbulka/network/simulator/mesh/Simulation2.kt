@@ -18,9 +18,9 @@ class Simulation2 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
         val nodeA = getNode("Node A", Point2D(10.0, 10.0))
         val nodeB = getNode("Node B", Point2D(18.0, 10.0))
         val nodeC = getNode("Node C", Point2D(26.0, 10.0))
-        val nodeD = getNode("Node D", Point2D(33.0, 17.5))
-        val nodeE = getNode("Node E", Point2D(40.0, 17.5))
-        val nodeF = getNode("Node F", Point2D(33.0, 2.5))
+        val nodeD = getNode("Node D", Point2D(30.0, 16.0))
+        val nodeE = getNode("Node E", Point2D(38.0, 16.0))
+        val nodeF = getNode("Node F", Point2D(30.0, 4.0))
 
         nodeA.insertNode(0)
         nodeB.insertNode(10)

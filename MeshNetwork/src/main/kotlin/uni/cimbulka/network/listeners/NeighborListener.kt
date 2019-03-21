@@ -24,6 +24,8 @@ class NeighborListener(private val session: NetworkSession) {
             session.neighbours[it.id.toString()] = it
         }
 
+        session.startServices()
+
         return HandshakeRequest(session.incrementPacketCount(), session.localDevice, connected.random())
     }
 
