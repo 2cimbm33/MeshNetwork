@@ -34,7 +34,7 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
                 // Add yourself to the route
                 packet.route?.segments?.add(RouteSegment(packet.source, session.localDevice))
                 // Tell network controller to discover route
-                session.controller.discoverRoute(packet)
+                PacketSender.discoverRoute(packet, session)
             } else {
                 val route = packet.route ?: return
                 route.segments.add(RouteSegment(packet.source, session.localDevice))

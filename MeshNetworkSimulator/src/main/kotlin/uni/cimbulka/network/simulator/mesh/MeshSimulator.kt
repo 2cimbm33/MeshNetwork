@@ -52,7 +52,7 @@ class MeshSimulator : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
     }
 
     private fun getNode(name: String, position: Point2D): NetworkNode {
-        val controller = NetworkController(name, simulator = this)
+        val controller = NetworkController(name)
         return NetworkNode(controller.localDevice, position).apply {
             this.controller = controller
         }

@@ -16,20 +16,20 @@ internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
             if (session.localDevice.id == it.id) {
                 val source = packet.source ?: return
 
-                session.networkGraph.addDevice(it)
-                session.networkGraph.addEdge(session.localDevice, it)
+                session.networkGraph.addDevice(source)
+                session.networkGraph.addEdge(it, source)
                 session.isInNetwork = true
 
                 val graph = session.networkGraph.export()
 
                 val responseData = HandshakeResponseData(graph)
-                val response = HandshakeResponse(session.incrementPacketCount(), session.localDevice, source, responseData)
-                val updateData = UpdateData(mutableListOf(Update(session.localDevice, it, Update.CONNECTION_CREATED)))
+                val response = HandshakeResponse(session.incrementPacketCount(), it, source, responseData)
+                val updateData = UpdateData(mutableListOf(Update(it, source, Update.CONNECTION_CREATED)))
 
                 PacketSender.send(response, session)
-                PacketSender.send(BroadcastPacket.create(updateData, session.controller), session)
+                PacketSender.send(BroadcastPacket.create(updateData, session), session)
 
-                session.neighbours[it.id.toString()] = it
+                session.neighbours[source.id.toString()] = source
             }
         }
     }

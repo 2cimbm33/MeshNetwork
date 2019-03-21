@@ -36,8 +36,8 @@ class MainView : View("Main View") {
 
     init {
         runAsync {
-            //val simulator = MeshSimulator()
-            //simulator.run()
+            val simulator = MeshSimulator()
+            simulator.run()
 
             Report.fromJson(FileLoader.readFile("simulationReport.json"))
         } ui {

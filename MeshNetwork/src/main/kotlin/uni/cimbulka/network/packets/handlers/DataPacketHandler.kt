@@ -41,7 +41,9 @@ internal class DataPacketHandler : PacketHandler<DataPacket> {
                     if (nextNode in packets) {
                         packets[nextNode]?.recipients?.add(recipient)
                     } else {
-                        val dp = DataPacket(packet.id, it, recipient, packet.data, packet.timestamp)
+                        val dp = DataPacket(packet.id, it, recipient, packet.data, packet.timestamp).apply {
+                            trace = packet.trace
+                        }
                         packets[nextNode] = dp
                     }
                 }

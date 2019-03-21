@@ -1,18 +1,14 @@
 package uni.cimbulka.network
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import uni.cimbulka.network.listeners.NetworkCallbacks
 import uni.cimbulka.network.models.Device
 import uni.cimbulka.network.packets.BasePacket
-import uni.cimbulka.network.simulator.core.Simulator
+import java.util.*
 
 class NetworkSession {
 
     internal var networkGraph: NetworkGraph = NetworkGraph(this)
-    @JsonIgnore
-    lateinit var controller: NetworkController
     val neighbours = mutableMapOf<String, Device>()
-    val processedPackets = mutableListOf<BasePacket>()
     val knownDevices = mutableMapOf<String, Device>()
     val services: MutableList<CommService> = mutableListOf()
     var networkCallbacks: NetworkCallbacks? = null
@@ -20,6 +16,12 @@ class NetworkSession {
     val allDevices: MutableList<Device> = mutableListOf()
     lateinit var localDevice: Device
     private var packetCount = 0
+
+    val processedPackets = mutableListOf<BasePacket>()
+        get() {
+            field.removeIf { Math.abs(Date().time - it.timestamp) > 5 * 60 * 1000 }
+            return field
+        }
 
     var isInNetwork = false
         set(value) {
@@ -41,7 +43,10 @@ class NetworkSession {
         return packetCount
     }
 
+    fun startServices() {
+        services.forEach { it.startService() }
+    }
+
     //- Simulation stuff ----------------------------------------------------------------------------
-    lateinit var simulator: Simulator
     var mainJob = false
 }

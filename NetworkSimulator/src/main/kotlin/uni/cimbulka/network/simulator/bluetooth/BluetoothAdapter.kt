@@ -11,6 +11,8 @@ import uni.cimbulka.network.simulator.physical.PhysicalLayer
 class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node) {
 
     var callbacks: BluetoothAdapterCallbacks? = null
+    var discoverable: Boolean = false
+        private set
 
     init {
         val id = node.id
@@ -40,10 +42,20 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
     }
 
     fun receivedPacket(packet: BluetoothPacket) {
-        callbacks?.packetReceived(packet.data)
+        val node = physicalLayer[packet.from] ?: return
+        callbacks?.packetReceived(node, packet.data)
     }
 
     fun validateNode(id: String): Boolean {
-        return physicalLayer[id] != null
+        val adapter = AdapterPool.adapters[id] ?: return false
+        return adapter.discoverable
+    }
+
+    fun startService() {
+        discoverable = true
+    }
+
+    fun stopService() {
+        discoverable = false
     }
 }

@@ -25,7 +25,7 @@ internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
             val updateData = UpdateData()
 
             println("Starting the service")
-            session.controller.startService()
+            session.startServices()
 
             println("Neighbours: ${session.neighbours}")
             println("Devices in graph: ${session.networkGraph.devices}")
@@ -38,7 +38,7 @@ internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
             }
 
             println("Sending update data")
-            PacketSender.send(BroadcastPacket.create(updateData, session.controller), session)
+            PacketSender.send(BroadcastPacket.create(updateData, session), session)
         }
     }
 

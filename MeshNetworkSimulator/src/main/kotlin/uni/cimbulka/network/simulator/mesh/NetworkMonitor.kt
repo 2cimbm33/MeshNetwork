@@ -15,14 +15,17 @@ class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
         enable(SerializationFeature.INDENT_OUTPUT)
     }
 
+    private var numberOfEvents = 0
+
     override fun record(event: EventInterface) {
         if (event is Event<*>) {
             val json: JsonNode = mapper.valueToTree(event)
 
-            report.events["[${event.time}] ${event.name}"] = json
-            println("\n[${event.time}]:\n${mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)}\n")
-        }
+            report.events["[$numberOfEvents] [${event.time}] ${event.name}"] = json
+            println("\n[$numberOfEvents] [${event.time}]:\n${mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)}\n")
 
+            numberOfEvents++
+        }
     }
 
     override fun printRecords() {

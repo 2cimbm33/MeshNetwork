@@ -4,13 +4,13 @@
       "name" : "AddNode",
       "args" : {
         "node" : {
-          "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+          "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
           "position" : {
             "x" : 10.0,
             "y" : 10.0
           },
           "device" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "name" : "Node A",
             "inNetwork" : false
           }
@@ -28,24 +28,29 @@
       "args" : { },
       "time" : 1.0
     },
+    "[1.0] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
+      "args" : { },
+      "time" : 1.0
+    },
     "[1.0] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -54,19 +59,19 @@
       },
       "time" : 1.0
     },
-    "[10873.004371214509] EndDiscovery" : {
+    "[10307.45425346702] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -75,53 +80,53 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6" ]
         }
       },
-      "time" : 10873.004371214509
+      "time" : 10307.45425346702
     },
-    "[11873.004371214509] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
+    "[11307.45425346702] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
       "args" : { },
-      "time" : 11873.004371214509
+      "time" : 11307.45425346702
     },
-    "[11873.004371214509] StartDiscovery" : {
+    "[11307.45425346702] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 11873.004371214509
+      "time" : 11307.45425346702
     },
     "[20000.0] AddNode" : {
       "name" : "AddNode",
       "args" : {
         "node" : {
-          "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+          "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
           "position" : {
             "x" : 18.0,
             "y" : 10.0
           },
           "device" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "name" : "Node B",
             "inNetwork" : false
           }
@@ -129,7 +134,7 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6" ]
         }
       },
       "time" : 20000.0
@@ -139,24 +144,29 @@
       "args" : { },
       "time" : 20001.0
     },
+    "[20001.0] CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" : {
+      "name" : "CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+      "args" : { },
+      "time" : 20001.0
+    },
     "[20001.0] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
               "inNetwork" : false
             }
@@ -165,19 +175,19 @@
       },
       "time" : 20001.0
     },
-    "[26700.496661039302] EndDiscovery" : {
+    "[22907.628632473432] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -186,112 +196,156 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         }
       },
-      "time" : 26700.496661039302
+      "time" : 22907.628632473432
     },
-    "[27700.496661039302] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
+    "[22907.628632473432] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "to" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"a4a7017d-43a2-4624-88ab-34d0283f60f6\",\"name\":\"Node A\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"a4a7017d-43a2-4624-88ab-34d0283f60f6\",\"name\":\"Node A\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552989437773,\"recipient\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":false}}"
+        }
+      },
+      "time" : 22907.628632473432
+    },
+    "[22908.95525081311] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "to" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"a4a7017d-43a2-4624-88ab-34d0283f60f6\",\"name\":\"Node A\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"a4a7017d-43a2-4624-88ab-34d0283f60f6\",\"name\":\"Node A\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552989437773,\"recipient\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":false}}"
+        }
+      },
+      "time" : 22908.95525081311
+    },
+    "[23907.628632473432] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
       "args" : { },
-      "time" : 27700.496661039302
+      "time" : 23907.628632473432
     },
-    "[27700.496661039302] StartDiscovery" : {
+    "[23907.628632473432] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 27700.496661039302
+      "time" : 23907.628632473432
     },
-    "[30597.87496899448] EndDiscovery" : {
+    "[32491.925942107177] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         },
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         }
       },
-      "time" : 30597.87496899448
+      "time" : 32491.925942107177
     },
-    "[31597.87496899448] CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586" : {
-      "name" : "CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586",
+    "[32491.925942107177] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":3,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[]},\"timestamp\":1552989744964}"
+        }
+      },
+      "time" : 32491.925942107177
+    },
+    "[32494.015342350962] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":3,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[]},\"timestamp\":1552989744964}"
+        }
+      },
+      "time" : 32494.015342350962
+    },
+    "[33491.92594210718] CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" : {
+      "name" : "CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
       "args" : { },
-      "time" : 31597.87496899448
+      "time" : 33491.92594210718
     },
-    "[31597.87496899448] StartDiscovery" : {
+    "[33491.92594210718] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         }
       },
-      "time" : 31597.87496899448
+      "time" : 33491.92594210718
     },
-    "[40202.71489142049] EndDiscovery" : {
+    "[37712.431968868594] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -300,110 +354,110 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         }
       },
-      "time" : 40202.71489142049
+      "time" : 37712.431968868594
     },
-    "[41202.71489142049] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
+    "[38712.431968868594] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
       "args" : { },
-      "time" : 41202.71489142049
+      "time" : 38712.431968868594
     },
-    "[41202.71489142049] StartDiscovery" : {
+    "[38712.431968868594] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 41202.71489142049
+      "time" : 38712.431968868594
     },
-    "[45186.5343532526] EndDiscovery" : {
+    "[48397.200549970476] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         },
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         }
       },
-      "time" : 45186.5343532526
+      "time" : 48397.200549970476
     },
-    "[46186.5343532526] CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586" : {
-      "name" : "CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586",
+    "[49397.200549970476] CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" : {
+      "name" : "CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
       "args" : { },
-      "time" : 46186.5343532526
+      "time" : 49397.200549970476
     },
-    "[46186.5343532526] StartDiscovery" : {
+    "[49397.200549970476] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         }
       },
-      "time" : 46186.5343532526
+      "time" : 49397.200549970476
     },
     "[50000.0] AddNode" : {
       "name" : "AddNode",
       "args" : {
         "node" : {
-          "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+          "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
           "position" : {
             "x" : 26.0,
             "y" : 10.0
           },
           "device" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
             "name" : "Node C",
             "inNetwork" : false
           }
@@ -411,7 +465,7 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" ]
         }
       },
       "time" : 50000.0
@@ -421,24 +475,29 @@
       "args" : { },
       "time" : 50001.0
     },
+    "[50001.0] CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b" : {
+      "name" : "CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b",
+      "args" : { },
+      "time" : 50001.0
+    },
     "[50001.0] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
             "position" : {
               "x" : 26.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
               "name" : "Node C",
               "inNetwork" : false
             }
@@ -447,19 +506,19 @@
       },
       "time" : 50001.0
     },
-    "[55834.55792465339] EndDiscovery" : {
+    "[52652.819838454256] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -468,112 +527,134 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         }
       },
-      "time" : 55834.55792465339
+      "time" : 52652.819838454256
     },
-    "[56834.55792465339] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
+    "[53652.819838454256] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
       "args" : { },
-      "time" : 56834.55792465339
+      "time" : 53652.819838454256
     },
-    "[56834.55792465339] StartDiscovery" : {
+    "[53652.819838454256] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 56834.55792465339
+      "time" : 53652.819838454256
     },
-    "[57688.9600821105] EndDiscovery" : {
+    "[62361.583027824294] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         },
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         }
       },
-      "time" : 57688.9600821105
+      "time" : 62361.583027824294
     },
-    "[58688.9600821105] CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586" : {
-      "name" : "CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586",
+    "[62361.583027824294] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":4,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false},\"action\":100}]},\"timestamp\":1552989744980}"
+        }
+      },
+      "time" : 62361.583027824294
+    },
+    "[62363.97037560861] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":4,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false},\"action\":100}]},\"timestamp\":1552989744980}"
+        }
+      },
+      "time" : 62363.97037560861
+    },
+    "[63361.583027824294] CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" : {
+      "name" : "CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
       "args" : { },
-      "time" : 58688.9600821105
+      "time" : 63361.583027824294
     },
-    "[58688.9600821105] StartDiscovery" : {
+    "[63361.583027824294] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
             "position" : {
               "x" : 18.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
               "name" : "Node B",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         }
       },
-      "time" : 58688.9600821105
+      "time" : 63361.583027824294
     },
-    "[62415.64288454974] EndDiscovery" : {
+    "[64193.11965188739] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
             "position" : {
               "x" : 26.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
               "name" : "Node C",
               "inNetwork" : false
             }
@@ -582,283 +663,110 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         }
       },
-      "time" : 62415.64288454974
+      "time" : 64193.11965188739
     },
-    "[63415.64288454974] CommServiceStartDiscovery-919ba2e1-149d-4925-9f82-1380c84d695b" : {
-      "name" : "CommServiceStartDiscovery-919ba2e1-149d-4925-9f82-1380c84d695b",
+    "[64193.11965188739] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+          "to" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552989744980,\"recipient\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 64193.11965188739
+    },
+    "[64195.82239003293] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+          "to" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "data" : "{\"packetType\":\"handshake-request\",\"trace\":{\"1\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false}},\"id\":1,\"source\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false},\"data\":{\"dataType\":\"empty-data\"},\"timestamp\":1552989744980,\"recipient\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}}"
+        }
+      },
+      "time" : 64195.82239003293
+    },
+    "[64195.82239003293] SendPacket" : {
+      "name" : "SendPacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+          "data" : "{\"packetType\":\"handshake-response\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":5,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"handshake-response\",\"graph\":\"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><graphml xmlns=\\\"http://graphml.graphdrawing.org/xmlns\\\" xsi:schemaLocation=\\\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\">\\r\\n<key id=\\\"key0\\\" for=\\\"node\\\" attr.name=\\\"name\\\" attr.type=\\\"string\\\"/>\\r\\n<key id=\\\"key1\\\" for=\\\"node\\\" attr.name=\\\"isInNetwork\\\" attr.type=\\\"boolean\\\"/>\\r\\n<graph edgedefault=\\\"undirected\\\">\\r\\n<node id=\\\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\\\">\\r\\n<data key=\\\"key0\\\">Node B</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<node id=\\\"a4a7017d-43a2-4624-88ab-34d0283f60f6\\\">\\r\\n<data key=\\\"key0\\\">Node A</data>\\r\\n<data key=\\\"key1\\\">false</data>\\r\\n</node>\\r\\n<node id=\\\"4bacaed0-f22c-4f48-86b1-30483350ac3b\\\">\\r\\n<data key=\\\"key0\\\">Node C</data>\\r\\n<data key=\\\"key1\\\">false</data>\\r\\n</node>\\r\\n<edge id=\\\"1\\\" source=\\\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\\\" target=\\\"a4a7017d-43a2-4624-88ab-34d0283f60f6\\\"/>\\r\\n<edge id=\\\"2\\\" source=\\\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\\\" target=\\\"4bacaed0-f22c-4f48-86b1-30483350ac3b\\\"/>\\r\\n</graph>\\r\\n</graphml>\\r\\n\"},\"timestamp\":1552989744996,\"recipient\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false}}"
+        }
+      },
+      "time" : 64195.82239003293
+    },
+    "[64198.22435502869] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+          "data" : "{\"packetType\":\"handshake-response\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":5,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"handshake-response\",\"graph\":\"<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\"?><graphml xmlns=\\\"http://graphml.graphdrawing.org/xmlns\\\" xsi:schemaLocation=\\\"http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd\\\" xmlns:xsi=\\\"http://www.w3.org/2001/XMLSchema-instance\\\">\\r\\n<key id=\\\"key0\\\" for=\\\"node\\\" attr.name=\\\"name\\\" attr.type=\\\"string\\\"/>\\r\\n<key id=\\\"key1\\\" for=\\\"node\\\" attr.name=\\\"isInNetwork\\\" attr.type=\\\"boolean\\\"/>\\r\\n<graph edgedefault=\\\"undirected\\\">\\r\\n<node id=\\\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\\\">\\r\\n<data key=\\\"key0\\\">Node B</data>\\r\\n<data key=\\\"key1\\\">true</data>\\r\\n</node>\\r\\n<node id=\\\"a4a7017d-43a2-4624-88ab-34d0283f60f6\\\">\\r\\n<data key=\\\"key0\\\">Node A</data>\\r\\n<data key=\\\"key1\\\">false</data>\\r\\n</node>\\r\\n<node id=\\\"4bacaed0-f22c-4f48-86b1-30483350ac3b\\\">\\r\\n<data key=\\\"key0\\\">Node C</data>\\r\\n<data key=\\\"key1\\\">false</data>\\r\\n</node>\\r\\n<edge id=\\\"1\\\" source=\\\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\\\" target=\\\"a4a7017d-43a2-4624-88ab-34d0283f60f6\\\"/>\\r\\n<edge id=\\\"2\\\" source=\\\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\\\" target=\\\"4bacaed0-f22c-4f48-86b1-30483350ac3b\\\"/>\\r\\n</graph>\\r\\n</graphml>\\r\\n\"},\"timestamp\":1552989744996,\"recipient\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false}}"
+        }
+      },
+      "time" : 64198.22435502869
+    },
+    "[64198.470231262894] ReceivePacket" : {
+      "name" : "ReceivePacket",
+      "args" : {
+        "packet" : {
+          "from" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+          "to" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+          "data" : "{\"packetType\":\"broadcast-packet\",\"trace\":{\"1\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true}},\"id\":6,\"source\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"data\":{\"dataType\":\"update-data\",\"updates\":[{\"first\":{\"id\":\"7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21\",\"name\":\"Node B\",\"inNetwork\":true},\"second\":{\"id\":\"4bacaed0-f22c-4f48-86b1-30483350ac3b\",\"name\":\"Node C\",\"inNetwork\":false},\"action\":100}]},\"timestamp\":1552989744996}"
+        }
+      },
+      "time" : 64198.470231262894
+    },
+    "[65193.11965188739] CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b" : {
+      "name" : "CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b",
       "args" : { },
-      "time" : 63415.64288454974
+      "time" : 65193.11965188739
     },
-    "[63415.64288454974] StartDiscovery" : {
+    "[65193.11965188739] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
             "position" : {
               "x" : 26.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
               "name" : "Node C",
-              "inNetwork" : false
+              "inNetwork" : true
             }
           }
         }
       },
-      "time" : 63415.64288454974
+      "time" : 65193.11965188739
     },
-    "[71253.73361472362] EndDiscovery" : {
+    "[65503.70481281609] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
-              "name" : "Node A",
-              "inNetwork" : false
-            }
-          }
-        },
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        }
-      },
-      "time" : 71253.73361472362
-    },
-    "[71678.96151117448] EndDiscovery" : {
-      "name" : "EndDiscovery",
-      "args" : {
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-            "position" : {
-              "x" : 18.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-              "name" : "Node B",
-              "inNetwork" : false
-            }
-          }
-        },
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        }
-      },
-      "time" : 71678.96151117448
-    },
-    "[72253.73361472362] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
-      "args" : { },
-      "time" : 72253.73361472362
-    },
-    "[72253.73361472362] StartDiscovery" : {
-      "name" : "StartDiscovery",
-      "args" : {
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        },
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
-            "position" : {
-              "x" : 10.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
-              "name" : "Node A",
-              "inNetwork" : false
-            }
-          }
-        }
-      },
-      "time" : 72253.73361472362
-    },
-    "[72678.96151117448] CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586" : {
-      "name" : "CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586",
-      "args" : { },
-      "time" : 72678.96151117448
-    },
-    "[72678.96151117448] StartDiscovery" : {
-      "name" : "StartDiscovery",
-      "args" : {
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        },
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-            "position" : {
-              "x" : 18.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-              "name" : "Node B",
-              "inNetwork" : false
-            }
-          }
-        }
-      },
-      "time" : 72678.96151117448
-    },
-    "[75398.83960327695] EndDiscovery" : {
-      "name" : "EndDiscovery",
-      "args" : {
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
-            "position" : {
-              "x" : 26.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
-              "name" : "Node C",
-              "inNetwork" : false
-            }
-          }
-        },
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        }
-      },
-      "time" : 75398.83960327695
-    },
-    "[76398.83960327695] CommServiceStartDiscovery-919ba2e1-149d-4925-9f82-1380c84d695b" : {
-      "name" : "CommServiceStartDiscovery-919ba2e1-149d-4925-9f82-1380c84d695b",
-      "args" : { },
-      "time" : 76398.83960327695
-    },
-    "[76398.83960327695] StartDiscovery" : {
-      "name" : "StartDiscovery",
-      "args" : {
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        },
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
-            "position" : {
-              "x" : 26.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
-              "name" : "Node C",
-              "inNetwork" : false
-            }
-          }
-        }
-      },
-      "time" : 76398.83960327695
-    },
-    "[83439.4181775611] EndDiscovery" : {
-      "name" : "EndDiscovery",
-      "args" : {
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-            "position" : {
-              "x" : 18.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-              "name" : "Node B",
-              "inNetwork" : false
-            }
-          }
-        },
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        }
-      },
-      "time" : 83439.4181775611
-    },
-    "[84439.4181775611] CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586" : {
-      "name" : "CommServiceStartDiscovery-9362ea97-9268-40ea-b98c-1ea0d41ce586",
-      "args" : { },
-      "time" : 84439.4181775611
-    },
-    "[84439.4181775611] StartDiscovery" : {
-      "name" : "StartDiscovery",
-      "args" : {
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        },
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-            "position" : {
-              "x" : 18.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-              "name" : "Node B",
-              "inNetwork" : false
-            }
-          }
-        }
-      },
-      "time" : 84439.4181775611
-    },
-    "[86163.38498742522] EndDiscovery" : {
-      "name" : "EndDiscovery",
-      "args" : {
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
-            "position" : {
-              "x" : 10.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -867,117 +775,345 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         }
       },
-      "time" : 86163.38498742522
+      "time" : 65503.70481281609
     },
-    "[86472.30933906509] EndDiscovery" : {
-      "name" : "EndDiscovery",
-      "args" : {
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
-            "position" : {
-              "x" : 26.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
-              "name" : "Node C",
-              "inNetwork" : false
-            }
-          }
-        },
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        }
-      },
-      "time" : 86472.30933906509
-    },
-    "[87163.38498742522] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
+    "[66503.70481281608] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
       "args" : { },
-      "time" : 87163.38498742522
+      "time" : 66503.70481281608
     },
-    "[87163.38498742522] StartDiscovery" : {
+    "[66503.70481281608] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 87163.38498742522
+      "time" : 66503.70481281608
     },
-    "[87472.30933906509] CommServiceStartDiscovery-919ba2e1-149d-4925-9f82-1380c84d695b" : {
-      "name" : "CommServiceStartDiscovery-919ba2e1-149d-4925-9f82-1380c84d695b",
+    "[73433.06670580151] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        }
+      },
+      "time" : 73433.06670580151
+    },
+    "[74433.06670580151] CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" : {
+      "name" : "CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
       "args" : { },
-      "time" : 87472.30933906509
+      "time" : 74433.06670580151
     },
-    "[87472.30933906509] StartDiscovery" : {
+    "[74433.06670580151] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 74433.06670580151
+    },
+    "[75198.78042486007] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
             "position" : {
               "x" : 26.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "919ba2e1-149d-4925-9f82-1380c84d695b",
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
               "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        }
+      },
+      "time" : 75198.78042486007
+    },
+    "[76198.78042486007] CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b" : {
+      "name" : "CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b",
+      "args" : { },
+      "time" : 76198.78042486007
+    },
+    "[76198.78042486007] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 76198.78042486007
+    },
+    "[78515.61612520853] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+              "name" : "Node A",
+              "inNetwork" : false
+            }
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        }
+      },
+      "time" : 78515.61612520853
+    },
+    "[79515.61612520853] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
+      "args" : { },
+      "time" : 79515.61612520853
+    },
+    "[79515.61612520853] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+            "position" : {
+              "x" : 10.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
+              "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 87472.30933906509
+      "time" : 79515.61612520853
+    },
+    "[87263.69097097602] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        }
+      },
+      "time" : 87263.69097097602
+    },
+    "[87427.5078887892] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        }
+      },
+      "time" : 87427.5078887892
+    },
+    "[88263.69097097602] CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b" : {
+      "name" : "CommServiceStartDiscovery-4bacaed0-f22c-4f48-86b1-30483350ac3b",
+      "args" : { },
+      "time" : 88263.69097097602
+    },
+    "[88263.69097097602] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 88263.69097097602
+    },
+    "[88427.5078887892] CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21" : {
+      "name" : "CommServiceStartDiscovery-7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+      "args" : { },
+      "time" : 88427.5078887892
+    },
+    "[88427.5078887892] StartDiscovery" : {
+      "name" : "StartDiscovery",
+      "args" : {
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        },
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+            "position" : {
+              "x" : 18.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21",
+              "name" : "Node B",
+              "inNetwork" : true
+            }
+          }
+        }
+      },
+      "time" : 88427.5078887892
     },
     "[90000.0] SendPacketFromA-C" : {
       "name" : "SendPacketFromA-C",
       "args" : { },
       "time" : 90000.0
     },
-    "[98648.4889164177] EndDiscovery" : {
+    "[90515.45136727924] EndDiscovery" : {
       "name" : "EndDiscovery",
       "args" : {
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
@@ -986,67 +1122,67 @@
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         }
       },
-      "time" : 98648.4889164177
+      "time" : 90515.45136727924
     },
-    "[99406.60645265103] EndDiscovery" : {
-      "name" : "EndDiscovery",
-      "args" : {
-        "adapter" : {
-          "callbacks" : { },
-          "node" : {
-            "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-            "position" : {
-              "x" : 18.0,
-              "y" : 10.0
-            },
-            "device" : {
-              "id" : "9362ea97-9268-40ea-b98c-1ea0d41ce586",
-              "name" : "Node B",
-              "inNetwork" : false
-            }
-          }
-        },
-        "physicalLayer" : {
-          "height" : 100.0,
-          "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
-        }
-      },
-      "time" : 99406.60645265103
-    },
-    "[99648.4889164177] CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972" : {
-      "name" : "CommServiceStartDiscovery-95df367a-947f-40d7-83df-3815c7b78972",
+    "[91515.45136727924] CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6" : {
+      "name" : "CommServiceStartDiscovery-a4a7017d-43a2-4624-88ab-34d0283f60f6",
       "args" : { },
-      "time" : 99648.4889164177
+      "time" : 91515.45136727924
     },
-    "[99648.4889164177] StartDiscovery" : {
+    "[91515.45136727924] StartDiscovery" : {
       "name" : "StartDiscovery",
       "args" : {
         "physicalLayer" : {
           "height" : 100.0,
           "width" : 100.0,
-          "keys" : [ "95df367a-947f-40d7-83df-3815c7b78972", "9362ea97-9268-40ea-b98c-1ea0d41ce586", "919ba2e1-149d-4925-9f82-1380c84d695b" ]
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
         },
         "adapter" : {
           "callbacks" : { },
           "node" : {
-            "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+            "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
             "position" : {
               "x" : 10.0,
               "y" : 10.0
             },
             "device" : {
-              "id" : "95df367a-947f-40d7-83df-3815c7b78972",
+              "id" : "a4a7017d-43a2-4624-88ab-34d0283f60f6",
               "name" : "Node A",
               "inNetwork" : false
             }
           }
         }
       },
-      "time" : 99648.4889164177
+      "time" : 91515.45136727924
+    },
+    "[99490.44523591541] EndDiscovery" : {
+      "name" : "EndDiscovery",
+      "args" : {
+        "adapter" : {
+          "callbacks" : { },
+          "node" : {
+            "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+            "position" : {
+              "x" : 26.0,
+              "y" : 10.0
+            },
+            "device" : {
+              "id" : "4bacaed0-f22c-4f48-86b1-30483350ac3b",
+              "name" : "Node C",
+              "inNetwork" : true
+            }
+          }
+        },
+        "physicalLayer" : {
+          "height" : 100.0,
+          "width" : 100.0,
+          "keys" : [ "a4a7017d-43a2-4624-88ab-34d0283f60f6", "7ed5d0e7-0e7c-4ec9-bb3f-868d66885a21", "4bacaed0-f22c-4f48-86b1-30483350ac3b" ]
+        }
+      },
+      "time" : 99490.44523591541
     },
     "[100000.0] Shutdown" : {
       "name" : "Shutdown",

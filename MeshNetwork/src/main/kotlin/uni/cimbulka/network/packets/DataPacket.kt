@@ -1,6 +1,7 @@
 package uni.cimbulka.network.packets
 
 import uni.cimbulka.network.NetworkController
+import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.data.BaseData
 import uni.cimbulka.network.models.Device
 import java.util.*
@@ -33,6 +34,13 @@ class DataPacket : BasePacket {
         fun create(data: BaseData, vararg recipients: Device, controller: NetworkController) = DataPacket(
                 controller.networkSession.incrementPacketCount(),
                 controller.networkSession.localDevice,
+                recipients.toMutableList(),
+                data
+        )
+
+        internal fun create(data: BaseData, vararg recipients: Device, session: NetworkSession) = DataPacket(
+                session.incrementPacketCount(),
+                session.localDevice,
                 recipients.toMutableList(),
                 data
         )

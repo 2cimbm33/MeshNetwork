@@ -23,32 +23,45 @@ class BluetoothService(private val adapter: BluetoothAdapter, name: String, priv
     init {
         adapter.callbacks = object : BluetoothAdapterCallbacks {
             override fun discoveryFinished(neighbors: List<Node>) {
-                val connected = mutableListOf<Device>()
+                val discovered = mutableListOf<Device>()
                 val disconnected = mutableListOf(*btNeighbors.toTypedArray())
 
                 neighbors.forEach { node ->
                     val device = disconnected.firstOrNull { it.id.toString() == node.id }
 
                     if (device == null) {
-                        connected.add(node.extractDevice())
+                        discovered.add(node.extractDevice())
                     } else {
                         disconnected.remove(device)
                     }
                 }
 
-                btNeighbors.addAll(connected)
-                btNeighbors.removeAll(disconnected)
+                val connected = mutableListOf<Device>()
+                discovered.forEach {
+                    if (adapter.validateNode(it.id.toString())) {
+                        it.isInNetwork = true
+                        btNeighbors.add(it)
+                        connected.add(it)
+                    }
+                }
+
+                disconnected.forEach {
+                    btNeighbors.remove(it)
+                }
 
                 if (shouldScan) {
-                    serviceCallbacks?.onNeighborsChanged(connected, disconnected)
+                    if (connected.isNotEmpty() || disconnected.isNotEmpty())
+                        serviceCallbacks?.onNeighborsChanged(connected, disconnected)
+                    else
+                        startService()
 
-                    simulator.insert(simulator.time + 1000.0, "CommServiceStartDiscovery-${adapter.node.id}") {
-                        adapter.startDiscovery()
-                    }
+                    scan(1000.0)
                 }
             }
 
-            override fun packetReceived(packet: String) {
+            override fun packetReceived(from: Node, packet: String) {
+                val device = btNeighbors.firstOrNull { it == from.extractDevice() }
+                if (device == null) btNeighbors.add(from.extractDevice())
                 serviceCallbacks?.onMessageReceived(packet)
             }
         }
@@ -56,7 +69,7 @@ class BluetoothService(private val adapter: BluetoothAdapter, name: String, priv
 
     override fun startScanning() {
         shouldScan = true
-        adapter.startDiscovery()
+        scan(0.0)
     }
 
     override fun stopScanning() {
@@ -67,13 +80,19 @@ class BluetoothService(private val adapter: BluetoothAdapter, name: String, priv
         adapter.sendPacket(recipient.id.toString(), packet)
     }
 
-    override fun startService() {}
+    override fun startService() {
+        adapter.startService()
+    }
 
-    override fun stopService() {}
+    override fun stopService() {
+        adapter.stopService()
+    }
 
-    private fun scan() {
+    private fun scan(delay: Double) {
         if (shouldScan) {
-            adapter.startDiscovery()
+            simulator.insert(simulator.time + delay, "CommServiceStartDiscovery-${adapter.node.id}") {
+                adapter.startDiscovery()
+            }
         }
     }
 

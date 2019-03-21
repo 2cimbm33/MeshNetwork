@@ -77,14 +77,14 @@ internal class DiscoveryListener(private val controller: NetworkController) {
             val request = HandshakeRequest(session.incrementPacketCount(),
                     session.localDevice, session.neighbours.values.first())
             //println("Starting service")
-            //controller.startService()
+            //controller.startServices()
             println("Sending request: $request")
             PacketSender.send(request, session)
         } else {
             println("Setting up graph")
             session.networkGraph.addDevice(session.localDevice)
             println("Starting service")
-            controller.startService()
+            controller.startServices()
         }
     }
 
