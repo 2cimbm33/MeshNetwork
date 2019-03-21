@@ -7,7 +7,7 @@ import tornadofx.listview
 import tornadofx.selectedItem
 import uni.cimbulka.network.simulator.gui.FileLoader
 import uni.cimbulka.network.simulator.gui.models.Report
-import uni.cimbulka.network.simulator.mesh.MeshSimulator
+import uni.cimbulka.network.simulator.mesh.Simulation2
 
 class MainView : View("Main View") {
     private val snapshotView: SnapshotView by inject()
@@ -36,7 +36,7 @@ class MainView : View("Main View") {
 
     init {
         runAsync {
-            val simulator = MeshSimulator()
+            val simulator = Simulation2()
             simulator.run()
 
             Report.fromJson(FileLoader.readFile("simulationReport.json"))

@@ -11,7 +11,7 @@ import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.AddNodeEventArgs
 
-class MeshSimulator : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
+class Simulation1 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
     override fun run() {
         val phy = (monitor as NetworkMonitor).physicalLayer
 
@@ -60,5 +60,5 @@ class MeshSimulator : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
 }
 
 fun main() {
-    MeshSimulator().run()
+    Simulation1().run()
 }

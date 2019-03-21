@@ -31,14 +31,14 @@ class DataPacket : BasePacket {
 
     companion object {
         @JvmStatic
-        fun create(data: BaseData, vararg recipients: Device, controller: NetworkController) = DataPacket(
+        fun create(data: BaseData, controller: NetworkController, vararg recipients: Device) = DataPacket(
                 controller.networkSession.incrementPacketCount(),
                 controller.networkSession.localDevice,
                 recipients.toMutableList(),
                 data
         )
 
-        internal fun create(data: BaseData, vararg recipients: Device, session: NetworkSession) = DataPacket(
+        internal fun create(data: BaseData, session: NetworkSession, vararg recipients: Device) = DataPacket(
                 session.incrementPacketCount(),
                 session.localDevice,
                 recipients.toMutableList(),
