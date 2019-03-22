@@ -63,12 +63,14 @@ class BluetoothService(private val adapter: BluetoothAdapter, name: String, priv
 
             override fun connectionCreated(node: Node) {
                 val device = node.extractDevice()
+                serviceCallbacks?.addNeighbor(device)
                 btNeighbors.add(device)
                 if (!scanning) scan()
             }
 
             override fun connectionClosed(node: Node) {
                 val device = node.extractDevice()
+                serviceCallbacks?.removeNeighbor(device)
                 btNeighbors.remove(device)
                 if (!scanning) scan()
             }

@@ -19,6 +19,22 @@ class NeighborListener(private val session: NetworkSession) {
         PacketSender.send(packet, session)
     }
 
+    fun add(device: Device) {
+        val update = connect(device) ?: return
+        val data = UpdateData(mutableListOf(update))
+        val packet = BroadcastPacket.create(data, session)
+
+        PacketSender.send(packet, session)
+    }
+
+    fun remove(device: Device) {
+        val update = disconnect(device) ?: return
+        val data = UpdateData(mutableListOf(update))
+        val packet = BroadcastPacket.create(data, session)
+
+        PacketSender.send(packet, session)
+    }
+
     private fun notInNetwork(connected: List<Device>): HandshakeRequest {
         connected.forEach {
             session.neighbours[it.id.toString()] = it

@@ -11,6 +11,14 @@ internal class CommServiceListener(controller: NetworkController) : CommServiceC
         neighborListener.onChanged(connected, disconnected)
     }
 
+    override fun addNeighbor(neighbor: Device) {
+        neighborListener.add(neighbor)
+    }
+
+    override fun removeNeighbor(neighbor: Device) {
+        neighborListener.remove(neighbor)
+    }
+
     override fun onMessageReceived(packet: String) {
         println("\nCommServiceListener:onMessageReceived\n")
         messageListener.onMessageReceived(packet)

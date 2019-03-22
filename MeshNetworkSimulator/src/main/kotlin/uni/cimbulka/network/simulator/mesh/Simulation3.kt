@@ -7,39 +7,43 @@ import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.NetworkSimulator
 import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapter
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
+import uni.cimbulka.network.simulator.mobility.MobilityRule
+import uni.cimbulka.network.simulator.mobility.events.MobilityEventArgs
+import uni.cimbulka.network.simulator.mobility.events.RunMobilityEvent
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.AddNodeEventArgs
 
-class Simulation2 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
+class Simulation3 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
     private val phy = (monitor as NetworkMonitor).physicalLayer
 
     override fun run() {
-        val nodeA = getNode("Node A", Point2D(10.0, 10.0))
+        val nodeA = getNode("Node A", Point2D(13.0, 13.0))
         val nodeB = getNode("Node B", Point2D(18.0, 10.0))
         val nodeC = getNode("Node C", Point2D(26.0, 10.0))
-        val nodeD = getNode("Node D", Point2D(30.0, 16.0))
-        val nodeE = getNode("Node E", Point2D(38.0, 16.0))
-        val nodeF = getNode("Node F", Point2D(30.0, 4.0))
+        val nodeD = getNode("Node D", Point2D(30.0, 10.0))
+        val nodeE = getNode("Node E", Point2D(38.0, 10.0))
 
         nodeA.insertNode(0)
         nodeB.insertNode(5)
         nodeC.insertNode(10)
         nodeD.insertNode(15)
         nodeE.insertNode(20)
-        nodeF.insertNode(25)
 
-        insert(40 * 1000.0, "SendFirstMessage") {
-            val controller = nodeA.controller ?: return@insert
+        val rule = MobilityRule(nodeA.id, 1.4, 33.0, MobilityRule.Direction.RIGHT, phy)
+        insert(RunMobilityEvent(30 * 1000.0, MobilityEventArgs(rule)))
 
-            val packet = DataPacket.create(ApplicationData("Hello, D!"), controller, nodeD.device)
+        insert(45 * 1000.0, "SendFirstMessage") {
+            val controller = nodeB.controller ?: return@insert
+
+            val packet = DataPacket.create(ApplicationData("Hello, A!"), controller, nodeA.device)
             controller.send(packet)
         }
 
-        insert(50 * 1000.0, "SendSecondMessage") {
-            val controller = nodeA.controller ?: return@insert
+        insert(55 * 1000.0, "SendSecondMessage") {
+            val controller = nodeB.controller ?: return@insert
 
-            val packet = DataPacket.create(ApplicationData("Hello, E and F!"), controller, nodeE.device, nodeF.device)
+            val packet = DataPacket.create(ApplicationData("Hello, A!"), controller, nodeA.device)
             controller.send(packet)
         }
 
@@ -56,7 +60,7 @@ class Simulation2 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
 
     private fun NetworkNode.insertNode(seconds: Int) {
         val time = seconds  * 1000.0
-        val simulator = this@Simulation2
+        val simulator = this@Simulation3
         simulator.insert(AddNodeEvent(time, AddNodeEventArgs(this, phy)))
         simulator.insert(time + 1, "Start${device.name}") { _ ->
             controller?.let {
