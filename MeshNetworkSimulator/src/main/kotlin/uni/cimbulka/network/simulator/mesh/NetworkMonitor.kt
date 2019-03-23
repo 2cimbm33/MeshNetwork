@@ -23,18 +23,18 @@ class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
             val json = mapper.valueToTree<JsonNode>(reportEvent)
 
             report.events["[$numberOfEvents] [${event.time}] ${event.name}"] = json
-            println("\n[$numberOfEvents] [${event.time}]:\n${mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)}\n")
+            //println("\n[$numberOfEvents] [${event.time}]:\n${mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)}\n")
 
             numberOfEvents++
         }
     }
 
     override fun printRecords() {
-        println("\n\nMonitor report starting:\n")
-        val json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(report)
-        println(json)
+        //println("\n\nMonitor report starting:\n")
+        //val json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(report)
+        //println(json)
 
-        writeToFile(json)
+        writeToFile(mapper.writeValueAsString(report))
     }
 
     private fun writeToFile(json: String) {
