@@ -27,8 +27,8 @@ class MainView : View("Main View") {
             setOnMouseClicked {
                 val item = this.selectedItem ?: return@setOnMouseClicked
                 if (::report.isInitialized) {
-                    val event = report.events[item] ?: return@setOnMouseClicked
-                    snapshotView.display(event)
+                    val snapshot = report.events[item] ?: return@setOnMouseClicked
+                    snapshotView.display(snapshot)
                 }
             }
         }

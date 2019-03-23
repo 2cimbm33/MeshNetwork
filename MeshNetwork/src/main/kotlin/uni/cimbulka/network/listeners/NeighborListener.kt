@@ -70,7 +70,12 @@ class NeighborListener(private val session: NetworkSession) {
 
         return if (result) {
             session.neighbours[device.id.toString()] = device
-            Update(session.localDevice, device, Update.CONNECTION_CREATED)
+            val update = Update(session.localDevice, device, Update.CONNECTION_CREATED)
+
+            val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
+            session.processedUpdates[id] = update
+
+            update
         } else {
             null
         }
@@ -81,7 +86,12 @@ class NeighborListener(private val session: NetworkSession) {
 
         return if (result) {
             session.neighbours.remove(device.id.toString())
-            Update(session.localDevice, device, Update.CONNECTION_DELETED)
+            val update = Update(session.localDevice, device, Update.CONNECTION_DELETED)
+
+            val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
+            session.processedUpdates[id] = update
+
+            update
         } else {
             null
         }

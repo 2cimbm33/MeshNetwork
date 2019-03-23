@@ -33,9 +33,9 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
         return connections[id] != null
     }
 
-    fun createConnection(adapter: BluetoothAdapter) {
+    fun createConnection(adapter: BluetoothAdapter, invoke: Boolean = true) {
         connections[adapter.node.id] = adapter
-        callbacks?.connectionCreated(adapter.node)
+        if (invoke) callbacks?.connectionCreated(adapter.node)
     }
 
     fun closeConnection(id: String) {

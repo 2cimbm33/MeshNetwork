@@ -2,6 +2,7 @@ package uni.cimbulka.network
 
 import uni.cimbulka.network.listeners.NetworkCallbacks
 import uni.cimbulka.network.models.Device
+import uni.cimbulka.network.models.Update
 import uni.cimbulka.network.packets.BasePacket
 import java.util.*
 
@@ -17,6 +18,8 @@ class NetworkSession {
     lateinit var localDevice: Device
     private var packetCount = 0
 
+    internal var processedUpdates = mutableMapOf<Long, Update>()
+
     val processedPackets = mutableListOf<BasePacket>()
         get() {
             field.removeIf { Math.abs(Date().time - it.timestamp) > 5 * 60 * 1000 }
@@ -30,12 +33,7 @@ class NetworkSession {
         }
 
     internal var routingTable = RoutingTable(emptyMap())
-        get() {
-            if (field.timestamp < networkGraph.timestamp) {
-                field = networkGraph.calcRoutingTable()
-            }
-            return field
-        }
+        get() = networkGraph.calcRoutingTable()
         private set
 
     fun incrementPacketCount(): Int {

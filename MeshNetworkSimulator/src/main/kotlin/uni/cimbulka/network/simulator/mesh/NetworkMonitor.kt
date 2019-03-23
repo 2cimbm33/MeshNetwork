@@ -19,7 +19,8 @@ class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
 
     override fun record(event: EventInterface) {
         if (event is Event<*>) {
-            val json: JsonNode = mapper.valueToTree(event)
+            val reportEvent = ReportEvent(event, physicalLayer.getAll())
+            val json = mapper.valueToTree<JsonNode>(reportEvent)
 
             report.events["[$numberOfEvents] [${event.time}] ${event.name}"] = json
             println("\n[$numberOfEvents] [${event.time}]:\n${mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)}\n")

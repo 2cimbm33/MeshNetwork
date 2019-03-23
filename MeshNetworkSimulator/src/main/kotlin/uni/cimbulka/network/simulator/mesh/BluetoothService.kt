@@ -9,7 +9,7 @@ import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.Simulator
 import java.util.*
 
-class BluetoothService(private val adapter: BluetoothAdapter, name: String, private val simulator: Simulator) : CommService(name) {
+class BluetoothService(val adapter: BluetoothAdapter, name: String, private val simulator: Simulator) : CommService(name) {
     private var shouldScan = false
     private var scanning = false
 
@@ -58,6 +58,11 @@ class BluetoothService(private val adapter: BluetoothAdapter, name: String, priv
             }
 
             override fun packetReceived(from: Node, packet: String) {
+                val device = from.extractDevice()
+                if (device !in btNeighbors) {
+                    btNeighbors.add(device)
+                }
+
                 serviceCallbacks?.onMessageReceived(packet)
             }
 

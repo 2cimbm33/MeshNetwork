@@ -14,7 +14,7 @@ class ReceivePacketEvent(override val time: Double, args: ReceivePacketEventArgs
         val ( packet, adapter, sender ) = args
 
         if (!adapter.hasConnection(packet.from)) {
-            adapter.createConnection(sender)
+            adapter.createConnection(sender, false)
         }
 
         adapter.receivedPacket(packet)
