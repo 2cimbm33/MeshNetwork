@@ -1,5 +1,6 @@
 package uni.cimbulka.network.simulator.bluetooth.events
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import uni.cimbulka.network.simulator.Constants
 import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapter
 import uni.cimbulka.network.simulator.common.Node
@@ -8,7 +9,7 @@ import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import uni.cimbulka.network.simulator.core.models.Event
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 
-data class EndDiscoveryEventArgs(val adapter: BluetoothAdapter, val physicalLayer: PhysicalLayer) : EventArgs()
+data class EndDiscoveryEventArgs(val adapter: BluetoothAdapter, @JsonIgnore val physicalLayer: PhysicalLayer) : EventArgs()
 
 class EndDiscoveryEvent(override val time: Double, args: EndDiscoveryEventArgs) :
         Event<EndDiscoveryEventArgs>("EndDiscovery", args) {

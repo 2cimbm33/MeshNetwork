@@ -14,6 +14,8 @@ class SnapshotView : View() {
     private val time = Label()
     private val args = Label()
     private val nodes = Label()
+    private val connections = Label()
+    private val stats = Label()
 
     override val root = borderpane {
         top = hbox {
@@ -55,12 +57,24 @@ class SnapshotView : View() {
                 scrollpane {
                     padding = Insets(10.0)
 
-                    add(nodes)
+                    vbox {
+                        label("Nodes:")
+                        add(nodes)
+                        label("Connections")
+                        add(connections)
+                    }
+
+                }
+            }
+
+            tab("Stats") {
+                scrollpane {
+                    padding = Insets(10.0)
+
+                    add(stats)
                 }
             }
         }
-
-
     }
 
     fun display(snapshot: Snapshot) {
@@ -81,5 +95,19 @@ class SnapshotView : View() {
             builder.appendln()
         }
         nodes.text = builder.toString()
+
+        builder.clear()
+        snapshot.connections.forEach {
+            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
+            builder.appendln()
+        }
+        connections.text = builder.toString()
+
+        builder.clear()
+        snapshot.aggregation.stats.forEach {
+            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
+            builder.appendln()
+        }
+        stats.text = builder.toString()
     }
 }

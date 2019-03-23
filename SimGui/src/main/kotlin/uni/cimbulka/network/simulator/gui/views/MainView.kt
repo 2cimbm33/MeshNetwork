@@ -1,10 +1,11 @@
 package uni.cimbulka.network.simulator.gui.views
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import javafx.collections.FXCollections
-import tornadofx.View
-import tornadofx.borderpane
-import tornadofx.listview
-import tornadofx.selectedItem
+import javafx.geometry.Insets
+import javafx.scene.control.Label
+import javafx.scene.control.TabPane
+import tornadofx.*
 import uni.cimbulka.network.simulator.gui.FileLoader
 import uni.cimbulka.network.simulator.gui.models.Report
 import uni.cimbulka.network.simulator.mesh.Simulation1
@@ -16,23 +17,47 @@ class MainView : View("Main View") {
     private val snapshotView: SnapshotView by inject()
     private lateinit var report: Report
     private val listViewItems = FXCollections.observableArrayList<String>()
+    private val nodes = Label()
+    private val stats = Label()
 
-    override val root = borderpane {
-        prefWidth = 1024.0
-        prefHeight = 640.0
+    override val root = tabpane {
+        tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
 
-        center = snapshotView.root
+        tab("Events") {
+            borderpane {
+                prefWidth = 1024.0
+                prefHeight = 640.0
 
-        left = listview<String> {
-            prefWidth = 400.0
-            items = listViewItems
+                center = snapshotView.root
 
-            setOnMouseClicked {
-                val item = this.selectedItem ?: return@setOnMouseClicked
-                if (::report.isInitialized) {
-                    val snapshot = report.events[item] ?: return@setOnMouseClicked
-                    snapshotView.display(snapshot)
+                left = listview<String> {
+                    prefWidth = 400.0
+                    items = listViewItems
+
+                    setOnMouseClicked {
+                        val item = this.selectedItem ?: return@setOnMouseClicked
+                        if (::report.isInitialized) {
+                            val snapshot = report.events[item] ?: return@setOnMouseClicked
+                            snapshotView.display(snapshot)
+                        }
+                    }
                 }
+            }
+        }
+
+        tab("Nodes") {
+            scrollpane {
+                padding = Insets(10.0)
+
+                add(nodes)
+            }
+        }
+
+        tab("Stats") {
+            scrollpane {
+                padding = Insets(10.0)
+
+                add(stats)
             }
         }
     }
@@ -46,6 +71,22 @@ class MainView : View("Main View") {
         } ui {
             this.report = it
             listViewItems.addAll(it.events.keys)
+
+            val mapper = ObjectMapper()
+            val builder = StringBuilder()
+
+            report.nodes.forEach {
+                builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
+                builder.appendln()
+            }
+            nodes.text = builder.toString()
+
+            builder.clear()
+            report.aggregation.stats.forEach {
+                builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
+                builder.appendln()
+            }
+            stats.text = builder.toString()
         }
     }
 

@@ -1,5 +1,6 @@
 package uni.cimbulka.network
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import kotlinx.coroutines.Job
 import uni.cimbulka.network.listeners.CommServiceListener
 import uni.cimbulka.network.listeners.NetworkCallbacks
@@ -12,6 +13,7 @@ import java.util.*
 class NetworkController(friendlyName: String) {
 
     private lateinit var mainJob: Job
+    @JsonIgnore
     internal val networkSession = NetworkSession()
 
     var networkCallbacks: NetworkCallbacks?

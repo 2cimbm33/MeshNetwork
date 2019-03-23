@@ -1,6 +1,6 @@
-package uni.cimbulka.network.simulator.mesh
+package uni.cimbulka.network.simulator.mesh.reporting
 
-class Connection(val first: String, val second: String) {
+class Connection(var first: String = "", var second: String = "") {
     operator fun contains(other: String): Boolean {
         return first == other || second == other
     }
