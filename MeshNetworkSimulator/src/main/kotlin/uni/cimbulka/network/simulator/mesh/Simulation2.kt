@@ -11,9 +11,7 @@ import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.AddNodeEventArgs
 
-class Simulation2 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
-    private val phy = (monitor as NetworkMonitor).physicalLayer
-
+class Simulation2 : BaseSimulation() {
     override fun run() {
         val nodeA = getNode("Node A", Point2D(10.0, 10.0))
         val nodeB = getNode("Node B", Point2D(18.0, 10.0))
@@ -45,24 +43,5 @@ class Simulation2 : NetworkSimulator(NetworkMonitor(PhysicalLayer())) {
 
         insert(ShutdownEvent(60 * 1000.0))
         start()
-    }
-
-    private fun getNode(name: String, position: Point2D): NetworkNode {
-        val controller = NetworkController(name)
-        return NetworkNode(controller.localDevice, position).apply {
-            this.controller = controller
-        }
-    }
-
-    private fun NetworkNode.insertNode(seconds: Int) {
-        val time = seconds  * 1000.0
-        val simulator = this@Simulation2
-        simulator.insert(AddNodeEvent(time, AddNodeEventArgs(this, phy)))
-        simulator.insert(time + 1, "Start${device.name}") { _ ->
-            controller?.let {
-                it.addCommService(BluetoothService(BluetoothAdapter(phy, this), it.localDevice.name, simulator))
-                it.start()
-            }
-        }
     }
 }
