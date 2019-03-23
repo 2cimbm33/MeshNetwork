@@ -25,6 +25,8 @@ class PhysicalLayer(val height: Double = 100.0, val width: Double = 100.0) {
 
     operator fun get(id: String) = nodes.firstOrNull { it.id == id }
 
+    fun getAll(): List<Node> = nodes.toList()
+
     fun getDistance(first: String, second: String): Double {
         val firstNode = nodes.firstOrNull { it.id == first } ?: return Double.NaN
         val secondNode = nodes.firstOrNull { it.id == second } ?: return Double.NaN

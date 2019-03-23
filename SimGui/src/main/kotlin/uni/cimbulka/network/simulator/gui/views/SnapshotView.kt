@@ -5,14 +5,15 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import javafx.geometry.Insets
 import javafx.geometry.Pos
 import javafx.scene.control.Label
-import javafx.scene.layout.AnchorPane
+import javafx.scene.control.TabPane
 import tornadofx.*
-import uni.cimbulka.network.simulator.gui.models.Event
+import uni.cimbulka.network.simulator.gui.models.Snapshot
 
 class SnapshotView : View() {
     private val name = Label()
     private val time = Label()
     private val args = Label()
+    private val nodes = Label()
 
     override val root = borderpane {
         top = hbox {
@@ -39,25 +40,46 @@ class SnapshotView : View() {
             }
         }
 
-        center = scrollpane {
-            AnchorPane.setTopAnchor(this, 0.0)
-            AnchorPane.setLeftAnchor(this, 0.0)
-            AnchorPane.setRightAnchor(this, 0.0)
-            AnchorPane.setBottomAnchor(this, 0.0)
+        center = tabpane {
+            tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
 
-            padding = Insets(10.0)
+            tab("Args") {
+                scrollpane {
+                    padding = Insets(10.0)
 
-            add(args)
+                    add(args)
+                }
+            }
+
+            tab("Nodes") {
+                scrollpane {
+                    padding = Insets(10.0)
+
+                    add(nodes)
+                }
+            }
         }
+
+
     }
 
-    fun display(event: Event) {
-        val text = ObjectMapper().apply {
+    fun display(snapshot: Snapshot) {
+        val mapper = ObjectMapper().apply {
             enable(SerializationFeature.INDENT_OUTPUT)
-        }.writerWithDefaultPrettyPrinter().writeValueAsString(event.args)
+        }
+        val event = snapshot.event ?: return
+
+        val text = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(event.args)
 
         name.text = event.name
         time.text = event.time.toString()
         args.text = text
+
+        val builder = StringBuilder()
+        snapshot.nodes.forEach {
+            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
+            builder.appendln()
+        }
+        nodes.text = builder.toString()
     }
 }

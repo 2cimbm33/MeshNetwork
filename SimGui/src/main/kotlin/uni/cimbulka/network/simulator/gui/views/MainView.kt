@@ -7,7 +7,10 @@ import tornadofx.listview
 import tornadofx.selectedItem
 import uni.cimbulka.network.simulator.gui.FileLoader
 import uni.cimbulka.network.simulator.gui.models.Report
+import uni.cimbulka.network.simulator.mesh.Simulation1
 import uni.cimbulka.network.simulator.mesh.Simulation2
+import uni.cimbulka.network.simulator.mesh.Simulation3
+import uni.cimbulka.network.simulator.mesh.Simulation4
 
 class MainView : View("Main View") {
     private val snapshotView: SnapshotView by inject()
@@ -27,8 +30,8 @@ class MainView : View("Main View") {
             setOnMouseClicked {
                 val item = this.selectedItem ?: return@setOnMouseClicked
                 if (::report.isInitialized) {
-                    val event = report.events[item] ?: return@setOnMouseClicked
-                    snapshotView.display(event)
+                    val snapshot = report.events[item] ?: return@setOnMouseClicked
+                    snapshotView.display(snapshot)
                 }
             }
         }
@@ -36,7 +39,7 @@ class MainView : View("Main View") {
 
     init {
         runAsync {
-            val simulator = Simulation2()
+            val simulator = Simulation4()
             simulator.run()
 
             Report.fromJson(FileLoader.readFile("simulationReport.json"))

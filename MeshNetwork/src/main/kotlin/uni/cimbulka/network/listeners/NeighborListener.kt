@@ -19,10 +19,28 @@ class NeighborListener(private val session: NetworkSession) {
         PacketSender.send(packet, session)
     }
 
+    fun add(device: Device) {
+        val update = connect(device) ?: return
+        val data = UpdateData(mutableListOf(update))
+        val packet = BroadcastPacket.create(data, session)
+
+        PacketSender.send(packet, session)
+    }
+
+    fun remove(device: Device) {
+        val update = disconnect(device) ?: return
+        val data = UpdateData(mutableListOf(update))
+        val packet = BroadcastPacket.create(data, session)
+
+        PacketSender.send(packet, session)
+    }
+
     private fun notInNetwork(connected: List<Device>): HandshakeRequest {
         connected.forEach {
             session.neighbours[it.id.toString()] = it
         }
+
+        session.startServices()
 
         return HandshakeRequest(session.incrementPacketCount(), session.localDevice, connected.random())
     }
@@ -52,7 +70,12 @@ class NeighborListener(private val session: NetworkSession) {
 
         return if (result) {
             session.neighbours[device.id.toString()] = device
-            Update(session.localDevice, device, Update.CONNECTION_CREATED)
+            val update = Update(session.localDevice, device, Update.CONNECTION_CREATED)
+
+            val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
+            session.processedUpdates[id] = update
+
+            update
         } else {
             null
         }
@@ -63,7 +86,12 @@ class NeighborListener(private val session: NetworkSession) {
 
         return if (result) {
             session.neighbours.remove(device.id.toString())
-            Update(session.localDevice, device, Update.CONNECTION_DELETED)
+            val update = Update(session.localDevice, device, Update.CONNECTION_DELETED)
+
+            val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
+            session.processedUpdates[id] = update
+
+            update
         } else {
             null
         }

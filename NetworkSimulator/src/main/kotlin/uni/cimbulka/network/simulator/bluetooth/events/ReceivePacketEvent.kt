@@ -1,19 +1,22 @@
 package uni.cimbulka.network.simulator.bluetooth.events
 
-import uni.cimbulka.network.simulator.bluetooth.AdapterPool
+import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapter
 import uni.cimbulka.network.simulator.bluetooth.BluetoothPacket
 import uni.cimbulka.network.simulator.core.EventArgs
 import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import uni.cimbulka.network.simulator.core.models.Event
 
-data class ReceivePacketEventArgs(val packet: BluetoothPacket) : EventArgs()
+data class ReceivePacketEventArgs(val packet: BluetoothPacket, val adapter: BluetoothAdapter, val senderAdapter: BluetoothAdapter) : EventArgs()
 
 class ReceivePacketEvent(override val time: Double, args: ReceivePacketEventArgs) :
         Event<ReceivePacketEventArgs>("ReceivePacket", args) {
     override fun invoke(simulator: AbstractSimulator) {
-        val ( packet ) = args
-        val adapter = AdapterPool.adapters[packet.to]
+        val ( packet, adapter, sender ) = args
 
-        adapter?.receivedPacket(packet)
+        if (!adapter.hasConnection(packet.from)) {
+            adapter.createConnection(sender, false)
+        }
+
+        adapter.receivedPacket(packet)
     }
 }

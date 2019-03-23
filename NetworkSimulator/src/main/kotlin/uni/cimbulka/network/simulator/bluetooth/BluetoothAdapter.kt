@@ -1,5 +1,6 @@
 package uni.cimbulka.network.simulator.bluetooth
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import uni.cimbulka.network.simulator.NetworkSimulator
 import uni.cimbulka.network.simulator.bluetooth.events.SendPacketEvent
 import uni.cimbulka.network.simulator.bluetooth.events.SendPacketEventArgs
@@ -14,12 +15,34 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
     var discoverable: Boolean = false
         private set
 
+    @JsonIgnore
+    val connections = mutableMapOf<String, BluetoothAdapter>()
+
+    val connectionKeys: List<String>
+        get() = connections.keys.toList()
+
     init {
         val id = node.id
 
         if (AdapterPool.adapters[id] == null) {
             AdapterPool.adapters[id] = this
         }
+    }
+
+    fun hasConnection(id: String): Boolean {
+        return connections[id] != null
+    }
+
+    fun createConnection(adapter: BluetoothAdapter, invoke: Boolean = true) {
+        connections[adapter.node.id] = adapter
+        if (invoke) callbacks?.connectionCreated(adapter.node)
+    }
+
+    fun closeConnection(id: String) {
+        val adapter = connections[id] ?: return
+
+        connections.remove(id)
+        callbacks?.connectionClosed(adapter.node)
     }
 
     fun startDiscovery() {
@@ -37,7 +60,7 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
     fun sendPacket(recipient: String, data: String) {
         NetworkSimulator.simulator.insert(SendPacketEvent(
                 NetworkSimulator.simulator.time,
-                SendPacketEventArgs(BluetoothPacket(node.id, recipient, data))
+                SendPacketEventArgs(BluetoothPacket(node.id, recipient, data), this)
         ))
     }
 
@@ -48,7 +71,13 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
 
     fun validateNode(id: String): Boolean {
         val adapter = AdapterPool.adapters[id] ?: return false
-        return adapter.discoverable
+        val result = adapter.discoverable
+
+        if (result) {
+            createConnection(adapter)
+        }
+
+        return result
     }
 
     fun startService() {
