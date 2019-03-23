@@ -15,7 +15,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
         private set
 
     val devices: List<Device>
-        get() = graph.vertexSet().toList()
+        get() = session.routingTable.keys.toList()
 
     val borderNodes: List<Device>
         get() {
@@ -98,15 +98,11 @@ internal data class NetworkGraph(private val session: NetworkSession,
     fun removeEdge(first: Device, second: Device): Boolean = when {
         graph.containsEdge(first, second) -> {
             graph.removeEdge(first, second)
-            if (graph.edgesOf(first).isEmpty()) removeDevice(first)
-            if (graph.edgesOf(second).isEmpty()) removeDevice(second)
             timestamp = Date().time
             true
         }
         graph.containsEdge(second, first) -> {
             graph.removeEdge(second, first)
-            if (graph.edgesOf(first).isEmpty()) graph.removeVertex(first)
-            if (graph.edgesOf(second).isEmpty()) graph.removeVertex(second)
             timestamp = Date().time
             true
         }
@@ -118,9 +114,11 @@ internal data class NetworkGraph(private val session: NetworkSession,
         val paths = DijkstraShortestPath<Device, DefaultEdge>(graph).getPaths(session.localDevice)
 
         for (device in graph.vertexSet()) {
-            if (device != session.localDevice && graph.edgesOf(device).isNotEmpty()) {
-                routingMap[device] = paths.getPath(device).vertexList[1]
-            }
+            try {
+                if (device != session.localDevice && graph.edgesOf(device).isNotEmpty()) {
+                    routingMap[device] = paths.getPath(device).vertexList[1]
+                }
+            } catch (ignored: Exception) {}
         }
 
         return RoutingTable(routingMap)
