@@ -32,7 +32,13 @@ internal class DataPacketHandler : PacketHandler<DataPacket> {
                             }
                         }
 
-                        result
+                        if (result == null) {
+                            session.pendingPackets.add(packet)
+                            PacketSender.discoverRoute(recipient, session)
+                            null
+                        } else {
+                            result
+                        }
                     } else {
                         session.routingTable[recipient] ?: continue
                     } ?: break

@@ -29,6 +29,10 @@ class RouteDiscoveryRequest : BasePacket {
     }
 
     fun copy() =  RouteDiscoveryRequest(
-            id, source, timestamp, recipient, requester, target, route
+            id, source, timestamp, recipient, requester, target, Route().apply {
+        this@RouteDiscoveryRequest.route?.segments?.forEach {
+            segments.add(it.copy())
+        }
+    }
     )
 }

@@ -32,7 +32,7 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
 
             if (dev == null) {
                 // Add yourself to the route
-                packet.route?.segments?.add(RouteSegment(packet.source, session.localDevice))
+                //packet.route?.segments?.add(RouteSegment(packet.source, session.localDevice))
                 // Tell network controller to discover route
                 PacketSender.discoverRoute(packet, session)
             } else {

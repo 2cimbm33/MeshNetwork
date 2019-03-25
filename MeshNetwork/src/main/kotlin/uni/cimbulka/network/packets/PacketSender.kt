@@ -17,6 +17,8 @@ internal object PacketSender {
         val handler = PacketHandler.getHandler(packet::class) as? PacketHandler<T> ?: return
         handler.send(packet, session)
 
+        if (packet is DataPacket && packet in session.pendingPackets) return
+
         session.processedPackets.add(packet)
     }
 
@@ -32,10 +34,13 @@ internal object PacketSender {
     }
 
     internal fun discoverRoute(request: RouteDiscoveryRequest, session: NetworkSession) {
-        session.networkGraph.borderNodes.forEach {
+        for (device in session.networkGraph.borderNodes) {
+            if (device == request.source) continue
+
             val p = request.copy().apply {
-                recipient = it
-                route?.segments?.add(RouteSegment(session.localDevice, it))
+                source = session.localDevice
+                recipient = device
+                route?.segments?.add(RouteSegment(session.localDevice, device))
             }
             PacketSender.send(p, session)
         }

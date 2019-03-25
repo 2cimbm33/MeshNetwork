@@ -2,6 +2,7 @@ package uni.cimbulka.network.packets.handlers
 
 import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.models.Device
+import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.packets.PacketSender
 import uni.cimbulka.network.packets.RouteDiscoveryResponse
 
@@ -22,6 +23,24 @@ internal class RouteDiscoveryResponseHandler : PacketHandler<RouteDiscoveryRespo
                             session.longDistanceVectors[first]?.addAll(mutableListOf(start, end))
                         }
                     }
+                }
+
+                for (dataPacket in session.pendingPackets) {
+                    var sent = false
+
+                    for (recipient in dataPacket.recipients) {
+                        for (devices in session.longDistanceVectors.values) {
+                            if (recipient in devices) {
+                                PacketSender.send(dataPacket, session)
+                                sent = true
+                                break
+                            }
+                        }
+
+                        if (sent) break
+                    }
+
+                    if (sent) break
                 }
 
                 return

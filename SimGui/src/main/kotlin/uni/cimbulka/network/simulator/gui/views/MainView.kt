@@ -64,7 +64,7 @@ class MainView : View("Main View") {
 
     init {
         runAsync {
-            val simulator = Simulation3()
+            val simulator = Simulation4()
             simulator.run()
 
             Report.fromJson(FileLoader.readFile("simulationReport.json"))

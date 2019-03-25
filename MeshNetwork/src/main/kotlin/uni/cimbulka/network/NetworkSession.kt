@@ -4,6 +4,7 @@ import uni.cimbulka.network.listeners.NetworkCallbacks
 import uni.cimbulka.network.models.Device
 import uni.cimbulka.network.models.Update
 import uni.cimbulka.network.packets.BasePacket
+import uni.cimbulka.network.packets.DataPacket
 import java.util.*
 
 class NetworkSession {
@@ -17,6 +18,7 @@ class NetworkSession {
     val allDevices: MutableList<Device> = mutableListOf()
     lateinit var localDevice: Device
     private var packetCount = 0
+    internal val pendingPackets = mutableListOf<DataPacket>()
 
     internal var processedUpdates = mutableMapOf<Long, Update>()
 
