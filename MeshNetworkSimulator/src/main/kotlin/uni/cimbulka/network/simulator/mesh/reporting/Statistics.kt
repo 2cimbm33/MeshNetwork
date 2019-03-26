@@ -17,4 +17,10 @@ class Statistics(var node: String = "") {
 
     var handshakeResponsesSent: Int = 0
     var handshakeResponsesReceived: Int = 0
+
+    var routeDiscoveryRequestsSent: Int = 0
+    var routeDiscoveryRequestsReceived: Int = 0
+
+    var routeDiscoveryResponsesSent: Int = 0
+    var routeDiscoveryResponsesReceived: Int = 0
 }
