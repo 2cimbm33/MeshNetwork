@@ -16,6 +16,7 @@ import uni.cimbulka.network.simulator.mesh.reporting.Statistics
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import java.io.File
 
+@Suppress("Duplicates")
 class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
     private val report = Report()
     private val mapper = ObjectMapper().apply {
@@ -42,6 +43,8 @@ class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
                         is DataPacket -> stats.dataPacketSent++
                         is HandshakeRequest -> stats.handshakeRequestsSent++
                         is HandshakeResponse -> stats.handshakeResponsesSent++
+                        is RouteDiscoveryRequest -> stats.routeDiscoveryRequestsSent++
+                        is RouteDiscoveryResponse -> stats.routeDiscoveryResponsesSent++
                     }
 
                     stats.totalPacketsSent++
@@ -57,6 +60,8 @@ class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
                         is DataPacket -> stats.dataPacketReceived++
                         is HandshakeRequest -> stats.handshakeRequestsReceived++
                         is HandshakeResponse -> stats.handshakeResponsesReceived++
+                        is RouteDiscoveryRequest -> stats.routeDiscoveryRequestsReceived++
+                        is RouteDiscoveryResponse -> stats.routeDiscoveryResponsesReceived++
                     }
 
                     stats.totalPacketsReceived++
@@ -74,10 +79,6 @@ class NetworkMonitor(val physicalLayer: PhysicalLayer) : MonitorInterface {
     }
 
     override fun printRecords() {
-        //println("\n\nMonitor report starting:\n")
-        //val json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(report)
-        //println(json)
-
         report.nodes = physicalLayer.getAll().toMutableList()
         writeToFile(mapper.writeValueAsString(report))
     }

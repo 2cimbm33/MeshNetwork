@@ -6,16 +6,16 @@ import uni.cimbulka.network.models.Route
 
 class RouteDiscoveryResponse : BasePacket {
 
-    var route: Route?
+    val route: MutableList<Device>
     var recipient: Device?
 
     constructor() : super() {
-        route = null
+        route = mutableListOf()
         recipient = null
     }
 
     @JvmOverloads
-    constructor(id: Int, source: Device, timestamp: Long, recipient: Device? = null, route: Route? = null) :
+    constructor(id: Int, source: Device, timestamp: Long, recipient: Device? = null, route: MutableList<Device> = mutableListOf()) :
             super(id, source, EmptyData(), timestamp) {
         this.route = route
         this.recipient = recipient

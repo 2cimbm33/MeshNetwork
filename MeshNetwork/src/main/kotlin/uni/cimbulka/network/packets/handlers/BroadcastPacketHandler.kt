@@ -1,5 +1,6 @@
 package uni.cimbulka.network.packets.handlers
 
+import uni.cimbulka.network.NetworkConstants
 import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.data.UpdateData
 import uni.cimbulka.network.models.Update
@@ -17,11 +18,12 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
             if (data is UpdateData) {
                 updatesToResend.addAll(processUpdates(data, session))
 
-                if (updatesToResend.isNotEmpty()) {
+                resend = if (updatesToResend.isNotEmpty()) {
                     data.updates.clear()
                     data.updates.addAll(updatesToResend)
+                    packet.trace.size <= NetworkConstants.ZONE_SIZE
                 } else {
-                    resend = false
+                    false
                 }
             }
 
@@ -98,11 +100,13 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
         for (key in keys) {
             val update = session.processedUpdates[key] ?: continue
             var contains = false
-            uniqueUpdates.forEach { id, up ->
+
+            for (up in uniqueUpdates.values) {
                 if ((update.first == up.first || update.first == up.first) &&
                     (update.second == up.first || update.second == up.second)) {
+
                     contains = true
-                    return@forEach
+                    break
                 }
             }
 

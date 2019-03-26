@@ -25,7 +25,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
 
                 for (device in graph.vertexSet()) {
                     if (device != session.localDevice && graph.edgesOf(device).isNotEmpty()) {
-                        if (paths.getPath(device).vertexList.size == NetworkConstants.ZONE_SIZE) {
+                        if (paths.getPath(device).vertexList.size == NetworkConstants.ZONE_SIZE + 1) {
                             result.add(device)
                         }
                     }

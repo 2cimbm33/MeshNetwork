@@ -86,6 +86,7 @@ class NeighborListener(private val session: NetworkSession) {
 
         return if (result) {
             session.neighbours.remove(device.id.toString())
+            updateLongDistanceVectors(device)
             val update = Update(session.localDevice, device, Update.CONNECTION_DELETED)
 
             val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
@@ -95,5 +96,17 @@ class NeighborListener(private val session: NetworkSession) {
         } else {
             null
         }
+    }
+
+    private fun updateLongDistanceVectors(device: Device) {
+        val keysToRemove = mutableListOf<Device>()
+
+        for ((key, value) in session.longDistanceVectors) {
+            if (value == device) {
+                keysToRemove.add(key)
+            }
+        }
+
+        keysToRemove.forEach { session.longDistanceVectors.remove(it) }
     }
 }
