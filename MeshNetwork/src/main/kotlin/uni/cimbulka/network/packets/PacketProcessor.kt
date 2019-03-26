@@ -8,5 +8,6 @@ internal object PacketProcessor {
     fun <T : BasePacket> process(packet: T, session: NetworkSession) {
         val handler = PacketHandler.getHandler(packet::class) as? PacketHandler<T> ?: return
         handler.receive(packet, session)
+        session.processedPackets.add(packet)
     }
 }

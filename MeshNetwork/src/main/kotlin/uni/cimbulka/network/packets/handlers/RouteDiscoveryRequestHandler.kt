@@ -19,11 +19,25 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
             }
         }
 
-        // Am I the rebroadcast packet?
-        if (packet.recipient == session.localDevice) {
+        if (packet.target == session.localDevice) {
+            packet.route.add(session.localDevice)
+
+            PacketSender.send(RouteDiscoveryResponse(
+                    session.incrementPacketCount(),
+                    session.localDevice, Date().time,
+                    packet.source, packet.route), session)
+
+            packet.source?.let {
+                for (device in packet.route) {
+                    if (device != session.localDevice) {
+                        session.longDistanceVectors[device] = it
+                    }
+                }
+            }
+        } else if (packet.recipient == session.localDevice) {
             // Then check nodes in zone and either report back or rebroadcast the packet
             var dev: Device? = null
-            for (it in session.networkGraph.devices) {
+            for (it in session.routingTable.keys) {
                 if (it == packet.target) {
                     dev = it
                     break
@@ -31,40 +45,22 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
             }
 
             if (dev == null) {
-                // Add yourself to the route
-                //packet.route?.segments?.add(RouteSegment(packet.source, session.localDevice))
-                // Tell network controller to discover route
-                PacketSender.discoverRoute(packet, session)
-            } else {
-                val route = packet.route ?: return
-                route.segments.add(RouteSegment(packet.source, session.localDevice))
-                route.segments.add(RouteSegment(session.localDevice, dev))
+                for (node in session.networkGraph.borderNodes) {
+                    if (node == packet.source) continue
 
-                PacketSender.send(RouteDiscoveryResponse(
-                        session.incrementPacketCount(),
-                        session.localDevice, Date().time,
-                        packet.source, route), session)
-
-                packet.source?.let {
-                    session.longDistanceVectors[it] = mutableSetOf(it)
-
-                    for (segment in route.segments) {
-                        val start = segment.start ?: continue
-                        val end = segment.end ?: continue
-
-                        if (end == it ) {
-                            session.longDistanceVectors[it]?.add(start)
-                        } else if (start == it) {
-                            break
-                        } else {
-                            session.longDistanceVectors[it]?.addAll(mutableListOf(start, end))
-                        }
-                    }
+                    val route = mutableListOf(*packet.route.toTypedArray(), node)
+                    val newPacket = RouteDiscoveryRequest(
+                            packet.id, session.localDevice, packet.timestamp, node,
+                            requester = packet.requester, target = packet.target, route = route)
+                    PacketSender.send(newPacket, session)
                 }
-
+                return
+            } else {
+                packet.recipient = dev
+                packet.source = session.localDevice
+                PacketSender.send(packet, session)
             }
         } else {
-            // Send it towards the recipient
             PacketSender.send(packet, session)
         }
     }

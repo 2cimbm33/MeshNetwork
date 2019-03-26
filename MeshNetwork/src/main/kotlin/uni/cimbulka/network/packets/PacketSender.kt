@@ -17,7 +17,15 @@ internal object PacketSender {
         val handler = PacketHandler.getHandler(packet::class) as? PacketHandler<T> ?: return
         handler.send(packet, session)
 
-        if (packet is DataPacket && packet in session.pendingPackets) return
+        if (packet is DataPacket) {
+            for (packets in session.pendingPackets.values) {
+                for (pending in packets) {
+                    if (pending == packet) {
+                        return
+                    }
+                }
+            }
+        }
 
         session.processedPackets.add(packet)
     }
@@ -27,22 +35,14 @@ internal object PacketSender {
     }
 
     internal fun discoverRoute(target: Device, session: NetworkSession) {
-        discoverRoute(RouteDiscoveryRequest(
-                session.incrementPacketCount(), session.localDevice, Date().time,
-                requester = session.localDevice, target = target, route = Route()
-        ), session)
-    }
+        val id = session.incrementPacketCount()
 
-    internal fun discoverRoute(request: RouteDiscoveryRequest, session: NetworkSession) {
-        for (device in session.networkGraph.borderNodes) {
-            if (device == request.source) continue
-
-            val p = request.copy().apply {
-                source = session.localDevice
-                recipient = device
-                route?.segments?.add(RouteSegment(session.localDevice, device))
-            }
-            PacketSender.send(p, session)
+        for (node in session.networkGraph.borderNodes) {
+            val packet = RouteDiscoveryRequest(
+                    id, session.localDevice, Date().time, node, requester = session.localDevice,
+                    target = target, route = mutableListOf(session.localDevice, node)
+            )
+            PacketSender.send(packet, session)
         }
     }
 }

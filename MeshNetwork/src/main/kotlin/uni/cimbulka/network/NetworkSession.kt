@@ -14,11 +14,11 @@ class NetworkSession {
     val knownDevices = mutableMapOf<String, Device>()
     val services: MutableList<CommService> = mutableListOf()
     var networkCallbacks: NetworkCallbacks? = null
-    val longDistanceVectors: MutableMap<Device, MutableCollection<Device>> = mutableMapOf()
+    val longDistanceVectors: MutableMap<Device, Device> = mutableMapOf()
     val allDevices: MutableList<Device> = mutableListOf()
     lateinit var localDevice: Device
     private var packetCount = 0
-    internal val pendingPackets = mutableListOf<DataPacket>()
+    internal val pendingPackets = mutableMapOf<Device, MutableList<DataPacket>>()
 
     internal var processedUpdates = mutableMapOf<Long, Update>()
 

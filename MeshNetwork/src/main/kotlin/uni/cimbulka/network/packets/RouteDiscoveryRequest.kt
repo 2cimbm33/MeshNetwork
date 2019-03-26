@@ -9,18 +9,18 @@ class RouteDiscoveryRequest : BasePacket {
     var recipient: Device?
     var requester: Device?
     var target: Device?
-    var route: Route?
+    val route: MutableList<Device>
 
     constructor() : super() {
         recipient = null
         requester = null
         target = null
-        route = null
+        route = mutableListOf<Device>()
     }
 
     @JvmOverloads
     constructor(id: Int, source: Device?, timestamp: Long, recipient: Device? = null,
-                requester: Device? = null, target: Device? = null, route: Route? = null) :
+                requester: Device? = null, target: Device? = null, route: MutableList<Device> = mutableListOf()) :
     super(id, source, EmptyData(), timestamp) {
         this.recipient = recipient
         this.requester = requester
@@ -29,10 +29,6 @@ class RouteDiscoveryRequest : BasePacket {
     }
 
     fun copy() =  RouteDiscoveryRequest(
-            id, source, timestamp, recipient, requester, target, Route().apply {
-        this@RouteDiscoveryRequest.route?.segments?.forEach {
-            segments.add(it.copy())
-        }
-    }
+            id, source, timestamp, recipient, requester, target, route.toMutableList()
     )
 }

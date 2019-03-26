@@ -17,45 +17,40 @@ internal class DataPacketHandler : PacketHandler<DataPacket> {
     }
 
     override fun send(packet: DataPacket, session: NetworkSession) {
-        packet.source?.let {
-            val packets = mutableMapOf<Device, DataPacket>()
+        val source = packet.source ?: return
+        val packets = mutableMapOf<Device, DataPacket>()
 
-            for (recipient in packet.recipients) {
-                if (recipient != session.localDevice) {
-                    val nextNode: Device = if (session.routingTable[recipient] == null) {
-                        var result: Device? = null
+        for (recipient in packet.recipients) {
+            if (recipient != session.localDevice) {
+                val nextNode: Device = if (session.routingTable[recipient] == null) {
+                    val result = session.longDistanceVectors[recipient]
 
-                        for ((key, value) in session.longDistanceVectors) {
-                            if (recipient in value) {
-                                result = session.routingTable[key]
-                                break
-                            }
-                        }
+                    if (result == null) {
+                        val pendingPackets = session.pendingPackets[recipient] ?: mutableListOf()
+                        pendingPackets.add(DataPacket(packet.id, source, recipient, packet.data, packet.timestamp))
+                        session.pendingPackets[recipient] = pendingPackets
 
-                        if (result == null) {
-                            session.pendingPackets.add(packet)
-                            PacketSender.discoverRoute(recipient, session)
-                            null
-                        } else {
-                            result
-                        }
-                    } else {
-                        session.routingTable[recipient] ?: continue
-                    } ?: break
-
-
-                    if (nextNode in packets) {
-                        packets[nextNode]?.recipients?.add(recipient)
-                    } else {
-                        val dp = DataPacket(packet.id, it, recipient, packet.data, packet.timestamp).apply {
-                            trace = packet.trace
-                        }
-                        packets[nextNode] = dp
+                        PacketSender.discoverRoute(recipient, session)
+                        continue
                     }
+
+                    result
+                } else {
+                    session.routingTable[recipient] ?: continue
+                }
+
+
+                if (nextNode in packets) {
+                    packets[nextNode]?.recipients?.add(recipient)
+                } else {
+                    val dp = DataPacket(packet.id, source, recipient, packet.data, packet.timestamp).apply {
+                        trace = packet.trace
+                    }
+                    packets[nextNode] = dp
                 }
             }
-
-            packets.forEach { r, p -> PacketSender.getCommService(r, session)?.sendPacket(p.toString(), r) }
         }
+
+        packets.forEach { r, p -> PacketSender.getCommService(r, session)?.sendPacket(p.toString(), r) }
     }
 }
