@@ -53,6 +53,8 @@ class NetworkController(friendlyName: String) {
 
     fun addCommService(service: CommService) {
         service.serviceCallbacks = CommServiceListener(this)
+
+        networkSession.localDevice.communications[service::class.java.canonicalName] = service.connectionString
         networkSession.services.add(service)
     }
 

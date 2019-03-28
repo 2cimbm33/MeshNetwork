@@ -17,6 +17,7 @@ class BluetoothService(val adapter: BluetoothAdapter, name: String, private val 
         get() = btNeighbors.toList()
 
     override val isReady = true
+    override val connectionString = adapter.node.id
 
     override var serviceCallbacks: CommServiceCallbacks? = null
     private val btNeighbors = mutableListOf<Device>()
@@ -80,6 +81,13 @@ class BluetoothService(val adapter: BluetoothAdapter, name: String, private val 
                 if (!scanning) scan()
             }
         }
+    }
+
+    override fun connect(connString: String): Boolean {
+        val result = adapter.connect(connString) ?: return false
+
+        btNeighbors.add(result.extractDevice())
+        return true
     }
 
     override fun startScanning() {

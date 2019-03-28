@@ -16,6 +16,7 @@ data class Device @JvmOverloads constructor(
         var name: String = "") {
 
     var isInNetwork: Boolean = false
+    val communications = mutableMapOf<String, String>()
 
     override fun toString(): String {
         return ObjectMapper().apply {

@@ -28,8 +28,20 @@ class NeighborListener(private val session: NetworkSession) {
     }
 
     fun remove(device: Device) {
+        val data = UpdateData()
+
+        session.networkGraph.devices.filter { it !in session.neighbours.values }.forEach {
+            for (service in session.services) {
+                val connectionString = it.communications[service::class.java.canonicalName] ?: continue
+                if (service.connect(connectionString)) {
+                    val update = connect(it) ?: continue
+                    data.updates.add(update)
+                }
+            }
+        }
+
         val update = disconnect(device) ?: return
-        val data = UpdateData(mutableListOf(update))
+        data.updates.add(update)
         val packet = BroadcastPacket.create(data, session)
 
         PacketSender.send(packet, session)

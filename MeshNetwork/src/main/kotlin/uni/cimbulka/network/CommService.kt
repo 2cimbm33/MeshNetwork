@@ -7,7 +7,9 @@ abstract class CommService(val friendlyName: String) {
     abstract val isReady: Boolean
     abstract val neighbors: List<Device>
     abstract var serviceCallbacks: CommServiceCallbacks?
+    abstract val connectionString: String
 
+    abstract fun connect(connString: String): Boolean
     abstract fun sendPacket(packet: String, recipient: Device)
     abstract fun startScanning()
     abstract fun stopScanning()
