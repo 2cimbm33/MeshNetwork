@@ -15,6 +15,8 @@ import uni.cimbulka.network.simulator.mesh.Simulation4
 
 class MainView : View("Main View") {
     private val snapshotView: SnapshotView by inject()
+    private val slideshowView: SlideshowView by inject()
+
     private lateinit var report: Report
     private val listViewItems = FXCollections.observableArrayList<String>()
     private val nodes = Label()
@@ -60,16 +62,23 @@ class MainView : View("Main View") {
                 add(stats)
             }
         }
+
+        tab("Slideshow") {
+            scrollpane {
+                add(slideshowView)
+            }
+        }
     }
 
     init {
         runAsync {
-            val simulator = Simulation3()
+            val simulator = Simulation1()
             simulator.run()
 
             Report.fromJson(FileLoader.readFile("simulationReport.json"))
         } ui {
             this.report = it
+            slideshowView.report = it
             listViewItems.addAll(it.events.keys)
 
             val mapper = ObjectMapper()

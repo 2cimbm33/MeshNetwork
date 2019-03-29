@@ -1,14 +1,14 @@
 package uni.cimbulka.network.simulator.mesh
 
-import javafx.geometry.Point2D
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
+import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
 
-class Simulation4 : BaseSimulation() {
+class Simulation4 : BaseSimulation("Simulation4") {
     override fun run() {
         val nodes = mutableMapOf<Int, NetworkNode>()
-        val separation = 6
+        val separation = 8
 
         for (row in 0..4) {
             for (column in 1..5) {
@@ -18,7 +18,7 @@ class Simulation4 : BaseSimulation() {
                 val x = ((column - 1) * separation) + 1
                 val y = (row * separation) + 1
 
-                val node = getNode("Node $id", Point2D(x.toDouble(), y.toDouble()))
+                val node = getNode("Node $id", Position(x.toDouble(), y.toDouble()))
                 nodes[id] = node
                 node.insertNode(time)
             }

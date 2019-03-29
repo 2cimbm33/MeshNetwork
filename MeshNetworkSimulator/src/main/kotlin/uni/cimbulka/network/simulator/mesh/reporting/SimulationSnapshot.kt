@@ -1,12 +1,13 @@
 package uni.cimbulka.network.simulator.mesh.reporting
 
 import uni.cimbulka.network.simulator.bluetooth.AdapterPool
+import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.models.Event
 import uni.cimbulka.network.simulator.mesh.NetworkNode
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 
 class SimulationSnapshot(val event: Event<*>, val aggregation: Aggregation, physicalLayer: PhysicalLayer) {
-    val nodes: List<SimpleNode>
+    val nodes: List<NetworkNode>
     val connections: List<Connection>
 
     init {
@@ -14,18 +15,18 @@ class SimulationSnapshot(val event: Event<*>, val aggregation: Aggregation, phys
         connections = getConnections(nodes)
     }
 
-    private fun getNodes(phy: PhysicalLayer): List<SimpleNode> {
-        val result = mutableListOf<SimpleNode>()
+    private fun getNodes(phy: PhysicalLayer): List<NetworkNode> {
+        val result = mutableListOf<NetworkNode>()
 
         for (key in phy.keys) {
             val node = phy[key] as? NetworkNode ?: continue
-            result.add(SimpleNode(node.id, Position(node.position.x, node.position.y)))
+            result.add(node)
         }
 
         return result
     }
 
-    private fun getConnections(nodes: List<SimpleNode>): List<Connection> {
+    private fun getConnections(nodes: List<NetworkNode>): List<Connection> {
         val result = mutableListOf<Connection>()
 
 

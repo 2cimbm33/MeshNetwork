@@ -2,9 +2,11 @@ package uni.cimbulka.network.simulator.common
 
 import javafx.geometry.Point2D
 
-abstract class Node(val id: String, var position: Point2D = Point2D(0.0, 0.0)) {
+abstract class Node(open val id: String, var position: Position = Position()) {
 
-    infix fun distanceFrom(node: Node) = position.distance(node.position)
+    infix fun distanceFrom(node: Node): Double {
+        return Point2D(position.x, position.y).distance(node.position.x, node.position.y)
+    }
 
     override fun equals(other: Any?): Boolean {
         return when(other) {

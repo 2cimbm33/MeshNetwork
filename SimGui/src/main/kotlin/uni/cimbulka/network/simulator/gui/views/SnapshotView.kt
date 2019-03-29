@@ -10,6 +10,7 @@ import tornadofx.*
 import uni.cimbulka.network.simulator.gui.models.Snapshot
 
 class SnapshotView : View() {
+    private val graphView: GraphView by inject()
     private val name = Label()
     private val time = Label()
     private val args = Label()
@@ -74,6 +75,10 @@ class SnapshotView : View() {
                     add(stats)
                 }
             }
+
+            tab("Graph") {
+                add(graphView)
+            }
         }
     }
 
@@ -109,5 +114,7 @@ class SnapshotView : View() {
             builder.appendln()
         }
         stats.text = builder.toString()
+
+        graphView.draw(snapshot.nodes, snapshot.connections)
     }
 }

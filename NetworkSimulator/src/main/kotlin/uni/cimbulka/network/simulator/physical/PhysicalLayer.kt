@@ -3,6 +3,7 @@ package uni.cimbulka.network.simulator.physical
 import javafx.geometry.Point2D
 import uni.cimbulka.network.simulator.Constants
 import uni.cimbulka.network.simulator.common.Node
+import uni.cimbulka.network.simulator.common.Position
 
 class PhysicalLayer(val height: Double = 100.0, val width: Double = 100.0) {
     private val nodes = mutableListOf<Node>()
@@ -43,7 +44,7 @@ class PhysicalLayer(val height: Double = 100.0, val width: Double = 100.0) {
             val x = position.x + dx
             val y = position.y + dy
 
-            position = Point2D(
+            position = Position(
                     when {
                         x > width -> width
                         x < 0.0 -> 0.0
