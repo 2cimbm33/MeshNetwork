@@ -37,7 +37,5 @@ class SimulationsView : View("Simulations") {
         subscribe<CloseEvent<SimulationsView>> {
             close()
         }
-
-        controller.getSimulations()
     }
 }

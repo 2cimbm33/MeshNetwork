@@ -8,6 +8,7 @@ import uni.cimbulka.network.simulator.gui.controllers.SnapshotController
 
 class SnapshotView : View() {
     private val controller: SnapshotController by inject()
+    private val graphView: GraphView by inject()
 
     override val root = borderpane {
         top = hbox {
@@ -81,7 +82,7 @@ class SnapshotView : View() {
             }
 
             tab("Graph") {
-                add(controller.graphView)
+                add(graphView)
             }
         }
     }

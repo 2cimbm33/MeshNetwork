@@ -7,6 +7,7 @@ import uni.cimbulka.network.simulator.gui.controllers.SlideshowController
 
 class SlideshowView : View("Slideshow View") {
     private val controller: SlideshowController by inject()
+    private val graphView: GraphView by inject()
 
     override val root = stackpane {
         button("Play") {
@@ -16,7 +17,7 @@ class SlideshowView : View("Slideshow View") {
                 }
             }
         }
-        add(controller.graphView)
+        add(graphView)
     }
 
 

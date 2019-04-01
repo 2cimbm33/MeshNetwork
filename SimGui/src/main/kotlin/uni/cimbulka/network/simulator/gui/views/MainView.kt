@@ -28,7 +28,7 @@ class MainView : View("Main View") {
 
                 center = snapshotView.root
 
-                left = listview<String> {
+                left = listview<Int> {
                     prefWidth = 400.0
                     items = controller.eventList
 

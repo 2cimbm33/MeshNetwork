@@ -4,12 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import tornadofx.Controller
 import tornadofx.getProperty
+import tornadofx.onChange
 import tornadofx.property
+import uni.cimbulka.network.simulator.gui.database.SnapshotDao
 import uni.cimbulka.network.simulator.gui.models.Snapshot
-import uni.cimbulka.network.simulator.gui.views.GraphView
 
 class SnapshotController : Controller() {
-    val graphView: GraphView by inject()
+    private val snapDao: SnapshotDao by inject()
+    private val graphController: GraphController by inject()
 
     var name: String by property("")
     fun nameProperty() = getProperty(SnapshotController::name)
@@ -28,6 +30,14 @@ class SnapshotController : Controller() {
 
     var stats: String by property("")
     fun statsProperty() = getProperty(SnapshotController::stats)
+
+    init {
+        snapDao.snapshotProperty().onChange { snapshot ->
+            snapshot?.let {
+                display(it)
+            }
+        }
+    }
 
     fun display(snapshot: Snapshot) {
         val mapper = ObjectMapper().apply {
@@ -62,6 +72,6 @@ class SnapshotController : Controller() {
         }
         stats = builder.toString()
 
-        graphView.draw(snapshot.nodes, snapshot.connections)
+        graphController.draw(snapshot.nodes, snapshot.connections)
     }
 }

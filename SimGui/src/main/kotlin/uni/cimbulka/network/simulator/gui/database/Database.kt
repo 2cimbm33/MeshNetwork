@@ -1,13 +1,17 @@
-package uni.cimbulka.network.simulator.gui
+package uni.cimbulka.network.simulator.gui.database
 
 import org.neo4j.driver.v1.AuthTokens
 import org.neo4j.driver.v1.GraphDatabase
-import java.io.Closeable
+import uni.cimbulka.network.simulator.gui.Main
 
-object Database : Closeable {
+object Database {
     val driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "password"))
 
-    override fun close() {
+    init {
+        Main.dbStarted = true
+    }
+
+    fun close() {
         driver.closeAsync()
     }
 }

@@ -1,18 +1,22 @@
 package uni.cimbulka.network.simulator.gui.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import javafx.collections.FXCollections
 import javafx.collections.ObservableList
-import tornadofx.*
-import uni.cimbulka.network.simulator.gui.FileLoader
+import tornadofx.Controller
+import tornadofx.getProperty
+import tornadofx.onChange
+import tornadofx.property
+import uni.cimbulka.network.simulator.gui.database.SimulationDao
+import uni.cimbulka.network.simulator.gui.database.SnapshotDao
 import uni.cimbulka.network.simulator.gui.models.Report
 import uni.cimbulka.network.simulator.gui.views.SimulationsView
 
 class MainController : Controller() {
-    val snapshotController: SnapshotController by inject()
-    private val simulationsView: SimulationsView by inject()
+    private val simDao: SimulationDao by inject()
+    private val snapDao: SnapshotDao by inject()
 
-    val eventList: ObservableList<String> = FXCollections.observableArrayList()
+    val eventList: ObservableList<Int>
+        get () = simDao.snapshotList
 
     var simId: String? by property("")
     fun simIdProperty() = getProperty(MainController::simId)
@@ -23,54 +27,33 @@ class MainController : Controller() {
     var nodes: String by property("")
     fun nodesProperty() = getProperty(MainController::nodes)
 
-    var stats: String by property("")
-    fun statsProperty() = getProperty(MainController::stats)
+    val stats: String
+        get() = simDao.simStats
+    fun statsProperty() = simDao.simStatsProperty()
 
     init {
         simIdProperty().onChange {
             println(it)
-            openFile("simulationReport.json")
+            //openFile("simulationReport.json")
+            simDao.getSnapshots()
+            simDao.getSimNodes()
+            simDao.getSimStats()
+        }
+
+        simDao.simNodeList.onChange {
+            val mapper = ObjectMapper()
+            nodes = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(simDao.simNodeList)
         }
     }
 
     fun openSimulationPicker() {
-        simulationsView.openModal(escapeClosesWindow = true, block = true)
+        find<SimulationsView>().openModal(escapeClosesWindow = true, block = true)
     }
 
-    fun handleEventListClicked(item: String?) {
+    fun handleEventListClicked(item: Int?) {
         item?.let {
-            if (report.toProperty().get() != null) {
-                val snapshot = report?.events?.get(item) ?: return
-                snapshotController.display(snapshot)
-            }
-        }
-    }
-
-    private fun openFile(fileName: String) {
-        runAsync {
-            //val simulator = Simulation1()
-            //simulator.run()
-
-            Report.fromJson(FileLoader.readFile(fileName))
-        } ui { report ->
-            this.report = report
-            eventList.addAll(report.events.keys)
-
-            val mapper = ObjectMapper()
-            val builder = StringBuilder()
-
-            report.nodes.forEach {
-                builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-                builder.appendln()
-            }
-            nodes = builder.toString()
-
-            builder.clear()
-            report.aggregation.stats.forEach {
-                builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-                builder.appendln()
-            }
-            stats = builder.toString()
+            println(it)
+            snapDao.getSnapshot(it)
         }
     }
 }

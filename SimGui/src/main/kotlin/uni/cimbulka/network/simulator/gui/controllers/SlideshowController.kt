@@ -4,11 +4,10 @@ import tornadofx.Controller
 import tornadofx.getProperty
 import tornadofx.property
 import uni.cimbulka.network.simulator.gui.models.Report
-import uni.cimbulka.network.simulator.gui.views.GraphView
 
 class SlideshowController : Controller() {
     private val mainController: MainController by inject()
-    val graphView: GraphView by inject()
+    private val graphController: GraphController by inject()
 
     val report: Report?
         get() = mainController.report
@@ -24,7 +23,7 @@ class SlideshowController : Controller() {
             runAsync {
                 Thread.sleep(delay.toLong())
             } ui {
-                graphView.draw(snapshot.nodes, snapshot.connections)
+                graphController.draw(snapshot.nodes, snapshot.connections)
             }
         }
         playing = false
