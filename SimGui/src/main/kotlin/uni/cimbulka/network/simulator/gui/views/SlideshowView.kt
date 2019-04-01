@@ -3,35 +3,21 @@ package uni.cimbulka.network.simulator.gui.views
 import tornadofx.View
 import tornadofx.button
 import tornadofx.stackpane
-import uni.cimbulka.network.simulator.gui.models.Report
+import uni.cimbulka.network.simulator.gui.controllers.SlideshowController
 
 class SlideshowView : View("Slideshow View") {
-    private val graphView: GraphView by inject()
-    private var playing = false
-    lateinit var report: Report
+    private val controller: SlideshowController by inject()
 
     override val root = stackpane {
         button("Play") {
             setOnMouseClicked {
-                if (!playing && ::report.isInitialized) {
-                    play(report)
+                if (!controller.playing && controller.report != null) {
+                    controller.play()
                 }
             }
         }
-        add(graphView)
+        add(controller.graphView)
     }
 
-    fun play(report: Report) {
-        val delay = 100
 
-        playing = true
-        report.events.values.forEach { snapshot ->
-            runAsync {
-                Thread.sleep(delay.toLong())
-            } ui {
-                graphView.draw(snapshot.nodes, snapshot.connections)
-            }
-        }
-        playing = false
-    }
 }

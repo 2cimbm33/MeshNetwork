@@ -1,22 +1,13 @@
 package uni.cimbulka.network.simulator.gui.views
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
 import javafx.geometry.Insets
 import javafx.geometry.Pos
-import javafx.scene.control.Label
 import javafx.scene.control.TabPane
 import tornadofx.*
-import uni.cimbulka.network.simulator.gui.models.Snapshot
+import uni.cimbulka.network.simulator.gui.controllers.SnapshotController
 
 class SnapshotView : View() {
-    private val graphView: GraphView by inject()
-    private val name = Label()
-    private val time = Label()
-    private val args = Label()
-    private val nodes = Label()
-    private val connections = Label()
-    private val stats = Label()
+    private val controller: SnapshotController by inject()
 
     override val root = borderpane {
         top = hbox {
@@ -30,7 +21,9 @@ class SnapshotView : View() {
                 label("Name:") {
                     style = "-fx-font-weight: bold"
                 }
-                add(name)
+                label {
+                    bind(controller.nameProperty())
+                }
             }
 
             hbox {
@@ -39,7 +32,9 @@ class SnapshotView : View() {
                 label("Time:") {
                     style = "-fx-font-weight: bold"
                 }
-                add(time)
+                label {
+                    bind(controller.timeProperty())
+                }
             }
         }
 
@@ -50,7 +45,9 @@ class SnapshotView : View() {
                 scrollpane {
                     padding = Insets(10.0)
 
-                    add(args)
+                    label {
+                        bind(controller.argsProperty())
+                    }
                 }
             }
 
@@ -60,9 +57,14 @@ class SnapshotView : View() {
 
                     vbox {
                         label("Nodes:")
-                        add(nodes)
+                        label {
+                            bind(controller.nodesProperty())
+                        }
+
                         label("Connections")
-                        add(connections)
+                        label {
+                            bind(controller.connectionsProperty())
+                        }
                     }
 
                 }
@@ -72,49 +74,15 @@ class SnapshotView : View() {
                 scrollpane {
                     padding = Insets(10.0)
 
-                    add(stats)
+                    label {
+                        bind(controller.statsProperty())
+                    }
                 }
             }
 
             tab("Graph") {
-                add(graphView)
+                add(controller.graphView)
             }
         }
-    }
-
-    fun display(snapshot: Snapshot) {
-        val mapper = ObjectMapper().apply {
-            enable(SerializationFeature.INDENT_OUTPUT)
-        }
-        val event = snapshot.event ?: return
-
-        val text = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(event.args)
-
-        name.text = event.name
-        time.text = event.time.toString()
-        args.text = text
-
-        val builder = StringBuilder()
-        snapshot.nodes.forEach {
-            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-            builder.appendln()
-        }
-        nodes.text = builder.toString()
-
-        builder.clear()
-        snapshot.connections.forEach {
-            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-            builder.appendln()
-        }
-        connections.text = builder.toString()
-
-        builder.clear()
-        snapshot.aggregation.stats.forEach {
-            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-            builder.appendln()
-        }
-        stats.text = builder.toString()
-
-        graphView.draw(snapshot.nodes, snapshot.connections)
     }
 }

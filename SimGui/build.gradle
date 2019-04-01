@@ -17,6 +17,7 @@ dependencies {
 
     implementation 'no.tornado:tornadofx:1.7.18'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    implementation 'org.neo4j.driver:neo4j-java-driver:1.7.2'
 
     compile project(':MeshNetworkSimulator')
     compile project(':MeshNetwork')

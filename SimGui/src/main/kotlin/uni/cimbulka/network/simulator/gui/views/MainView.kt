@@ -1,29 +1,25 @@
 package uni.cimbulka.network.simulator.gui.views
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import javafx.collections.FXCollections
 import javafx.geometry.Insets
-import javafx.scene.control.Label
 import javafx.scene.control.TabPane
 import tornadofx.*
-import uni.cimbulka.network.simulator.gui.FileLoader
-import uni.cimbulka.network.simulator.gui.models.Report
-import uni.cimbulka.network.simulator.mesh.Simulation1
-import uni.cimbulka.network.simulator.mesh.Simulation2
-import uni.cimbulka.network.simulator.mesh.Simulation3
-import uni.cimbulka.network.simulator.mesh.Simulation4
+import uni.cimbulka.network.simulator.gui.controllers.MainController
 
 class MainView : View("Main View") {
+    private val controller: MainController by inject()
     private val snapshotView: SnapshotView by inject()
     private val slideshowView: SlideshowView by inject()
 
-    private lateinit var report: Report
-    private val listViewItems = FXCollections.observableArrayList<String>()
-    private val nodes = Label()
-    private val stats = Label()
-
     override val root = tabpane {
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
+
+        tab("Main") {
+            borderpane {
+                center = button("Open Simulation") {
+                    action(controller::openSimulationPicker)
+                }
+            }
+        }
 
         tab("Events") {
             borderpane {
@@ -34,14 +30,10 @@ class MainView : View("Main View") {
 
                 left = listview<String> {
                     prefWidth = 400.0
-                    items = listViewItems
+                    items = controller.eventList
 
                     setOnMouseClicked {
-                        val item = this.selectedItem ?: return@setOnMouseClicked
-                        if (::report.isInitialized) {
-                            val snapshot = report.events[item] ?: return@setOnMouseClicked
-                            snapshotView.display(snapshot)
-                        }
+                        controller.handleEventListClicked(selectedItem)
                     }
                 }
             }
@@ -51,7 +43,9 @@ class MainView : View("Main View") {
             scrollpane {
                 padding = Insets(10.0)
 
-                add(nodes)
+                label {
+                    bind(controller.nodesProperty())
+                }
             }
         }
 
@@ -59,7 +53,9 @@ class MainView : View("Main View") {
             scrollpane {
                 padding = Insets(10.0)
 
-                add(stats)
+                label {
+                    bind(controller.statsProperty())
+                }
             }
         }
 
@@ -69,34 +65,4 @@ class MainView : View("Main View") {
             }
         }
     }
-
-    init {
-        runAsync {
-            val simulator = Simulation1()
-            simulator.run()
-
-            Report.fromJson(FileLoader.readFile("simulationReport.json"))
-        } ui {
-            this.report = it
-            slideshowView.report = it
-            listViewItems.addAll(it.events.keys)
-
-            val mapper = ObjectMapper()
-            val builder = StringBuilder()
-
-            report.nodes.forEach {
-                builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-                builder.appendln()
-            }
-            nodes.text = builder.toString()
-
-            builder.clear()
-            report.aggregation.stats.forEach {
-                builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-                builder.appendln()
-            }
-            stats.text = builder.toString()
-        }
-    }
-
 }
