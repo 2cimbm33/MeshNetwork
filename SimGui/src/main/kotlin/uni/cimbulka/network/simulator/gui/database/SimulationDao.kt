@@ -8,12 +8,15 @@ import tornadofx.getProperty
 import tornadofx.property
 import uni.cimbulka.network.simulator.gui.controllers.MainController
 import uni.cimbulka.network.simulator.gui.models.Node
+import uni.cimbulka.network.simulator.gui.models.Simulation
+
+typealias NeoNode = org.neo4j.driver.v1.types.Node
 
 class SimulationDao : Controller() {
     private val mainController: MainController by inject()
     private val driver = Database.driver
 
-    val simulationsList: ObservableList<String> = FXCollections.observableArrayList()
+    val simulationsList: ObservableList<Simulation> = FXCollections.observableArrayList()
     val snapshotList: ObservableList<Int> = FXCollections.observableArrayList()
     val simNodeList: ObservableList<Node> = FXCollections.observableArrayList()
 
@@ -23,7 +26,7 @@ class SimulationDao : Controller() {
 
     fun getSimulations() {
         runAsync {
-            val result = mutableListOf<String>()
+            val result = mutableListOf<Simulation>()
 
             driver.session().run {
                 val rs = run("MATCH (s:Simulation) RETURN s")
@@ -31,7 +34,7 @@ class SimulationDao : Controller() {
                     if (record.containsKey("s")) {
                         val node = record["s"].asNode()
                         if (node.containsKey("simId")) {
-                            result.add(node["simId"].asString())
+                            result.add(Simulation(node["simId"].asString(), getSimName(node)))
                         }
                     }
                 }
@@ -42,6 +45,16 @@ class SimulationDao : Controller() {
             simulationsList.clear()
             simulationsList.addAll(it)
         }
+    }
+
+    private fun getSimName(simulation: NeoNode): String {
+        for (label in simulation.labels()) {
+            if (label != "Simulation") {
+                return label
+            }
+        }
+
+        return ""
     }
 
     fun getSnapshots() {

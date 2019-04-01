@@ -3,6 +3,7 @@ package uni.cimbulka.network.simulator.gui.views
 import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.SimulationsController
 import uni.cimbulka.network.simulator.gui.events.CloseEvent
+import uni.cimbulka.network.simulator.gui.models.Simulation
 
 class SimulationsView : View("Simulations") {
     private val controller: SimulationsController by inject()
@@ -11,7 +12,7 @@ class SimulationsView : View("Simulations") {
         prefHeight = 700.0
         prefWidth = 400.0
 
-        listview<String> {
+        listview<Simulation> {
             items = controller.simulations
 
             setOnMouseClicked {

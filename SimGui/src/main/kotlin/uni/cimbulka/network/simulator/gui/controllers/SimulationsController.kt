@@ -6,16 +6,17 @@ import tornadofx.getProperty
 import tornadofx.property
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.events.CloseEvent
+import uni.cimbulka.network.simulator.gui.models.Simulation
 import uni.cimbulka.network.simulator.gui.views.SimulationsView
 
 class SimulationsController : Controller() {
     private val mainController: MainController by inject()
     private val dao: SimulationDao by inject()
 
-    val simulations: ObservableList<String>
+    val simulations: ObservableList<Simulation>
         get() = dao.simulationsList
 
-    var selected: String? by property()
+    var selected: Simulation? by property(value = null)
     fun selectedProperty() = getProperty(SimulationsController::selected)
 
     var disabled: Boolean by property(true)
@@ -25,14 +26,14 @@ class SimulationsController : Controller() {
         dao.getSimulations()
     }
 
-    fun handleSelectionChanged(item: String?) {
+    fun handleSelectionChanged(item: Simulation?) {
             selected = item
-            disabled = item == null || item.isEmpty()
+            disabled = item == null
     }
 
     fun handleOpenClicked() {
         selected?.let {
-            mainController.simId = it
+            mainController.simId = it.id
             fire(CloseEvent<SimulationsView>())
         }
     }

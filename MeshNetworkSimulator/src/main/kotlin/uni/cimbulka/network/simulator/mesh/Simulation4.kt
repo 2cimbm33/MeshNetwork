@@ -1,11 +1,12 @@
 package uni.cimbulka.network.simulator.mesh
 
+import org.neo4j.driver.v1.Driver
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
 
-class Simulation4 : BaseSimulation("Simulation4") {
+class Simulation4(driver: Driver) : BaseSimulation("Simulation4", driver) {
     override fun run() {
         val nodes = mutableMapOf<Int, NetworkNode>()
         val separation = 8

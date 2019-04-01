@@ -1,5 +1,6 @@
 package uni.cimbulka.network.simulator.mesh
 
+import org.neo4j.driver.v1.Driver
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
@@ -8,7 +9,7 @@ import uni.cimbulka.network.simulator.mobility.MobilityRule
 import uni.cimbulka.network.simulator.mobility.events.MobilityEventArgs
 import uni.cimbulka.network.simulator.mobility.events.RunMobilityEvent
 
-class Simulation3 : BaseSimulation("Simulation3") {
+class Simulation3(driver: Driver) : BaseSimulation("Simulation3", driver) {
     override fun run() {
         val nodeA = getNode("Node A", Position(13.0, 13.0))
         val nodeB = getNode("Node B", Position(18.0, 10.0))

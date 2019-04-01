@@ -15,6 +15,37 @@ class MainView : View("Main View") {
 
         tab("Main") {
             borderpane {
+                left = vbox {
+                    button("Run Simulation1") {
+                        userData = "Simulation1"
+                        action {
+                            controller.runSimulation("Simulation1")
+                        }
+                    }
+
+                    button("Run Simulation2") {
+                        userData = "Simulation1"
+                        action {
+                            controller.runSimulation("Simulation2")
+                        }
+                    }
+
+                    button("Run Simulation3") {
+                        userData = "Simulation1"
+                        action {
+                            controller.runSimulation("Simulation3")
+                        }
+                    }
+
+                    button("Run Simulation4") {
+                        userData = "Simulation1"
+                        action {
+                            controller.runSimulation("Simulation4")
+                        }
+                    }
+
+                }
+
                 center = button("Open Simulation") {
                     action(controller::openSimulationPicker)
                 }

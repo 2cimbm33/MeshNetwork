@@ -1,6 +1,6 @@
 package uni.cimbulka.network.simulator.mesh
 
-import javafx.geometry.Point2D
+import org.neo4j.driver.v1.Driver
 import uni.cimbulka.network.NetworkController
 import uni.cimbulka.network.simulator.NetworkSimulator
 import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapter
@@ -9,10 +9,9 @@ import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.AddNodeEventArgs
 import java.util.*
-import kotlin.reflect.KClass
 
-abstract class BaseSimulation(type: String) :
-        NetworkSimulator(NetworkMonitor(UUID.randomUUID().toString() ,PhysicalLayer(), type)) {
+abstract class BaseSimulation(type: String, driver: Driver) :
+        NetworkSimulator(NetworkMonitor(UUID.randomUUID().toString() ,PhysicalLayer(), type, driver)) {
     protected val phy = (monitor as NetworkMonitor).physicalLayer
 
     protected fun getNode(name: String, position: Position): NetworkNode {

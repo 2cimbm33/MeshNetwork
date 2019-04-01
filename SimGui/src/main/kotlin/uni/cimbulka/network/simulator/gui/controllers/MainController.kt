@@ -6,10 +6,15 @@ import tornadofx.Controller
 import tornadofx.getProperty
 import tornadofx.onChange
 import tornadofx.property
+import uni.cimbulka.network.simulator.gui.database.Database
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.database.SnapshotDao
 import uni.cimbulka.network.simulator.gui.models.Report
 import uni.cimbulka.network.simulator.gui.views.SimulationsView
+import uni.cimbulka.network.simulator.mesh.Simulation1
+import uni.cimbulka.network.simulator.mesh.Simulation2
+import uni.cimbulka.network.simulator.mesh.Simulation3
+import uni.cimbulka.network.simulator.mesh.Simulation4
 
 class MainController : Controller() {
     private val simDao: SimulationDao by inject()
@@ -54,6 +59,17 @@ class MainController : Controller() {
         item?.let {
             println(it)
             snapDao.getSnapshot(it)
+        }
+    }
+
+    fun runSimulation(type: String) {
+        runAsync {
+            when (type) {
+                "Simulation1" -> Simulation1(Database.driver).run()
+                "Simulation2" -> Simulation2(Database.driver).run()
+                "Simulation3" -> Simulation3(Database.driver).run()
+                "Simulation4" -> Simulation4(Database.driver).run()
+            }
         }
     }
 }

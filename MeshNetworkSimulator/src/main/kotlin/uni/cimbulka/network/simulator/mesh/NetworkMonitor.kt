@@ -3,12 +3,7 @@ package uni.cimbulka.network.simulator.mesh
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import org.neo4j.driver.v1.AuthTokens
 import org.neo4j.driver.v1.Driver
-import org.neo4j.driver.v1.GraphDatabase
 import uni.cimbulka.network.packets.*
 import uni.cimbulka.network.simulator.bluetooth.events.EndDiscoveryEvent
 import uni.cimbulka.network.simulator.bluetooth.events.ReceivePacketEvent
@@ -20,22 +15,17 @@ import uni.cimbulka.network.simulator.mesh.reporting.Report
 import uni.cimbulka.network.simulator.mesh.reporting.SimulationSnapshot
 import uni.cimbulka.network.simulator.mesh.reporting.Statistics
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
-import java.io.File
-import kotlin.coroutines.EmptyCoroutineContext
 
 @Suppress("Duplicates")
-class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer, simulatorType: String) : MonitorInterface {
+class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer, simulatorType: String, private val driver: Driver) : MonitorInterface {
     private val report = Report()
     private val mapper = ObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)
     }
-    private val driver: Driver
 
     private var numberOfEvents = 0
 
     init {
-        driver = GraphDatabase.driver("bolt://localhost:7687", AuthTokens.basic("neo4j", "password"))
-
         driver.session().apply {
             writeTransaction { tx ->
                 tx.run("CREATE (n:Simulation:$simulatorType) " +
@@ -114,27 +104,6 @@ class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer,
                         "CREATE (sim)-[:HAS]->(stats)")
             }
         }
-
-        CoroutineScope(EmptyCoroutineContext).launch {
-            while (true) {
-                delay(1000)
-                driver.close()
-            }
-        }
-    }
-
-    private fun writeToFile(json: String) {
-        val fileName = "simulationReport.json"
-
-        println("\nWriting to file")
-        println("File name: $fileName")
-
-        File(fileName).apply {
-            println(absolutePath)
-            writeText(json)
-        }
-
-        println("Done")
     }
 
     private fun getStats(id: String): Statistics {
