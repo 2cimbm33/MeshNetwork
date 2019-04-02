@@ -6,7 +6,7 @@ import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import uni.cimbulka.network.simulator.core.models.DefaultMonitor
 import uni.cimbulka.network.simulator.core.models.Event
 
-open class Simulator(val monitor: MonitorInterface = DefaultMonitor()) : AbstractSimulator() {
+open class Simulator(open val monitor: MonitorInterface = DefaultMonitor()) : AbstractSimulator() {
     override val events = ListQueue<EventInterface>()
 
     var time = 0.0

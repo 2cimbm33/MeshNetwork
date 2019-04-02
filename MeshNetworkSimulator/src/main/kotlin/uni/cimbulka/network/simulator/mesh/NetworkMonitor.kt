@@ -17,7 +17,11 @@ import uni.cimbulka.network.simulator.mesh.reporting.Statistics
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 
 @Suppress("Duplicates")
-class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer, simulatorType: String, private val driver: Driver) : MonitorInterface {
+class NetworkMonitor(val simulationId: String,
+                     val physicalLayer: PhysicalLayer,
+                     simulatorType: String,
+                     private val driver: Driver) : MonitorInterface {
+
     private val report = Report()
     private val mapper = ObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)
@@ -25,11 +29,13 @@ class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer,
 
     private var numberOfEvents = 0
 
+    internal var callbacks: SimulationCallbacks? = null
+
     init {
         driver.session().apply {
             writeTransaction { tx ->
-                tx.run("CREATE (n:Simulation:$simulatorType) " +
-                        "SET n.simId = \"$simulationId\"")
+                tx.run("CREATE (n:Simulation:$simulatorType {simId: \$simId})",
+                        mapOf("simId" to simulationId))
             }
         }
     }
@@ -97,13 +103,16 @@ class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer,
             writeTransaction { tx ->
                 val id = numberOfEvents++
                 val stats = report.aggregation
-                tx.run("CREATE (n:Stats) " +
-                        "SET n.id = $id, n.value = \$value", mapOf("value" to mapper.writeValueAsString(stats)))
-                tx.run("MATCH (sim:Simulation), (stats:Stats) " +
-                        "WHERE sim.simId = \"$simulationId\" AND stats.id = $id " +
-                        "CREATE (sim)-[:HAS]->(stats)")
+                tx.run(
+                        "MATCH (sim:Simulation {simId: \$simId}) " +
+                        "CREATE (n:Stats {value: \$value}) " +
+                        "CREATE (sim)-[:HAS]->(n)",
+                        mapOf("value" to mapper.writeValueAsString(stats), "id" to id, "simId" to simulationId)
+                )
             }
         }
+
+        callbacks?.simulationFinished(simulationId)
     }
 
     private fun getStats(id: String): Statistics {
@@ -119,20 +128,23 @@ class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer,
 
     private fun saveSnapshot(snapshot: SimulationSnapshot) {
         driver.session().apply {
-            writeTransaction() { tx ->
+            writeTransaction { tx ->
                 val id = numberOfEvents
 
-                tx.run("CREATE (n:Snapshot) SET n.id = $id")
-                tx.run("MATCH (sim:Simulation), (s: Snapshot) " +
-                        "WHERE sim.simId = \"$simulationId\" AND s.id = $id " +
-                        "CREATE (sim)-[:CONTAINS]->(s)")
+                tx.run(
+                        "MATCH (sim:Simulation {simId: \$simId}) " +
+                                "CREATE (n:Snapshot) SET n.id = \$id " +
+                                "CREATE (sim)-[:CONTAINS]->(n)",
+                        mapOf("simId" to simulationId, "id" to id)
+                )
 
                 snapshot.nodes.forEach { node ->
-                    tx.run("MERGE (:Node {id: \$id, name: \$name})",
-                            mapOf("id" to node.id, "name" to node.device.name))
-                    tx.run("MATCH (s:Simulation), (n:Node) " +
-                            "WHERE s.simId = \$simId AND n.id = \$nodeId " +
-                            "MERGE (s)-[:CONTAINS]->(n)", mapOf("simId" to simulationId, "nodeId" to node.id))
+                    tx.run(
+                            "MATCH (s:Simulation {simId: \$simId}) " +
+                                    "MERGE (n:Node {id: \$nodeId, name: \$nodeName}) " +
+                                    "MERGE (s)-[:CONTAINS]->(n)",
+                            mapOf("simId" to simulationId, "nodeId" to node.id, "nodeName" to node.device.name)
+                    )
 
                     val connections = mutableListOf<String>()
                     snapshot.connections.forEach { conn ->
@@ -146,7 +158,7 @@ class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer,
                         }
                     }
 
-                    tx.run("MATCH (sim:Simulation), (snap:Snapshot), (n:Node) " +
+                    tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
                             "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
                             "CREATE (snap)-[r:CONTAINS]->(n) " +
                             "SET r.x = ${node.position.x}, r.y = ${node.position.y}, r.conn = \$conn", mapOf(
@@ -159,19 +171,20 @@ class NetworkMonitor(val simulationId: String, val physicalLayer: PhysicalLayer,
 
                 val event = snapshot.event
                 val name = event.name.replace("\\s".toRegex(), "").split("-").first()
-                tx.run("CREATE (e:$name:Event) " +
-                        "SET e.id = $id, e.time = ${event.time}, e.args = \$args",
-                        mapOf("args" to mapper.writeValueAsString(event.args)))
-                tx.run("MATCH (sim:Simulation), (snap:Snapshot), (e:Event) " +
-                        "WHERE sim.simId = \"$simulationId\" AND snap.id = $id AND e.id = $id " +
-                        "CREATE (snap)-[:HAS]->(e)")
+                tx.run(
+                        "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
+                                "CREATE (e:$name:Event {time: \$time, args: \$args}) " +
+                                "CREATE (snap)-[:HAS]->(e)",
+                        mapOf("simId" to simulationId, "id" to id, "time" to event.time, "args" to mapper.writeValueAsString(event.args))
+                )
 
                 val stats = snapshot.aggregation
-                tx.run("CREATE (n:Stats) " +
-                        "SET n.id = $id, n.value = \$value", mapOf("value" to mapper.writeValueAsString(stats)))
-                tx.run("MATCH (sim:Simulation), (snap:Snapshot), (stats:Stats) " +
-                        "WHERE sim.simId = \"$simulationId\" AND snap.id = $id AND stats.id = $id " +
-                        "CREATE (snap)-[:HAS]->(stats)")
+                tx.run(
+                        "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
+                                "CREATE (stats:Stats {value: \$value}) " +
+                                "CREATE (snap)-[:HAS]->(stats)",
+                        mapOf("simId" to simulationId, "id" to id, "value" to mapper.writeValueAsString(stats))
+                )
             }
         }
     }
