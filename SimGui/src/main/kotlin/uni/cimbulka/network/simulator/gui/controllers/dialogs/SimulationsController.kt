@@ -1,13 +1,14 @@
-package uni.cimbulka.network.simulator.gui.controllers
+package uni.cimbulka.network.simulator.gui.controllers.dialogs
 
 import javafx.collections.ObservableList
 import tornadofx.Controller
 import tornadofx.getProperty
 import tornadofx.property
+import uni.cimbulka.network.simulator.gui.controllers.MainController
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.events.CloseEvent
 import uni.cimbulka.network.simulator.gui.models.Simulation
-import uni.cimbulka.network.simulator.gui.views.SimulationsView
+import uni.cimbulka.network.simulator.gui.views.dialogs.SimulationsDialog
 
 class SimulationsController : Controller() {
     private val mainController: MainController by inject()
@@ -34,11 +35,11 @@ class SimulationsController : Controller() {
     fun handleOpenClicked() {
         selected?.let {
             mainController.simId = it.id
-            fire(CloseEvent<SimulationsView>())
+            fire(CloseEvent<SimulationsDialog>())
         }
     }
 
     fun handleCloseClicked() {
-        fire(CloseEvent<SimulationsView>())
+        fire(CloseEvent<SimulationsDialog>())
     }
 }

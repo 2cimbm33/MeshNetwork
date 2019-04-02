@@ -29,7 +29,7 @@ class NetworkMonitor(val simulationId: String,
 
     private var numberOfEvents = 0
 
-    internal var callbacks: SimulationCallbacks? = null
+    internal var callbacks: BaseSimulationCallbacks? = null
 
     init {
         driver.session().apply {

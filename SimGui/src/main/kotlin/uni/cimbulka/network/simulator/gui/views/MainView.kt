@@ -12,6 +12,8 @@ class MainView : View("Main View") {
 
     override val root = tabpane {
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
+        prefWidth = 1024.0
+        prefHeight = 640.0
 
         tab("Main") {
             borderpane {
@@ -54,9 +56,6 @@ class MainView : View("Main View") {
 
         tab("Events") {
             borderpane {
-                prefWidth = 1024.0
-                prefHeight = 640.0
-
                 center = snapshotView.root
 
                 left = listview<Int> {

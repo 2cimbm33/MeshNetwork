@@ -6,10 +6,10 @@ import uni.cimbulka.network.models.Device
 import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapter
 import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapterCallbacks
 import uni.cimbulka.network.simulator.common.Node
-import uni.cimbulka.network.simulator.core.Simulator
+import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import java.util.*
 
-class BluetoothService(val adapter: BluetoothAdapter, name: String, private val simulator: Simulator) : CommService(name) {
+class BluetoothService(val adapter: BluetoothAdapter, name: String, private val simulator: AbstractSimulator) : CommService(name) {
     private var shouldScan = false
     private var scanning = false
 

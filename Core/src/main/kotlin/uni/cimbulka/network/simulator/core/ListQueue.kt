@@ -21,8 +21,13 @@ class ListQueue<T : Comparable> : OrderedSet<T>() {
         elements.insertElementAt(element, i)
     }
 
+    override fun peek(): T? {
+        if (elements.isEmpty()) return null
+        return elements.firstElement();
+    }
+
     override fun removeFirst(): T? {
-        if (size == 0) return null
+        if (elements.isEmpty()) return null
 
         val element = elements.firstElement()
         elements.remove(element)

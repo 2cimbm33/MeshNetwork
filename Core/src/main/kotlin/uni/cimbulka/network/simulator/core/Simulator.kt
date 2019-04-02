@@ -9,10 +9,7 @@ import uni.cimbulka.network.simulator.core.models.Event
 open class Simulator(open val monitor: MonitorInterface = DefaultMonitor()) : AbstractSimulator() {
     override val events = ListQueue<EventInterface>()
 
-    var time = 0.0
-        private set
-
-    fun start() {
+    override fun start() {
         println("[$time] Starting simulation")
 
         while (true) {

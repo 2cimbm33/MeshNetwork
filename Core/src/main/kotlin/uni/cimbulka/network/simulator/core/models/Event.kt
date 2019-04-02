@@ -4,9 +4,7 @@ import uni.cimbulka.network.simulator.core.EventArgs
 import uni.cimbulka.network.simulator.core.interfaces.Comparable
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 
-abstract class Event<T : EventArgs>(val name: String, val args: T) : EventInterface {
-    abstract val time: Double
-
+abstract class Event<T : EventArgs>(override val name: String, val args: T) : EventInterface {
     override operator fun compareTo(other: Comparable): Int {
         return when(other) {
             is Event<*> -> time.compareTo(other.time)

@@ -1,5 +1,5 @@
 package uni.cimbulka.network.simulator.mesh
 
-interface SimulationCallbacks {
+interface BaseSimulationCallbacks {
     fun simulationFinished(id: String)
 }

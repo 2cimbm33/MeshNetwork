@@ -1,7 +1,7 @@
 package uni.cimbulka.network.simulator.bluetooth
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import uni.cimbulka.network.simulator.NetworkSimulator
+import uni.cimbulka.network.simulator.Session
 import uni.cimbulka.network.simulator.bluetooth.events.SendPacketEvent
 import uni.cimbulka.network.simulator.bluetooth.events.SendPacketEventArgs
 import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEvent
@@ -57,8 +57,8 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
     }
 
     fun startDiscovery() {
-        NetworkSimulator.simulator.insert(StartDiscoveryEvent(
-                NetworkSimulator.simulator.time,
+        Session.simulator.insert(StartDiscoveryEvent(
+                Session.simulator.time,
                 StartDiscoveryEventArgs(
                         physicalLayer,
                         this)))
@@ -69,8 +69,8 @@ class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node)
     }
 
     fun sendPacket(recipient: String, data: String) {
-        NetworkSimulator.simulator.insert(SendPacketEvent(
-                NetworkSimulator.simulator.time,
+        Session.simulator.insert(SendPacketEvent(
+                Session.simulator.time,
                 SendPacketEventArgs(BluetoothPacket(node.id, recipient, data), this)
         ))
     }

@@ -6,12 +6,8 @@ import uni.cimbulka.network.simulator.core.interfaces.MonitorInterface
 abstract class NetworkSimulator(monitor: MonitorInterface) : Simulator(monitor) {
 
     init {
-        NetworkSimulator.simulator = this
+        Session.simulator = this
     }
 
     abstract fun run()
-
-    companion object {
-        lateinit var simulator: NetworkSimulator
-    }
 }

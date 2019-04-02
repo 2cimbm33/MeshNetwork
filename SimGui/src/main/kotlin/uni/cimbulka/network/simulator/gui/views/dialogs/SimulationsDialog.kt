@@ -1,11 +1,11 @@
-package uni.cimbulka.network.simulator.gui.views
+package uni.cimbulka.network.simulator.gui.views.dialogs
 
 import tornadofx.*
-import uni.cimbulka.network.simulator.gui.controllers.SimulationsController
+import uni.cimbulka.network.simulator.gui.controllers.dialogs.SimulationsController
 import uni.cimbulka.network.simulator.gui.events.CloseEvent
 import uni.cimbulka.network.simulator.gui.models.Simulation
 
-class SimulationsView : View("Simulations") {
+class SimulationsDialog : View("Simulations") {
     private val controller: SimulationsController by inject()
 
     override val root = vbox {
@@ -35,7 +35,7 @@ class SimulationsView : View("Simulations") {
     }
 
     init {
-        subscribe<CloseEvent<SimulationsView>> {
+        subscribe<CloseEvent<SimulationsDialog>> {
             close()
         }
     }

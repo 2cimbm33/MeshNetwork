@@ -12,8 +12,7 @@ import uni.cimbulka.network.simulator.gui.database.Database
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.database.SnapshotDao
 import uni.cimbulka.network.simulator.gui.models.Report
-import uni.cimbulka.network.simulator.gui.views.MainView
-import uni.cimbulka.network.simulator.gui.views.SimulationsView
+import uni.cimbulka.network.simulator.gui.views.dialogs.SimulationsDialog
 import uni.cimbulka.network.simulator.mesh.*
 
 class MainController : Controller() {
@@ -55,7 +54,7 @@ class MainController : Controller() {
 
     fun openSimulationPicker() {
         if (!simulationRunning)
-            find<SimulationsView>().openModal(escapeClosesWindow = true, block = true)
+            find<SimulationsDialog>().openModal(escapeClosesWindow = true, block = true)
     }
 
     fun handleEventListClicked(item: Int?) {
@@ -96,7 +95,7 @@ class MainController : Controller() {
             else -> null
         } ?: return null
 
-        result.simulationCallbacks = object : SimulationCallbacks {
+        result.simulationCallbacks = object : BaseSimulationCallbacks {
             override fun simulationFinished(id: String) {
                 Platform.runLater {
                     simulationRunning = false

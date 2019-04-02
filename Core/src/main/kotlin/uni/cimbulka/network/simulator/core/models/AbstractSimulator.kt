@@ -5,19 +5,24 @@ import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 abstract class AbstractSimulator {
     protected abstract val events: OrderedSet<EventInterface>
 
-    fun insert(event: EventInterface) {
+    var time: Double = 0.0
+        protected set
+
+    abstract fun start()
+
+    open fun insert(event: EventInterface) {
         events.insert(event)
     }
 
-    fun insert(time: Double, name: String, block: (AbstractSimulator) -> Unit) {
+    open fun insert(time: Double, name: String, block: (AbstractSimulator) -> Unit) {
         events.insert(event(time, name, block))
     }
 
-    fun cancel(event: EventInterface): EventInterface? {
+    open fun cancel(event: EventInterface): EventInterface? {
         return events.remove(event)
     }
 
-    fun stop() {
+    open fun stop() {
         events.removeAll()
     }
 }
