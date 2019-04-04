@@ -113,10 +113,8 @@ class BluetoothService(val adapter: BluetoothAdapter, name: String, private val 
 
     private fun scan() {
         if (shouldScan && !scanning) {
-            simulator.insert(simulator.time, "CommServiceStartDiscovery-${adapter.node.id}") {
-                scanning = true
-                adapter.startDiscovery()
-            }
+            scanning = true
+            adapter.startDiscovery();
         }
     }
 

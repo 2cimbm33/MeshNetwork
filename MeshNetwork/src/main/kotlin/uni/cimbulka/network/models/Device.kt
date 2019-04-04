@@ -1,5 +1,6 @@
 package uni.cimbulka.network.models
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
@@ -16,6 +17,7 @@ data class Device @JvmOverloads constructor(
         var name: String = "") {
 
     var isInNetwork: Boolean = false
+    @JsonIgnore
     val communications = mutableMapOf<String, String>()
 
     override fun toString(): String {

@@ -9,6 +9,7 @@ class MainView : View("Main View") {
     private val controller: MainController by inject()
     private val snapshotView: SnapshotView by inject()
     private val slideshowView: SlideshowView by inject()
+    private val interactiveSimulationView: InteractiveSimulationView by inject()
 
     override val root = tabpane {
         tabClosingPolicy = TabPane.TabClosingPolicy.UNAVAILABLE
@@ -52,6 +53,10 @@ class MainView : View("Main View") {
                     action(controller::openSimulationPicker)
                 }
             }
+        }
+
+        tab("Interactive Simulation") {
+            add(interactiveSimulationView)
         }
 
         tab("Events") {

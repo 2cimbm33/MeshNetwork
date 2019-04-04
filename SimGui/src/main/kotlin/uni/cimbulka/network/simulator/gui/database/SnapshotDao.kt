@@ -3,9 +3,7 @@ package uni.cimbulka.network.simulator.gui.database
 import com.fasterxml.jackson.databind.ObjectMapper
 import javafx.beans.property.ReadOnlyProperty
 import org.neo4j.driver.v1.types.Node
-import tornadofx.Controller
-import tornadofx.getProperty
-import tornadofx.property
+import tornadofx.*
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.gui.controllers.MainController
 import uni.cimbulka.network.simulator.gui.models.Event
@@ -28,7 +26,7 @@ class SnapshotDao : Controller() {
             var snapshot: Snapshot? = null
             driver.session().run {
                 readTransaction { tx ->
-                    val rs = tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (snap)-->(e:Event), (snap)-->(stats:Stats), (snap)-[r]->(n:Node) " +
+                    val rs = tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (snap)-->(e:Event), (snap)-->(stats:Stats), (snap)-[r:CONTAINS]->(n:Node) " +
                             "WHERE sim.simId = \$simId AND snap.id = \$id " +
                             "RETURN e, stats, r, n", mapOf("simId" to mainController.simId, "id" to id))
 

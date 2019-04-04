@@ -9,9 +9,9 @@ import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEventArgs
 import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 
-class BluetoothAdapter(private val physicalLayer: PhysicalLayer, val node: Node) {
+class BluetoothAdapter(@JsonIgnore private val physicalLayer: PhysicalLayer, val node: Node) {
 
-    var callbacks: BluetoothAdapterCallbacks? = null
+    @JsonIgnore var callbacks: BluetoothAdapterCallbacks? = null
     var discoverable: Boolean = false
         private set
 

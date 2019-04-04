@@ -15,8 +15,8 @@ open class Simulator(open val monitor: MonitorInterface = DefaultMonitor()) : Ab
         while (true) {
             (events.removeFirst() as Event<*>?)?.let {
                 time = it.time
-                monitor.record(it)
                 it(this)
+                monitor.record(it)
             } ?: break
         }
 

@@ -8,13 +8,20 @@ import uni.cimbulka.network.packets.*
 import uni.cimbulka.network.simulator.bluetooth.events.EndDiscoveryEvent
 import uni.cimbulka.network.simulator.bluetooth.events.ReceivePacketEvent
 import uni.cimbulka.network.simulator.bluetooth.events.SendPacketEvent
+import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEvent
+import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.core.interfaces.MonitorInterface
 import uni.cimbulka.network.simulator.core.models.Event
+import uni.cimbulka.network.simulator.mesh.events.StartNodeEvent
 import uni.cimbulka.network.simulator.mesh.reporting.Report
 import uni.cimbulka.network.simulator.mesh.reporting.SimulationSnapshot
 import uni.cimbulka.network.simulator.mesh.reporting.Statistics
+import uni.cimbulka.network.simulator.mobility.events.RunMobilityEvent
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
+import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
+import uni.cimbulka.network.simulator.physical.events.MoveNodeEvent
+import uni.cimbulka.network.simulator.physical.events.RemoveNodeEvent
 
 @Suppress("Duplicates")
 class NetworkMonitor(val simulationId: String,
@@ -130,12 +137,14 @@ class NetworkMonitor(val simulationId: String,
         driver.session().apply {
             writeTransaction { tx ->
                 val id = numberOfEvents
+                val event = snapshot.event
+                val name = event.name.replace("\\s".toRegex(), "").split("-").first()
 
                 tx.run(
                         "MATCH (sim:Simulation {simId: \$simId}) " +
-                                "CREATE (n:Snapshot) SET n.id = \$id " +
+                                "CREATE (n:Snapshot) SET n.id = \$id, n.name = \$name " +
                                 "CREATE (sim)-[:CONTAINS]->(n)",
-                        mapOf("simId" to simulationId, "id" to id)
+                        mapOf("simId" to simulationId, "id" to id, "name" to name)
                 )
 
                 snapshot.nodes.forEach { node ->
@@ -146,36 +155,48 @@ class NetworkMonitor(val simulationId: String,
                             mapOf("simId" to simulationId, "nodeId" to node.id, "nodeName" to node.device.name)
                     )
 
-                    val connections = mutableListOf<String>()
-                    snapshot.connections.forEach { conn ->
-                        if (node.id in conn) {
-                            val other = if (conn.first == node.id) {
-                                conn.second
-                            } else {
-                                conn.first
-                            }
-                            connections.add(other)
-                        }
-                    }
+                    val connections = getConnections(snapshot, node)
 
                     tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
                             "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
                             "CREATE (snap)-[r:CONTAINS]->(n) " +
                             "SET r.x = ${node.position.x}, r.y = ${node.position.y}, r.conn = \$conn", mapOf(
-                                "simId" to simulationId,
-                                "id" to id,
-                                "nodeId" to node.id,
-                                "conn" to mapper.writeValueAsString(connections)
-                            ))
+                            "simId" to simulationId,
+                            "id" to id,
+                            "nodeId" to node.id,
+                            "conn" to mapper.writeValueAsString(connections)
+                    ))
                 }
 
-                val event = snapshot.event
-                val name = event.name.replace("\\s".toRegex(), "").split("-").first()
+                getMainNodeId(event)?.let{ mainNodeId ->
+                    physicalLayer[mainNodeId]?.let {
+                        val connections = getConnections(snapshot, it)
+                        val inRange = getInRange(it)
+
+                        tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
+                                "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
+                                "CREATE (snap)-[r:MAIN]->(n) " +
+                                "SET r.x = ${it.position.x}, r.y = ${it.position.y}, r.conn = \$conn, r.range = \$range", mapOf(
+                                "simId" to simulationId,
+                                "id" to id,
+                                "nodeId" to it.id,
+                                "conn" to mapper.writeValueAsString(connections),
+                                "range" to mapper.writeValueAsString(inRange)
+                        ))
+                    }
+                }
+
                 tx.run(
                         "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
-                                "CREATE (e:$name:Event {time: \$time, args: \$args}) " +
+                                "CREATE (e:$name:Event {time: \$time, args: \$args, name: \$name}) " +
                                 "CREATE (snap)-[:HAS]->(e)",
-                        mapOf("simId" to simulationId, "id" to id, "time" to event.time, "args" to mapper.writeValueAsString(event.args))
+                        mapOf(
+                                "simId" to simulationId,
+                                "id" to id,
+                                "time" to event.time,
+                                "args" to mapper.writeValueAsString(event.args),
+                                "name" to name
+                        )
                 )
 
                 val stats = snapshot.aggregation
@@ -187,5 +208,48 @@ class NetworkMonitor(val simulationId: String,
                 )
             }
         }
+    }
+
+    private fun getMainNodeId(event: EventInterface): String? {
+        return when (event) {
+            is AddNodeEvent -> event.args.node.id
+            is MoveNodeEvent -> event.args.id
+            is RemoveNodeEvent -> event.args.node.id
+            is RunMobilityEvent -> event.args.rule.node
+            is StartDiscoveryEvent -> event.args.adapter.node.id
+            is EndDiscoveryEvent -> event.args.adapter.node.id
+            is SendPacketEvent -> event.args.adapter.node.id
+            is ReceivePacketEvent -> event.args.adapter.node.id
+            is StartNodeEvent -> event.args.node.id
+
+            else -> null
+        }
+    }
+
+    private fun getConnections(snapshot: SimulationSnapshot, node: Node): List<String> {
+        val connections = mutableListOf<String>()
+        snapshot.connections.forEach { conn ->
+            if (node.id in conn) {
+                val other = if (conn.first == node.id) {
+                    conn.second
+                } else {
+                    conn.first
+                }
+                connections.add(other)
+            }
+        }
+        return connections.toList()
+    }
+
+    private fun getInRange(node: Node): List<String> {
+        val inRange = mutableListOf<String>()
+
+        physicalLayer.keys.filter { it != node.id }.forEach {
+            if (physicalLayer.inRange(node.id, it)) {
+                inRange.add(it)
+            }
+        }
+
+        return inRange
     }
 }
