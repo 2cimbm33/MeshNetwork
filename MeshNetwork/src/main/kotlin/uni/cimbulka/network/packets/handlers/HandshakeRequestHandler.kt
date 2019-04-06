@@ -15,13 +15,9 @@ internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
         val source = packet.source
         val data = packet.data as HandshakeData
 
-        session.networkGraph.addDevice(source)
         session.networkGraph.addEdge(session.localDevice, source)
-        session.isInNetwork = true
-
-        session.allDevices.add(source)
-        session.neighbours[source.id.toString()] = source
         session.networkGraph.merge(data.graph, source, session)
+        session.isInNetwork = true
 
         val updateData = UpdateData()
         data.devices.forEach {
@@ -38,7 +34,7 @@ internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
         updateData.updates.add(Update(session.localDevice, source, Update.CONNECTION_CREATED))
 
         PacketSender.send(response, session)
-        PacketSender.send(BroadcastPacket.create(updateData, session), session)
+        PacketSender.send(BroadcastPacket.create(updateData, session).apply { exclude = listOf(source) }, session)
     }
 
     override fun send(packet: HandshakeRequest, session: NetworkSession) {

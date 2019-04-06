@@ -18,9 +18,17 @@ data class Device(
         var name: String) {
 
     var inNetwork: Boolean = false
-
-    @JsonIgnore
     val communications = mutableMapOf<String, String>()
+
+    fun merge(other: Device): Boolean {
+        if (id != other.id) return false
+
+        other.communications.entries.forEach {
+            communications.putIfAbsent(it.key, it.value)
+        }
+
+        return true
+    }
 
     override fun toString(): String {
         return jacksonObjectMapper().apply {

@@ -22,18 +22,29 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
                     data.newDevices.forEach {
                         if (it !in session.allDevices) {
                             session.allDevices.add(it)
+                            newDevices.add(it)
                         }
                     }
-                    newDevices.addAll(data.newDevices)
                 }
 
                 resend = (newUpdateData.updates.isNotEmpty() ||
                         newUpdateData.newDevices.isNotEmpty()) &&
                         packet.trace.size < NetworkConstants.ZONE_SIZE
 
+                if (!resend) {
+                   if (newUpdateData.newDevices.isNotEmpty()) {
+                       newUpdateData.updates.clear()
+                       resend = true
+                   }
+
+                }
+
                 if (resend) {
-                    packetToResend = BroadcastPacket.create(newUpdateData, session).apply {
+                    packetToResend = BroadcastPacket(packet.id, packet.source, newUpdateData, packet.timestamp).apply {
                         trace = packet.trace
+                        trace[trace.size]?.let {
+                            exclude = listOf(it)
+                        }
                     }
                 }
             }
@@ -51,9 +62,7 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
             is UpdateData -> if (data.updates.isEmpty() && data.newDevices.isEmpty()) return
         }
 
-        session.neighbours.values.filter {
-            if (packet.trace.size == 1) true else it != packet.trace[packet.trace.size - 1]
-        }.forEach {
+        session.neighbours.values.filter { it !in packet.exclude }.forEach {
             PacketSender.getCommService(it, session)?.sendPacket(packet.toString(), it)
         }
     }

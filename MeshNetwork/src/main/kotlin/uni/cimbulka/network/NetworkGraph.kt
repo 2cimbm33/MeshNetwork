@@ -126,17 +126,15 @@ internal data class NetworkGraph(private val session: NetworkSession,
     fun merge(xml: String, mergeFrom: Device, session: NetworkSession) {
         val otherGraph = NetworkGraph.import(xml, session)
 
-        for (device in otherGraph.devices) {
-            val takeEdges = getDistance(session.localDevice, device) > getDistance(mergeFrom, device)
+        for (device in otherGraph.graph.vertexSet()) {
             addDevice(device)
+            val takeEdges = getDistance(session.localDevice, device) > getDistance(mergeFrom, device)
 
-            if (takeEdges) {
-                for (edge in otherGraph.edgesOf(device)) {
-                    val source = otherGraph.graph.getEdgeSource(edge)
-                    val target = otherGraph.graph.getEdgeTarget(edge)
+            for (edge in otherGraph.graph.edgesOf(device)) {
+                val source = otherGraph.graph.getEdgeSource(edge)
+                val target = otherGraph.graph.getEdgeTarget(edge)
 
-                    addEdge(source, target)
-                }
+                addEdge(source, target)
             }
         }
     }

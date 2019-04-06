@@ -16,10 +16,15 @@ class NeighborListener(private val session: NetworkSession) {
             updateData.updates.add(update)
         }
 
-        session.allDevices.filter { it !in session.neighbours.values || it == session.localDevice }.forEach {
+        for (device in session.allDevices.filter { it !in session.neighbours.values }) {
+            if (device == session.localDevice) continue
+
             for (service in session.services) {
-                val connectionString = it.communications[service::class.simpleName] ?: continue
-                service.connect(connectionString)
+                val connString = device.communications[service::class.qualifiedName] ?: continue
+                if (service.connect(connString)) {
+                    val update = connect(device) ?: continue
+                    updateData.updates.add(update)
+                }
             }
         }
 
@@ -31,9 +36,23 @@ class NeighborListener(private val session: NetworkSession) {
         val result = session.networkGraph.removeEdge(session.localDevice, device)
 
         return if (result) {
-            session.neighbours.remove(device.id.toString())
             updateLongDistanceVectors(device)
             val update = Update(session.localDevice, device, Update.CONNECTION_DELETED)
+
+            val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
+            session.processedUpdates[id] = update
+
+            update
+        } else {
+            null
+        }
+    }
+
+    private fun connect(device: Device): Update? {
+        val result = session.networkGraph.removeEdge(session.localDevice, device)
+
+        return if (result) {
+            val update = Update(session.localDevice, device, Update.CONNECTION_CREATED)
 
             val id = session.processedUpdates.keys.sortedDescending().firstOrNull()?.plus(1) ?: 1
             session.processedUpdates[id] = update

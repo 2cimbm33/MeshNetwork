@@ -36,7 +36,7 @@ class BluetoothAdapter(@JsonIgnore private val physicalLayer: PhysicalLayer, val
     fun connect(connString: String): Node? {
         if (physicalLayer.inRange(node.id, connString)) {
             val adapter = AdapterPool.adapters[connString] ?: return null
-            createConnection(adapter, false)
+            createConnection(adapter)
             adapter.createConnection(this, false)
             return adapter.node
         }

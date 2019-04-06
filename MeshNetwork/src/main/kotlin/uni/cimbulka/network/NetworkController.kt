@@ -56,6 +56,7 @@ class NetworkController(friendlyName: String) {
         service.serviceCallbacks = CommServiceListener(this)
 
         networkSession.localDevice.communications[service::class.java.canonicalName] = service.connectionString
+        networkSession.allDevices.firstOrNull { it == networkSession.localDevice }?.merge(networkSession.localDevice)
         networkSession.services.add(service)
     }
 

@@ -10,7 +10,7 @@ import java.util.*
 class NetworkSession {
 
     internal var networkGraph: NetworkGraph = NetworkGraph(this)
-    val neighbours = mutableMapOf<String, Device>()
+
     val services: MutableList<CommService> = mutableListOf()
     var networkCallbacks: NetworkCallbacks? = null
     val longDistanceVectors: MutableMap<Device, Device> = mutableMapOf()
@@ -20,6 +20,26 @@ class NetworkSession {
     internal val pendingPackets = mutableMapOf<Device, MutableList<DataPacket>>()
 
     internal var processedUpdates = mutableMapOf<Long, Update>()
+
+    val neighbours: Map<String, Device>
+        get() {
+            val result = mutableMapOf<String, Device>()
+
+            for (service in services) {
+                for (neighbor in service.neighbors) {
+                    val id = neighbor.id.toString()
+                    val device = result[id]
+
+                    if (device == null) {
+                        result[id] = neighbor
+                    } else {
+                        device.merge(neighbor)
+                    }
+                }
+            }
+
+            return result.toMap();
+        }
 
     val processedPackets = mutableListOf<BasePacket>()
         get() {

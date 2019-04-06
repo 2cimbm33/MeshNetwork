@@ -34,7 +34,7 @@ internal class DataPacketHandler : PacketHandler<DataPacket> {
                         continue
                     }
 
-                    result
+                    session.routingTable[result] ?: continue
                 } else {
                     session.routingTable[recipient] ?: continue
                 }

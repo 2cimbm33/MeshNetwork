@@ -12,6 +12,7 @@ internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
     override fun receive(packet: HandshakeResponse, session: NetworkSession) {
         println("Importing graph")
         val ( xml, devices ) = packet.data as HandshakeData
+        session.networkGraph.addEdge(session.localDevice, packet.source)
         session.networkGraph.merge(xml, packet.source, session)
         println("Marking inNetwork as true")
         session.isInNetwork = true
@@ -25,7 +26,7 @@ internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
         }
 
         updateData.updates.add(Update(session.localDevice to packet.source, Update.CONNECTION_CREATED))
-        PacketSender.send(BroadcastPacket.create(updateData, session), session)
+        PacketSender.send(BroadcastPacket.create(updateData, session).apply { exclude = listOf(packet.source) }, session)
     }
 
     override fun send(packet: HandshakeResponse, session: NetworkSession) {

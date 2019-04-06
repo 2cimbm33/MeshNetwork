@@ -20,7 +20,7 @@ object NetworkConstants {
     const val HANDSHAKE_RESPONSE_DATA = "handshake-response"
     const val EMPTY_DATA = "empty-data"
 
-    const val ZONE_SIZE = 10
+    const val ZONE_SIZE = 1
 
     fun generateUUID(address: String): String {
         val messageDigest = MessageDigest.getInstance("MD5")

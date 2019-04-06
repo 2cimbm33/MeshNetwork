@@ -1,5 +1,6 @@
 package uni.cimbulka.network.packets
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import uni.cimbulka.network.NetworkController
 import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.data.BaseData
@@ -9,8 +10,13 @@ import java.util.*
 class BroadcastPacket(id: Int, source: Device, data: BaseData, timestamp: Long) :
         BasePacket(id, source, data, timestamp) {
 
+    @JsonIgnore
+    internal var exclude = emptyList<Device>()
+
     constructor(id: Int, sender: Device, data: BaseData) :
             this(id, sender, data, Date().time)
+
+
 
     companion object {
         @JvmStatic

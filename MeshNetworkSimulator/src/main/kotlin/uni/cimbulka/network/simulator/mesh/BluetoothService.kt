@@ -68,7 +68,7 @@ class BluetoothService(val adapter: BluetoothAdapter, name: String, private val 
                     val pac = BasePacket.fromJson(packet)
 
                     if (pac != null) {
-                        pac.trace.values.lastOrNull()?.let {
+                        pac.trace[pac.trace.size]?.let {
                             btNeighbors.add(NetworkNode(it, from.position))
                         }
                     }
@@ -93,10 +93,7 @@ class BluetoothService(val adapter: BluetoothAdapter, name: String, private val 
     }
 
     override fun connect(connString: String): Boolean {
-        val result = adapter.connect(connString) ?: return false
-
-        sendHandshakeRequest(result.id)
-        return true
+        return adapter.connect(connString) != null
     }
 
     override fun startScanning() {
