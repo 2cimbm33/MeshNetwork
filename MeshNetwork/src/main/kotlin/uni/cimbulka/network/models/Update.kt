@@ -1,18 +1,19 @@
 package uni.cimbulka.network.models
 
-data class Update @JvmOverloads constructor(var first: Device? = null, var second: Device? = null, var action: Int = -1) {
-    constructor(nodes: Pair<Device, Device>, action: Int) : this(nodes.first, nodes.second, action)
+data class Update(val nodes: Pair<Device, Device>, val action: Int) {
 
-        override fun equals(other: Any?): Boolean = when (other) {
+    constructor(first: Device, second: Device, action: Int) : this(first to second, action)
+
+    override fun equals(other: Any?): Boolean = when (other) {
         is Update -> action == other.action &&
-                (first == other.first || first == other.second) &&
-                (second == other.first || second == other.second)
+                (nodes.first == other.nodes.first || nodes.first == other.nodes.second) &&
+                (nodes.second == other.nodes.first || nodes.second == other.nodes.second)
         else -> false
     }
 
     override fun hashCode(): Int {
-        var result = first?.hashCode() ?: 0
-        result = 31 * result + (second?.hashCode() ?: 0)
+        var result = nodes.first.hashCode()
+        result = 31 * result + nodes.second.hashCode()
         result = 31 * result + action
         return result
     }

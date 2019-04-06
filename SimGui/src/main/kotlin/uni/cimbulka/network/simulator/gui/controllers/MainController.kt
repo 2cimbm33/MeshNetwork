@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import javafx.application.Platform
 import javafx.collections.ObservableList
 import javafx.scene.control.Alert
-import tornadofx.Controller
-import tornadofx.getProperty
-import tornadofx.onChange
-import tornadofx.property
+import tornadofx.*
 import uni.cimbulka.network.simulator.gui.database.Database
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.database.SnapshotDao
@@ -21,7 +18,7 @@ class MainController : Controller() {
 
     private var simulationRunning = false
 
-    val eventList: ObservableList<Int>
+    val eventList: ObservableList<String>
         get () = simDao.snapshotList
 
     var simId: String? by property("")
@@ -57,11 +54,10 @@ class MainController : Controller() {
             find<SimulationsDialog>().openModal(escapeClosesWindow = true, block = true)
     }
 
-    fun handleEventListClicked(item: Int?) {
-        item?.let {
-            println(it)
-            snapDao.getSnapshot(it)
-        }
+    fun handleEventListClicked(item: String?) {
+        val id = item?.split(" ")?.firstOrNull()?.toIntOrNull() ?: return
+        println("($id) $item")
+        snapDao.getSnapshot(id)
     }
 
     private val alert = Alert(Alert.AlertType.INFORMATION).apply {

@@ -17,7 +17,7 @@ internal class DataPacketHandler : PacketHandler<DataPacket> {
     }
 
     override fun send(packet: DataPacket, session: NetworkSession) {
-        val source = packet.source ?: return
+        val source = packet.source
         val packets = mutableMapOf<Device, DataPacket>()
 
         for (recipient in packet.recipients) {

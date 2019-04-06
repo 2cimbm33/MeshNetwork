@@ -2,7 +2,6 @@ package uni.cimbulka.network.packets.handlers
 
 import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.models.Device
-import uni.cimbulka.network.models.RouteSegment
 import uni.cimbulka.network.packets.PacketSender
 import uni.cimbulka.network.packets.RouteDiscoveryRequest
 import uni.cimbulka.network.packets.RouteDiscoveryResponse
@@ -27,7 +26,7 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
                     session.localDevice, Date().time,
                     packet.source, packet.route), session)
 
-            packet.source?.let {
+            packet.source.let {
                 for (device in packet.route) {
                     if (device != session.localDevice) {
                         session.longDistanceVectors[device] = it
@@ -66,7 +65,7 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
     }
 
     override fun send(packet: RouteDiscoveryRequest, session: NetworkSession) {
-        packet.recipient?.let {
+        packet.recipient.let {
             session.routingTable[it]?.let { next ->
                 PacketSender.getCommService(next, session)?.sendPacket(packet.toString(), next)
             }

@@ -6,28 +6,14 @@ import uni.cimbulka.network.data.BaseData
 import uni.cimbulka.network.models.Device
 import java.util.*
 
-class DataPacket : BasePacket {
+class DataPacket(id: Int,
+                 source: Device,
+                 val recipients: MutableList<Device>,
+                 data: BaseData,
+                 timestamp: Long = Date().time) : BasePacket(id, source, data, timestamp) {
 
-    val recipients: MutableList<Device>
-
-    constructor() : super() {
-        this.recipients = mutableListOf()
-    }
-
-    constructor(id: Int, sender: Device, recipients: MutableList<Device>, data: BaseData, timestamp: Long = Date().time) :
-            super (id, sender, data, timestamp) {
-        this.recipients = recipients
-    }
-
-    constructor(id: Int, sender: Device, recipient: Device, data: BaseData, timestamp: Long) :
-            super (id, sender, data, timestamp) {
-        recipients = mutableListOf(recipient)
-    }
-
-    constructor(id: Int, sender: Device, recipient: Device, data: BaseData) :
-            super (id, sender, data, Date().time) {
-        recipients = mutableListOf(recipient)
-    }
+    constructor(id: Int, source: Device, recipient: Device, data: BaseData, timestamp: Long = Date().time) :
+            this(id, source, mutableListOf(recipient), data, timestamp)
 
     companion object {
         @JvmStatic

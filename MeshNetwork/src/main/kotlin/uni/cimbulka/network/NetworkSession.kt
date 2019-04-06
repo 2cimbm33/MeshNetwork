@@ -11,7 +11,6 @@ class NetworkSession {
 
     internal var networkGraph: NetworkGraph = NetworkGraph(this)
     val neighbours = mutableMapOf<String, Device>()
-    val knownDevices = mutableMapOf<String, Device>()
     val services: MutableList<CommService> = mutableListOf()
     var networkCallbacks: NetworkCallbacks? = null
     val longDistanceVectors: MutableMap<Device, Device> = mutableMapOf()
@@ -30,7 +29,7 @@ class NetworkSession {
 
     var isInNetwork = false
         set(value) {
-            localDevice.isInNetwork = value
+            localDevice.inNetwork = value
             field = value
         }
 

@@ -2,33 +2,11 @@ package uni.cimbulka.network.packets
 
 import uni.cimbulka.network.data.EmptyData
 import uni.cimbulka.network.models.Device
-import uni.cimbulka.network.models.Route
 
-class RouteDiscoveryRequest : BasePacket {
-
-    var recipient: Device?
-    var requester: Device?
-    var target: Device?
-    val route: MutableList<Device>
-
-    constructor() : super() {
-        recipient = null
-        requester = null
-        target = null
-        route = mutableListOf<Device>()
-    }
-
-    @JvmOverloads
-    constructor(id: Int, source: Device?, timestamp: Long, recipient: Device? = null,
-                requester: Device? = null, target: Device? = null, route: MutableList<Device> = mutableListOf()) :
-    super(id, source, EmptyData(), timestamp) {
-        this.recipient = recipient
-        this.requester = requester
-        this.target = target
-        this.route = route
-    }
-
-    fun copy() =  RouteDiscoveryRequest(
-            id, source, timestamp, recipient, requester, target, route.toMutableList()
-    )
-}
+class RouteDiscoveryRequest(id: Int,
+                            source: Device,
+                            timestamp: Long,
+                            var recipient: Device,
+                            val requester: Device,
+                            val target: Device,
+                            val route: MutableList<Device> = mutableListOf()) : BasePacket(id, source, EmptyData(), timestamp)

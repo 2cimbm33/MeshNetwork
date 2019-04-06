@@ -14,8 +14,8 @@ internal object DataProcessor {
 
     private fun applyUpdates(updates: List<Update>, session: NetworkSession) {
         for (update in updates) {
-            val (first, second, action) = update
-            if (first == null || second == null) break
+            val (nodes, action) = update
+            val (first, second) = nodes
 
             when (action) {
                 Update.CONNECTION_CREATED -> {

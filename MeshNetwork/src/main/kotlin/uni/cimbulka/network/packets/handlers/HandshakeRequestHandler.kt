@@ -1,7 +1,7 @@
 package uni.cimbulka.network.packets.handlers
 
 import uni.cimbulka.network.NetworkSession
-import uni.cimbulka.network.data.HandshakeResponseData
+import uni.cimbulka.network.data.HandshakeData
 import uni.cimbulka.network.data.UpdateData
 import uni.cimbulka.network.models.Update
 import uni.cimbulka.network.packets.BroadcastPacket
@@ -12,32 +12,36 @@ import uni.cimbulka.network.packets.PacketSender
 internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
     override fun receive(packet: HandshakeRequest, session: NetworkSession) {
         println("Processing Handshake request")
-        packet.recipient?.let {
-            if (session.localDevice.id == it.id) {
-                val source = packet.source ?: return
+        val source = packet.source
+        val data = packet.data as HandshakeData
 
-                session.networkGraph.addDevice(source)
-                session.networkGraph.addEdge(it, source)
-                session.isInNetwork = true
+        session.networkGraph.addDevice(source)
+        session.networkGraph.addEdge(session.localDevice, source)
+        session.isInNetwork = true
 
-                val graph = session.networkGraph.export()
+        session.allDevices.add(source)
+        session.neighbours[source.id.toString()] = source
+        session.networkGraph.merge(data.graph, source, session)
 
-                val responseData = HandshakeResponseData(graph)
-                val response = HandshakeResponse(session.incrementPacketCount(), it, source, responseData)
-                val updateData = UpdateData(mutableListOf(Update(it, source, Update.CONNECTION_CREATED)))
-
-                PacketSender.send(response, session)
-                PacketSender.send(BroadcastPacket.create(updateData, session), session)
-
-                session.neighbours[source.id.toString()] = source
+        val updateData = UpdateData()
+        data.devices.forEach {
+            if (it !in session.allDevices) {
+                session.allDevices.add(it)
+                updateData.newDevices.add(it)
             }
         }
+
+        val graph = session.networkGraph.export()
+
+        val responseData = HandshakeData(graph, session.allDevices)
+        val response = HandshakeResponse(session.incrementPacketCount(), session.localDevice, source, responseData)
+        updateData.updates.add(Update(session.localDevice, source, Update.CONNECTION_CREATED))
+
+        PacketSender.send(response, session)
+        PacketSender.send(BroadcastPacket.create(updateData, session), session)
     }
 
     override fun send(packet: HandshakeRequest, session: NetworkSession) {
-        packet.recipient?.let {
-            val service = PacketSender.getCommService(it, session)
-            service?.sendPacket(packet.toString(), it)
-        }
+        throw RuntimeException("Handshake request can't be sent through the packet sender")
     }
 }

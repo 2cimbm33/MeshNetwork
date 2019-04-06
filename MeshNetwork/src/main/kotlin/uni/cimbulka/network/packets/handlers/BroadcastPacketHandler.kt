@@ -4,6 +4,7 @@ import uni.cimbulka.network.NetworkConstants
 import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.data.UpdateData
 import uni.cimbulka.network.models.Update
+import uni.cimbulka.network.packets.BasePacket
 import uni.cimbulka.network.packets.BroadcastPacket
 import uni.cimbulka.network.packets.PacketSender
 
@@ -12,30 +13,42 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
         if (session.processedPackets.find { it.id == packet.id && it.source == packet.source } == null) {
             // Check for updates that have already been applied, which should be filtered and ignored
             var resend = true
-            val updatesToResend = mutableListOf<Update>()
+            var packetToResend: BasePacket? = null
 
             val data = packet.data
             if (data is UpdateData) {
-                updatesToResend.addAll(processUpdates(data, session))
+                val newUpdateData = UpdateData().apply {
+                    updates.addAll(processUpdates(data, session))
+                    data.newDevices.forEach {
+                        if (it !in session.allDevices) {
+                            session.allDevices.add(it)
+                        }
+                    }
+                    newDevices.addAll(data.newDevices)
+                }
 
-                resend = if (updatesToResend.isNotEmpty()) {
-                    data.updates.clear()
-                    data.updates.addAll(updatesToResend)
-                    packet.trace.size <= NetworkConstants.ZONE_SIZE
-                } else {
-                    false
+                resend = (newUpdateData.updates.isNotEmpty() ||
+                        newUpdateData.newDevices.isNotEmpty()) &&
+                        packet.trace.size < NetworkConstants.ZONE_SIZE
+
+                if (resend) {
+                    packetToResend = BroadcastPacket.create(newUpdateData, session).apply {
+                        trace = packet.trace
+                    }
                 }
             }
 
             // Resend the packet
-            if (resend) PacketSender.send(packet, session)
+            packetToResend?.let {
+                if (resend) PacketSender.send(packet, session)
+            }
         }
     }
 
     override fun send(packet: BroadcastPacket, session: NetworkSession) {
         val data = packet.data
         when (data) {
-            is UpdateData -> if (data.updates.isEmpty()) return
+            is UpdateData -> if (data.updates.isEmpty() && data.newDevices.isEmpty()) return
         }
 
         session.neighbours.values.filter {
@@ -49,14 +62,15 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
         val pendingUpdates = mutableListOf(*data.updates.toTypedArray())
         val processedUpdates = session.processedUpdates
         val processedUpdatesKeys = processedUpdates.keys.sortedByDescending { it }
-        var id = processedUpdatesKeys.firstOrNull()?.plus(1) ?: 1;
+        var id = processedUpdatesKeys.firstOrNull()?.plus(1) ?: 1
         val updatesToRun = mutableListOf<Update>()
 
         for (update in data.updates) {
             for (key in processedUpdatesKeys) {
                 val check = processedUpdates[key] ?: continue
-                if ((update.first == check.first || update.first == check.first) &&
-                    (update.second == check.first || update.second == check.second)) {
+                val (first, second) = update.nodes
+                if ((first == first || first == first) &&
+                    (second == first || second == second)) {
                     if (update.action != check.action) {
                         updatesToRun.add(update)
                     }
@@ -84,8 +98,7 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
     }
 
     private fun runUpdate(update: Update, session: NetworkSession) {
-        val first = update.first ?: return
-        val second = update.second ?: return
+        val (first, second) = update.nodes
 
         when (update.action) {
             Update.CONNECTION_CREATED -> session.networkGraph.addEdge(first, second)
@@ -102,8 +115,8 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
             var contains = false
 
             for (up in uniqueUpdates.values) {
-                if ((update.first == up.first || update.first == up.first) &&
-                    (update.second == up.first || update.second == up.second)) {
+                if ((update.nodes.first == up.nodes.first || update.nodes.first == up.nodes.first) &&
+                    (update.nodes.second == up.nodes.first || update.nodes.second == up.nodes.second)) {
 
                     contains = true
                     break

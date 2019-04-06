@@ -19,7 +19,8 @@ dependencies {
     
     //compile project(':NetworkSimulator')
 
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+'
 
     implementation "org.jgrapht:jgrapht-core:$jgrapht_version"
     implementation "org.jgrapht:jgrapht-io:$jgrapht_version"

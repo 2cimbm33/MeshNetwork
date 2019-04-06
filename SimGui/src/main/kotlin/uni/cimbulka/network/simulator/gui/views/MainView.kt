@@ -63,7 +63,7 @@ class MainView : View("Main View") {
             borderpane {
                 center = snapshotView.root
 
-                left = listview<Int> {
+                left = listview<String> {
                     prefWidth = 400.0
                     items = controller.eventList
 

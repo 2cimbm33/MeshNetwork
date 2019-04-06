@@ -3,9 +3,7 @@ package uni.cimbulka.network.simulator.gui.database
 import javafx.beans.property.ReadOnlyProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
-import tornadofx.Controller
-import tornadofx.getProperty
-import tornadofx.property
+import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.MainController
 import uni.cimbulka.network.simulator.gui.models.Node
 import uni.cimbulka.network.simulator.gui.models.Simulation
@@ -17,7 +15,7 @@ class SimulationDao : Controller() {
     private val driver = Database.driver
 
     val simulationsList: ObservableList<Simulation> = FXCollections.observableArrayList()
-    val snapshotList: ObservableList<Int> = FXCollections.observableArrayList()
+    val snapshotList: ObservableList<String> = FXCollections.observableArrayList()
     val simNodeList: ObservableList<Node> = FXCollections.observableArrayList()
 
     var simStats: String by property()
@@ -59,18 +57,20 @@ class SimulationDao : Controller() {
 
     fun getSnapshots() {
         runAsync {
-            val result = mutableListOf<Int>()
+            val result = mutableListOf<String>()
 
             driver.session().run {
                 readTransaction { tx ->
                     val rs = tx.run("MATCH (sim:Simulation)-->(snap:Snapshot) " +
                             "WHERE sim.simId = \$simId " +
-                            "RETURN snap", mapOf("simId" to mainController.simId))
+                            "RETURN snap " +
+                            "ORDER BY snap.id", mapOf("simId" to mainController.simId))
 
                     for (record in rs) {
                         val node = record["snap"].asNode() ?: continue
                         val snapId = node["id"].asInt()
-                        result.add(snapId)
+                        val snapName = node["name"].asString()
+                        result.add("$snapId $snapName")
                     }
                 }
             }
@@ -78,7 +78,7 @@ class SimulationDao : Controller() {
             result
         } ui {
             snapshotList.clear()
-            snapshotList.addAll(it.sorted())
+            snapshotList.addAll(it)
         }
     }
 

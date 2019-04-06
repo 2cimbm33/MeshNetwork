@@ -1,13 +1,12 @@
 package uni.cimbulka.network.simulator.mesh
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import javafx.geometry.Point2D
 import uni.cimbulka.network.NetworkController
 import uni.cimbulka.network.models.Device
 import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.common.Position
 
-class NetworkNode(var device: Device = Device(), position: Position = Position())
+class NetworkNode(var device: Device, position: Position = Position())
     : Node(device.id.toString(), position) {
 
     override val id: String

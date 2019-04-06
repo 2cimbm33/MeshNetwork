@@ -29,9 +29,10 @@ class NetworkController(friendlyName: String) {
             it.serviceCallbacks = CommServiceListener(this)
         }
         networkSession.networkGraph.addDevice(localDevice)
+        networkSession.allDevices.add(localDevice)
     }
 
-    fun getDevicesInNetwork(): List<Device> = networkSession.networkGraph.devices.filter { it != networkSession.localDevice }
+    fun getDevicesInNetwork(): List<Device> = networkSession.allDevices.filter { it != networkSession.localDevice }
 
     fun start() {
         startMainJob()

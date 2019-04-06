@@ -6,14 +6,11 @@ import uni.cimbulka.network.data.BaseData
 import uni.cimbulka.network.models.Device
 import java.util.*
 
-class BroadcastPacket : BasePacket {
-    constructor() : super()
-
-    constructor(id: Int, sender: Device, data: BaseData, timestamp: Long) :
-            super(id, sender, data, timestamp)
+class BroadcastPacket(id: Int, source: Device, data: BaseData, timestamp: Long) :
+        BasePacket(id, source, data, timestamp) {
 
     constructor(id: Int, sender: Device, data: BaseData) :
-            super(id, sender, data, Date().time)
+            this(id, sender, data, Date().time)
 
     companion object {
         @JvmStatic

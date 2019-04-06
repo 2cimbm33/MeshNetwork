@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonSubTypes
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type
 import com.fasterxml.jackson.annotation.JsonTypeInfo
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import uni.cimbulka.network.NetworkConstants
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.data.BaseData
@@ -24,15 +25,15 @@ import java.util.*
         Type(value = RouteDiscoveryResponse::class, name = NetworkConstants.ROUTE_DISCOVERY_RESPONSE)
 )
 abstract class BasePacket @JvmOverloads constructor(
-        var id: Int = Int.MIN_VALUE,
-        var source: Device? = null,
+        val id: Int,
+        var source: Device,
         var data: BaseData = EmptyData(),
-        var timestamp: Long = Date().time) {
+        val timestamp: Long) {
 
     var trace: MutableMap<Int, Device> = mutableMapOf()
 
     override fun toString(): String {
-        return ObjectMapper().apply {
+        return jacksonObjectMapper().apply {
             setSerializationInclusion(JsonInclude.Include.NON_NULL)
         }.writeValueAsString(this)
     }
@@ -40,7 +41,7 @@ abstract class BasePacket @JvmOverloads constructor(
     companion object {
         @JvmStatic
         fun fromJson(json: String) = try {
-            ObjectMapper().readValue(json, BasePacket::class.java)
+            jacksonObjectMapper().readValue<BasePacket>(json)
         } catch (e: UnrecognizedPropertyException) {
             null
         }
@@ -51,11 +52,11 @@ fun main() {
     val sender = Device(UUID.randomUUID(), "PacketSender")
     val receiver = Device(UUID.randomUUID(), "Receiver")
 
-    val dp = DataPacket(1, sender, receiver, ApplicationData("Hello World!"), Date().time).apply {
+    val dp = DataPacket(1, sender, receiver, ApplicationData("Hello World!")).apply {
         trace[0] = sender
     }
 
-    val json = ObjectMapper().apply {
+    val json = jacksonObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)
     }.writerWithDefaultPrettyPrinter().writeValueAsString(dp)
 

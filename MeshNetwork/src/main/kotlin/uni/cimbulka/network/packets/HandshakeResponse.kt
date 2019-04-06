@@ -1,20 +1,11 @@
 package uni.cimbulka.network.packets
 
-import uni.cimbulka.network.data.HandshakeResponseData
+import uni.cimbulka.network.data.HandshakeData
 import uni.cimbulka.network.models.Device
 import java.util.*
 
-@JvmSuppressWildcards
-class HandshakeResponse : BasePacket {
-
-    var recipient: Device?
-
-    constructor() : super() {
-        recipient = null
-    }
-
-    constructor(id: Int, sender: Device, recipient: Device, graph: HandshakeResponseData, timestamp: Long = Date().time) :
-            super (id, sender, graph, timestamp) {
-        this.recipient = recipient
-    }
-}
+class HandshakeResponse(id: Int,
+                        source: Device,
+                        val recipient: Device,
+                        data: HandshakeData,
+                        timestamp: Long = Date().time) : BasePacket(id, source, data, timestamp)

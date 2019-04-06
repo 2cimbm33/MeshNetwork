@@ -3,8 +3,6 @@ package uni.cimbulka.network.packets
 import uni.cimbulka.network.CommService
 import uni.cimbulka.network.NetworkSession
 import uni.cimbulka.network.models.Device
-import uni.cimbulka.network.models.Route
-import uni.cimbulka.network.models.RouteSegment
 import uni.cimbulka.network.packets.handlers.PacketHandler
 import java.util.*
 
@@ -43,6 +41,23 @@ internal object PacketSender {
                     target = target, route = mutableListOf(session.localDevice, node)
             )
             PacketSender.send(packet, session)
+        }
+    }
+
+    fun sendPendingPackets(session: NetworkSession) {
+        for ((recipient, packets) in session.pendingPackets) {
+            session.longDistanceVectors[recipient] ?: continue
+            val sentPackets = mutableListOf<DataPacket>()
+
+            for (packet in packets) {
+                packet.trace.clear()
+                PacketSender.send(packet, session)
+                sentPackets.add(packet)
+            }
+
+            if (sentPackets.isNotEmpty()) {
+                packets.removeAll(sentPackets)
+            }
         }
     }
 }

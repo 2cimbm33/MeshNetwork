@@ -19,22 +19,15 @@ internal data class NetworkGraph(private val session: NetworkSession,
 
     val borderNodes: List<Device>
         get() {
-            try {
-                val result = mutableListOf<Device>()
-                val paths = DijkstraShortestPath<Device, DefaultEdge>(graph).getPaths(session.localDevice)
+            val result = mutableListOf<Device>()
 
-                for (device in graph.vertexSet()) {
-                    if (device != session.localDevice && graph.edgesOf(device).isNotEmpty()) {
-                        if (paths.getPath(device).vertexList.size == NetworkConstants.ZONE_SIZE + 1) {
-                            result.add(device)
-                        }
-                    }
+            graph.vertexSet().forEach {
+                if (getDistance(session.localDevice, it) == NetworkConstants.ZONE_SIZE) {
+                    result.add(it)
                 }
-
-                return result
-            } catch (ignored: Exception) {
-                return emptyList()
             }
+
+            return result
         }
 
     fun export(): String {
@@ -43,12 +36,12 @@ internal data class NetworkGraph(private val session: NetworkSession,
             setVertexAttributeProvider {
                 mapOf(
                         "name" to DefaultAttribute.createAttribute(it.name),
-                        "isInNetwork" to DefaultAttribute.createAttribute(it.isInNetwork)
+                        "inNetwork" to DefaultAttribute.createAttribute(it.inNetwork)
                 )
             }
 
             registerAttribute("name", GraphMLExporter.AttributeCategory.NODE, AttributeType.STRING)
-            registerAttribute("isInNetwork", GraphMLExporter.AttributeCategory.NODE, AttributeType.BOOLEAN)
+            registerAttribute("inNetwork", GraphMLExporter.AttributeCategory.NODE, AttributeType.BOOLEAN)
         }
         val writer = StringWriter()
         exporter.exportGraph(graph, writer)
@@ -93,7 +86,13 @@ internal data class NetworkGraph(private val session: NetworkSession,
                 false
             }
 
-    fun edgesOf(device: Device) = graph.edgesOf(device).toList()
+    fun edgesOf(device: Device): List<DefaultEdge> {
+        return if (graph.containsVertex(device)) {
+            graph.edgesOf(device).toList()
+        } else {
+            emptyList()
+        }
+    }
 
     fun removeEdge(first: Device, second: Device): Boolean = when {
         graph.containsEdge(first, second) -> {
@@ -124,18 +123,46 @@ internal data class NetworkGraph(private val session: NetworkSession,
         return RoutingTable(routingMap)
     }
 
+    fun merge(xml: String, mergeFrom: Device, session: NetworkSession) {
+        val otherGraph = NetworkGraph.import(xml, session)
+
+        for (device in otherGraph.devices) {
+            val takeEdges = getDistance(session.localDevice, device) > getDistance(mergeFrom, device)
+            addDevice(device)
+
+            if (takeEdges) {
+                for (edge in otherGraph.edgesOf(device)) {
+                    val source = otherGraph.graph.getEdgeSource(edge)
+                    val target = otherGraph.graph.getEdgeTarget(edge)
+
+                    addEdge(source, target)
+                }
+            }
+        }
+    }
+
+    private fun getDistance(first: Device, second: Device): Int {
+        return try {
+            val paths = DijkstraShortestPath<Device, DefaultEdge>(graph).getPaths(first)
+            paths.getPath(second).vertexList.size - 1
+        } catch (e: Exception) {
+            -1
+        }
+
+    }
+
     companion object {
         @JvmStatic
-        fun import(csv: String, session: NetworkSession): NetworkGraph {
+        fun import(xml: String, session: NetworkSession): NetworkGraph {
             val graph = SimpleGraph<Device, DefaultEdge>(DefaultEdge::class.java)
             val vertexProvider = VertexProvider<Device> { id, attributes ->
                 val name = attributes["name"]?.value ?: "Name not set"
                 Device(UUID.fromString(id), name).apply {
-                    isInNetwork = attributes["isInNetwork"]?.value?.toBoolean() ?: false
+                    inNetwork = attributes["inNetwork"]?.value?.toBoolean() ?: false
                 }
             }
             val edgeProvider = EdgeProvider<Device, DefaultEdge> { _, _, _, _ -> DefaultEdge() }
-            val reader = StringReader(csv)
+            val reader = StringReader(xml)
             val importer = GraphMLImporter<Device, DefaultEdge>(vertexProvider, edgeProvider)
 
             importer.importGraph(graph, reader)

@@ -1,10 +1,7 @@
 package uni.cimbulka.network.models
 
-data class Route @JvmOverloads constructor(
-        val segments: MutableList<RouteSegment> = mutableListOf()
-) {
+data class Route(val segments: MutableList<RouteSegment> = mutableListOf()) {
 
-    @JvmOverloads
     fun getIndex(device: Device, end: Boolean = true): Int {
         segments.forEachIndexed { index, segment ->
             if (end) {

@@ -2,26 +2,28 @@ package uni.cimbulka.network.models
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import uni.cimbulka.network.helpers.UUIDJsonDeserilazer
 import uni.cimbulka.network.helpers.UUIDJsonSerializer
 import java.util.*
 
-data class Device @JvmOverloads constructor(
+data class Device(
         @JsonSerialize(using = UUIDJsonSerializer::class)
         @JsonDeserialize(using = UUIDJsonDeserilazer::class)
-        var id: UUID? = null,
-        var name: String = "") {
+        var id: UUID,
+        var name: String) {
 
-    var isInNetwork: Boolean = false
+    var inNetwork: Boolean = false
+
     @JsonIgnore
     val communications = mutableMapOf<String, String>()
 
     override fun toString(): String {
-        return ObjectMapper().apply {
+        return jacksonObjectMapper().apply {
             setSerializationInclusion(JsonInclude.Include.NON_NULL)
         }.writeValueAsString(this)
     }
@@ -40,7 +42,7 @@ data class Device @JvmOverloads constructor(
     companion object {
         @JvmStatic
         fun fromJson(json: String) = try {
-            ObjectMapper().readValue(json, Device::class.java)
+            jacksonObjectMapper().readValue<Device>(json)
         } catch (e: UnrecognizedPropertyException) {
             null
         }
