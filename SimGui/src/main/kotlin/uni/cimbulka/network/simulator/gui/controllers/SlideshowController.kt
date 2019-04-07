@@ -1,13 +1,11 @@
 package uni.cimbulka.network.simulator.gui.controllers
 
-import tornadofx.Controller
-import tornadofx.getProperty
-import tornadofx.property
+import tornadofx.*
+import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.models.Report
 
 class SlideshowController : Controller() {
     private val mainController: MainController by inject()
-    private val graphController: GraphController by inject()
 
     val report: Report?
         get() = mainController.report
@@ -23,7 +21,7 @@ class SlideshowController : Controller() {
             runAsync {
                 Thread.sleep(delay.toLong())
             } ui {
-                graphController.draw(snapshot.nodes, snapshot.connections)
+                fire(RedrawCanvas(snapshot.nodes, snapshot.connections))
             }
         }
         playing = false

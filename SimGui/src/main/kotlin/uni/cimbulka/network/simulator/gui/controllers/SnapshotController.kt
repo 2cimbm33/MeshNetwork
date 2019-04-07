@@ -2,16 +2,13 @@ package uni.cimbulka.network.simulator.gui.controllers
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import tornadofx.Controller
-import tornadofx.getProperty
-import tornadofx.onChange
-import tornadofx.property
+import tornadofx.*
 import uni.cimbulka.network.simulator.gui.database.SnapshotDao
+import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.models.Snapshot
 
 class SnapshotController : Controller() {
     private val snapDao: SnapshotDao by inject()
-    private val graphController: GraphController by inject()
 
     var name: String by property("")
     fun nameProperty() = getProperty(SnapshotController::name)
@@ -72,6 +69,6 @@ class SnapshotController : Controller() {
         }
         stats = builder.toString()
 
-        graphController.draw(snapshot.nodes, snapshot.connections)
+        fire(RedrawCanvas(snapshot.nodes, snapshot.connections))
     }
 }

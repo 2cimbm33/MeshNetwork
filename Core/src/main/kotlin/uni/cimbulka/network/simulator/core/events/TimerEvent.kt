@@ -9,10 +9,10 @@ data class TimerEventArgs(val interval: Double, var invocations: Int = Int.MAX_V
 class TimerEvent(override val time: Double, args: TimerEventArgs) : Event<TimerEventArgs>("Timer", args) {
     override fun invoke(simulator: AbstractSimulator) {
         val (interval, invocations, block) = args
-        args.invocations--
+        if (invocations != -1) args.invocations--
         block(time)
 
-        if (invocations > 0)
+        if (invocations > 0 || invocations == -1)
             simulator.insert(TimerEvent(time + interval, args))
     }
 }

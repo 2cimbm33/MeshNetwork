@@ -3,24 +3,24 @@ package uni.cimbulka.network.simulator.gui.controllers
 import javafx.beans.property.ReadOnlyProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
+import javafx.geometry.Dimension2D
 import javafx.scene.control.Alert
 import tornadofx.*
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
+import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.gui.NetworkCallbacksImpl
 import uni.cimbulka.network.simulator.gui.SimulationCallbacksImpl
+import uni.cimbulka.network.simulator.gui.events.ClickedCanvas
+import uni.cimbulka.network.simulator.gui.events.ClickedNode
+import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.models.PositionNode
-import uni.cimbulka.network.simulator.gui.views.dialogs.AddNodeDialog
-import uni.cimbulka.network.simulator.gui.views.dialogs.RemoveNodeDialog
 import uni.cimbulka.network.simulator.gui.views.dialogs.SendMessageDialog
 import uni.cimbulka.network.simulator.mesh.InteractiveSimulation
-import uni.cimbulka.network.simulator.mesh.NetworkNode
-import uni.cimbulka.network.simulator.mesh.reporting.Connection
 
 class InteractiveSimulationController : Controller() {
     private lateinit var simulator: InteractiveSimulation
-    private val graphController: GraphController by inject()
 
     var time: Double by property()
     fun timeProperty() = getProperty(InteractiveSimulationController::time) as ReadOnlyProperty<Double>
@@ -32,8 +32,6 @@ class InteractiveSimulationController : Controller() {
         private set
     fun startButtonTextProperty() = getProperty(InteractiveSimulationController::startButtonText) as ReadOnlyProperty<String>
 
-    val nodes: ObservableList<NetworkNode> = FXCollections.observableArrayList()
-    val connections: ObservableList<Connection> = FXCollections.observableArrayList()
     val events: ObservableList<EventInterface> = FXCollections.observableArrayList()
 
     init {
@@ -44,17 +42,20 @@ class InteractiveSimulationController : Controller() {
         }
 
         events.onChange {
-            connections.clear()
-            connections.addAll(simulator.connections)
-
             val positionNodes = mutableListOf<PositionNode>()
-            nodes.forEach { positionNodes.add(PositionNode(it.id, it.device.name, it.position)) }
+            simulator.nodes.forEach { positionNodes.add(PositionNode(it.id, it.device.name, it.position)) }
 
-            println(connections)
-            println(positionNodes)
-
-            graphController.draw(positionNodes, connections)
+            fire(RedrawCanvas(positionNodes, simulator.connections))
         }
+
+        subscribe<ClickedCanvas> {
+            addNode(it.position)
+        }
+
+        subscribe<ClickedNode> {
+            removeNode(it.id)
+        }
+
     }
 
     fun handleStartButton() {
@@ -65,47 +66,32 @@ class InteractiveSimulationController : Controller() {
         }
     }
 
-    fun addNode() {
+    fun addNode(position: Position) {
         if (running) {
-            AddNodeDialog().showAndWait().ifPresent {
-                val node = simulator.addNode(it.name, it.position, NetworkCallbacksImpl(it.name, this), it.delay)
-                nodes.add(node)
+            val callbacksImpl = NetworkCallbacksImpl(this)
+            simulator.addNode(position, callbacksImpl).apply {
+                callbacksImpl.deviceName = device.name
             }
         }
 
     }
 
-    fun removeNode() {
+    fun removeNode(id: String) {
         if (running) {
-            val names = mutableListOf<String>()
-            nodes.forEach { names.add(it.device.name) }
-
-            RemoveNodeDialog(names).showAndWait().ifPresent {
-                removeNode(it.name)
-            }
-        }
-    }
-
-    fun removeNode(name: String) {
-        if (running) {
-            nodes.firstOrNull { it.device.name == name }?.let {
+            simulator.nodes.firstOrNull { it.device.id.toString() == id }?.let {
                 simulator.removeNode(it)
             }
         }
     }
 
-    fun moveNode() {
-        // TODO: MoveNodeDialog open modal
-    }
-
     fun sendMessage() {
         if (running) {
             val names = mutableListOf<String>()
-            nodes.forEach { names.add(it.device.name) }
+            simulator.nodes.forEach { names.add(it.device.name) }
 
             SendMessageDialog(names).showAndWait().ifPresent { result ->
-                val sender = nodes.firstOrNull { it.device.name == result.sender } ?: return@ifPresent
-                val recipient = nodes.firstOrNull { it.device.name == result.recipient } ?: return@ifPresent
+                val sender = simulator.nodes.firstOrNull { it.device.name == result.sender } ?: return@ifPresent
+                val recipient = simulator.nodes.firstOrNull { it.device.name == result.recipient } ?: return@ifPresent
                 val data = ApplicationData(result.message)
 
                 sender.controller?.let {
@@ -125,7 +111,7 @@ class InteractiveSimulationController : Controller() {
 
     private fun start() {
         if (!running) {
-            simulator = InteractiveSimulation(SimulationCallbacksImpl(this))
+            simulator = InteractiveSimulation(SimulationCallbacksImpl(this), Dimension2D(100.0, 100.0))
             simulator.start()
             running = true
         }

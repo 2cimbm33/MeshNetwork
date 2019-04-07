@@ -12,38 +12,46 @@ class ListQueue<T : Comparable> : OrderedSet<T>() {
         get() = elements.size
 
     override fun insert(element: T) {
-        var i = 0
+        synchronized(this) {
+            var i = 0
 
-        while (i < size && (elements[i] as EventInterface) < element) {
-            i++
+            while (i < size && (elements[i] as EventInterface) < element) {
+                i++
+            }
+
+            elements.insertElementAt(element, i)
         }
-
-        elements.insertElementAt(element, i)
     }
 
     override fun peek(): T? {
-        if (elements.isEmpty()) return null
-        return elements.firstElement();
+        synchronized(this) {
+            if (elements.isEmpty()) return null
+            return elements.firstElement()
+        }
     }
 
     override fun removeFirst(): T? {
-        if (elements.isEmpty()) return null
+        synchronized(this) {
+            if (elements.isEmpty()) return null
 
-        val element = elements.firstElement()
-        elements.remove(element)
-        return element
+            val element = elements.firstElement()
+            elements.remove(element)
+            return element
+        }
     }
 
     override fun remove(element: T): T? {
-        for (i in 0..(size - 1)) {
-            if (elements[i] == element) {
-                val el = elements[i]
-                elements.removeElementAt(i)
-                return el
+        synchronized(this) {
+            for (i in 0..(size - 1)) {
+                if (elements[i] == element) {
+                    val el = elements[i]
+                    elements.removeElementAt(i)
+                    return el
+                }
             }
-        }
 
-        return null
+            return null
+        }
     }
 
     override fun removeAll() {

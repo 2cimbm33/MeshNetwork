@@ -24,12 +24,13 @@ class InteractiveSimulationView : View("Interactive simulation") {
         }
 
         left = vbox {
-            button("Add node") { action(controller::addNode) }
-            button("Remove node") { action(controller::removeNode) }
-            button("Move node") { isDisable = true }
             button("Send message") { action(controller::sendMessage) }
         }
 
         center = graphView.root
+    }
+
+    init {
+        graphView.fireEvents = true
     }
 }

@@ -15,9 +15,11 @@ class BluetoothService(val adapter: BluetoothAdapter, name: String, private val 
 
     override val neighbors: List<Device>
         get() {
-            val result = mutableListOf<Device>()
-            btNeighbors.forEach { result.add(it.device) }
-            return result
+            synchronized(this) {
+                val result = mutableListOf<Device>()
+                btNeighbors.forEach { result.add(it.device) }
+                return result
+            }
         }
 
     override val isReady = true

@@ -43,8 +43,10 @@ class NetworkSession {
 
     val processedPackets = mutableListOf<BasePacket>()
         get() {
-            field.removeIf { Math.abs(Date().time - it.timestamp) > 5 * 60 * 1000 }
-            return field
+            synchronized(this) {
+                field.removeIf { Math.abs(Date().time - it.timestamp) > 5 * 60 * 1000 }
+                return field
+            }
         }
 
     var isInNetwork = false

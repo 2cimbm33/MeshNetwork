@@ -1,16 +1,27 @@
 package uni.cimbulka.network.simulator.mesh.random
 
+import com.sun.javafx.geom.Vec2d
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import uni.cimbulka.network.simulator.Constants
+import uni.cimbulka.network.simulator.common.Position
+import uni.cimbulka.network.simulator.core.events.TimerEvent
+import uni.cimbulka.network.simulator.core.events.TimerEventArgs
 import uni.cimbulka.network.simulator.mesh.NetworkNode
 import uni.cimbulka.network.simulator.mesh.random.ticks.*
+import java.util.concurrent.ThreadLocalRandom
 import kotlin.coroutines.EmptyCoroutineContext
 
-class RandomTickGenerator(val configuration: RandomTicGeneratorConfiguration) {
+class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
+    val nodes = mutableMapOf<NetworkNode, Vec2d>()
+    var callbacks: GeneratorCallbacks? = null
+
+    var interval: Long = 500
+
+    private val simulator = configuration.simulator
     private var mainJob: Job? = null
-    private val nodes = mutableListOf<NetworkNode>()
 
     private val canCreate: Boolean
         get() = nodes.size < configuration.maxNumberOfNodes
@@ -22,10 +33,18 @@ class RandomTickGenerator(val configuration: RandomTicGeneratorConfiguration) {
         get() = nodes.size > 1
 
     fun start() {
-        mainJob = CoroutineScope(EmptyCoroutineContext).launch {
-            // Generate tick
+        if (configuration.rule.useEvents) {
+            simulator.insert(TimerEvent(simulator.time, TimerEventArgs(interval.toDouble(), -1) {
+                generate()
+            }))
+        } else {
+            mainJob = CoroutineScope(EmptyCoroutineContext).launch {
+                while (true) {
+                    generateAsync()
 
-            delay(20)
+                    delay(interval)
+                }
+            }
         }
     }
 
@@ -36,17 +55,38 @@ class RandomTickGenerator(val configuration: RandomTicGeneratorConfiguration) {
         }
     }
 
-    private fun generate(): RandomTick? {
+    private fun generate() {
+        for (node in nodes.keys) {
+            if (callbacks != null) {
+                val tick = generateForNode(node) ?: continue
+                callbacks?.generated(tick)
+            }
+        }
+    }
+
+    private fun generateAsync() {
+        synchronized(nodes) {
+            for (node in nodes.keys) {
+                if (callbacks != null) {
+                    CoroutineScope(EmptyCoroutineContext).launch {
+                        val tick = generateForNode(node) ?: return@launch
+                        callbacks?.generated(tick)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun generateForNode(node: NetworkNode): RandomTick? {
         val range = 0..3
-        // Are we generating
-        if (range.random() % 2 == 1) return null
+        if (range.random() != 0) return null
 
         val type = when (range.random()) {
             0 -> if(canCreate)
                 RandomTick.Types.CREATE_NODE
             else if (!canSend)
                 RandomTick.Types.MOVE_NODE
-            else if (range.random() % 2 == 0)
+            else if (range.random() != 0)
                 RandomTick.Types.MOVE_NODE
             else
                 RandomTick.Types.SEND_MESSAGE
@@ -55,7 +95,7 @@ class RandomTickGenerator(val configuration: RandomTicGeneratorConfiguration) {
                 RandomTick.Types.REMOVE_NODE
             else if (!canSend)
                 RandomTick.Types.MOVE_NODE
-            else if (range.random() % 2 == 0)
+            else if (range.random() != 0)
                 RandomTick.Types.MOVE_NODE
             else
                 RandomTick.Types.SEND_MESSAGE
@@ -67,26 +107,89 @@ class RandomTickGenerator(val configuration: RandomTicGeneratorConfiguration) {
         }
 
         return when (type) {
-            RandomTick.Types.CREATE_NODE -> generateCreateTick()
-            RandomTick.Types.REMOVE_NODE -> generateRemoveTick()
-            RandomTick.Types.MOVE_NODE -> generateMoveTick()
-            RandomTick.Types.SEND_MESSAGE -> generateSendTick()
+            RandomTick.Types.CREATE_NODE -> genCreateTick(node)
+            RandomTick.Types.REMOVE_NODE -> genRemoveTick(node)
+            RandomTick.Types.MOVE_NODE -> genMoveTick(node)
+            RandomTick.Types.SEND_MESSAGE -> genSendTick(node)
         }
     }
 
-    private fun generateCreateTick(): CreateTick {
-        TODO()
+    private fun genCreateTick(node: NetworkNode): CreateTick {
+        synchronized(node) {
+            val range = -Constants.Bluetooth.BLUETOOTH_RANGE..Constants.Bluetooth.BLUETOOTH_RANGE
+
+            val position = if (nodes.isNotEmpty()) {
+                val ref = nodes.keys.random()
+                Position(ref.position.x + range.random(), ref.position.y + range.random())
+            } else {
+                Position(configuration.dimension.width / 2, configuration.dimension.height / 2)
+            }
+
+            val initVector = getRandomVector()
+
+            return CreateTick(node, position, initVector)
+        }
     }
 
-    private fun generateRemoveTick(): RemoveTick {
-        TODO()
+    private fun genRemoveTick(node: NetworkNode): RemoveTick {
+        return RemoveTick(node)
     }
 
-    private fun generateMoveTick(): MoveTick {
-        TODO()
+    private fun genMoveTick(node: NetworkNode): MoveTick {
+        synchronized(node) {
+            val currentVector = nodes[node] ?: Vec2d()
+
+            val newVec = if (currentVector.length < 8) {
+                currentVector + getRandomVector()
+            } else {
+                currentVector - getRandomVector()
+            }
+
+            return MoveTick(node, newVec)
+        }
     }
 
-    private fun generateSendTick(): SendTick {
-        TODO()
+    private fun genSendTick(node: NetworkNode): SendTick? {
+        synchronized(node) {
+            lateinit var recipient: NetworkNode
+
+            do {
+                try {
+                    recipient = nodes.keys.random()
+                } catch (e: Exception) {
+                    return null
+                }
+            } while (recipient == node)
+
+            return SendTick(node, recipient)
+        }
+    }
+
+    fun getRandomVector(): Vec2d {
+        val range = -1.0..1.0
+        return Vec2d(range.random(), range.random())
     }
  }
+
+fun ClosedFloatingPointRange<Double>.random(): Double {
+    return ThreadLocalRandom.current().nextDouble(
+            this.start, this.endInclusive
+    )
+}
+
+val Vec2d.length: Double
+    get() = Math.sqrt(Math.pow(x, 2.0) + Math.pow(y, 2.0))
+
+operator fun Vec2d.plus(other: Vec2d): Vec2d {
+    return Vec2d(
+            x + other.x,
+            y + other.y
+    )
+}
+
+operator fun Vec2d.minus(other: Vec2d): Vec2d {
+    return Vec2d(
+            x - other.x,
+            y - other.y
+    )
+}

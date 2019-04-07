@@ -1,9 +1,9 @@
 package uni.cimbulka.network.simulator
 
-import uni.cimbulka.network.simulator.core.InteractiveSimulator
+import uni.cimbulka.network.simulator.core.ContinuousSimulator
 import uni.cimbulka.network.simulator.core.interfaces.SimulationCallbacks
 
-abstract class InteractiveNetworkSimulator(callbacks: SimulationCallbacks) : InteractiveSimulator(callbacks) {
+abstract class ContinuousNetworkSimulator(callbacks: SimulationCallbacks) : ContinuousSimulator(callbacks) {
 
     init {
         Session.simulator = this

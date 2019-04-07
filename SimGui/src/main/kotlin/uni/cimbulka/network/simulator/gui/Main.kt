@@ -1,6 +1,6 @@
 package uni.cimbulka.network.simulator.gui
 
-import tornadofx.App
+import tornadofx.*
 import uni.cimbulka.network.simulator.gui.database.Database
 import uni.cimbulka.network.simulator.gui.views.MainView
 
@@ -14,5 +14,9 @@ class Main : App(MainView::class) {
 
     companion object {
         var dbStarted = false
+
+        fun fireEvent(evnt: FXEvent) {
+
+        }
     }
 }

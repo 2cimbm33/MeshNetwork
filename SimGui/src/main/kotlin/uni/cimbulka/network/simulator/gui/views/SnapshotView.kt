@@ -82,6 +82,7 @@ class SnapshotView : View() {
             }
 
             tab("Graph") {
+                graphView.fireEvents = false
                 add(graphView)
             }
         }

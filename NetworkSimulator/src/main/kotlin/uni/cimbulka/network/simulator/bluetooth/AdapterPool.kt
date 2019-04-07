@@ -7,17 +7,19 @@ object AdapterPool {
     val adapters = mutableMapOf<String, BluetoothAdapter>()
 
     internal fun updateConnections(phy: PhysicalLayer) {
-        adapters.forEach { id, adapter ->
-            val connectionsToRemove = mutableListOf<String>()
+        synchronized(phy) {
+            adapters.forEach { id, adapter ->
+                val connectionsToRemove = mutableListOf<String>()
 
-            adapter.connections.forEach { otherId, _ ->
-                if (adapter.hasConnection(otherId) && !phy.inRange(id, otherId)) {
-                    connectionsToRemove.add(otherId)
+                adapter.connections.forEach { otherId, _ ->
+                    if (adapter.hasConnection(otherId) && !phy.inRange(id, otherId)) {
+                        connectionsToRemove.add(otherId)
+                    }
                 }
-            }
 
-            connectionsToRemove.forEach {
-                adapter.closeConnection(it)
+                connectionsToRemove.forEach {
+                    adapter.closeConnection(it)
+                }
             }
         }
     }

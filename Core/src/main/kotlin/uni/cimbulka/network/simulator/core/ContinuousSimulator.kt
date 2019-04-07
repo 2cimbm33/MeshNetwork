@@ -10,7 +10,7 @@ import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import java.util.*
 import kotlin.coroutines.EmptyCoroutineContext
 
-open class InteractiveSimulator(private val callbacks: SimulationCallbacks) : AbstractSimulator() {
+open class ContinuousSimulator(private val callbacks: SimulationCallbacks) : AbstractSimulator() {
     override val events = ListQueue<EventInterface>()
 
     override fun start() {
@@ -28,12 +28,14 @@ open class InteractiveSimulator(private val callbacks: SimulationCallbacks) : Ab
                     if (event == null || event.time > time) break
                     if (event is ShutdownEvent) break@main
 
-                    launch {
-                        event(this@InteractiveSimulator)
-                        callbacks.executed(event, time)
+                    synchronized(this@ContinuousSimulator) {
+                        launch {
+                            event(this@ContinuousSimulator)
+                            callbacks.executed(event, time)
+                        }
+                        events.remove(event)
+                        setTime()
                     }
-                    events.remove(event)
-                    setTime()
                 }
 
                 delay(1)
