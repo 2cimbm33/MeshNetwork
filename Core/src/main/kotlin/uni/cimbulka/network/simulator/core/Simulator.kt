@@ -10,7 +10,7 @@ open class Simulator(open val monitor: MonitorInterface = DefaultMonitor()) : Ab
     override val events = ListQueue<EventInterface>()
 
     override fun start() {
-        println("[$time] Starting simulation")
+        //println("[$time] Starting simulation")
 
         while (true) {
             (events.removeFirst() as Event<*>?)?.let {
@@ -20,7 +20,7 @@ open class Simulator(open val monitor: MonitorInterface = DefaultMonitor()) : Ab
             } ?: break
         }
 
-        println("[$time] Simulation ended\n")
+        //println("[$time] Simulation ended\n")
         monitor.printRecords()
     }
 }

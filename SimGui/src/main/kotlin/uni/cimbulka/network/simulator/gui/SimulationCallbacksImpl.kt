@@ -12,6 +12,7 @@ class SimulationCallbacksImpl(private val controller: InteractiveSimulationContr
         }
     }
 
+
     override fun executed(event: EventInterface, executedAt: Double) {
         Platform.runLater {
             controller.events.add(event)

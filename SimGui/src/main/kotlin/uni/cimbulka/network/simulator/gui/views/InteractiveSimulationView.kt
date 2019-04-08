@@ -1,5 +1,6 @@
 package uni.cimbulka.network.simulator.gui.views
 
+import javafx.scene.layout.AnchorPane
 import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.InteractiveSimulationController
 import uni.cimbulka.network.simulator.gui.helpers.DoubleToStringConverter
@@ -27,7 +28,13 @@ class InteractiveSimulationView : View("Interactive simulation") {
             button("Send message") { action(controller::sendMessage) }
         }
 
-        center = graphView.root
+        center = anchorpane {
+            add(graphView)
+            AnchorPane.setLeftAnchor(graphView.root, 0.0)
+            AnchorPane.setTopAnchor(graphView.root, 0.0)
+            AnchorPane.setRightAnchor(graphView.root, 0.0)
+            AnchorPane.setBottomAnchor(graphView.root, 0.0)
+        }
     }
 
     init {

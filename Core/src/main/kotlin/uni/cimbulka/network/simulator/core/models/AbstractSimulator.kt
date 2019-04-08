@@ -10,10 +10,12 @@ abstract class AbstractSimulator {
 
     abstract fun start()
 
+    @Synchronized
     open fun insert(event: EventInterface) {
         events.insert(event)
     }
 
+    @Synchronized
     open fun insert(time: Double, name: String, block: (AbstractSimulator) -> Unit) {
         events.insert(event(time, name, block))
     }

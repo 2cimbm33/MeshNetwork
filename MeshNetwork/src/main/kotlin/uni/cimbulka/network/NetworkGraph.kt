@@ -30,6 +30,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
             return result
         }
 
+    @Synchronized
     fun export(): String {
         val exporter = GraphMLExporter<Device, DefaultEdge>().apply {
             setVertexIDProvider { it.id.toString() }
@@ -50,6 +51,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
         return result
     }
 
+    @Synchronized
     fun addDevice(device: Device): Boolean {
         timestamp = Date().time
         return if (!graph.containsVertex(device)) {
@@ -61,6 +63,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
             false
     }
 
+    @Synchronized
     fun removeDevice(device: Device): Boolean {
         timestamp = Date().time
         return if (graph.containsVertex(device)) {
@@ -72,6 +75,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
             false
     }
 
+    @Synchronized
     fun addEdge(first: Device, second: Device): Boolean =
             if (!graph.containsEdge(first, second) || !graph.containsEdge(second, first)) {
                 try {
@@ -94,6 +98,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
         }
     }
 
+    @Synchronized
     fun removeEdge(first: Device, second: Device): Boolean = when {
         graph.containsEdge(first, second) -> {
             graph.removeEdge(first, second)
@@ -108,6 +113,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
         else -> false
     }
 
+    @Synchronized
     fun calcRoutingTable(): RoutingTable {
         val routingMap = mutableMapOf<Device, Device>()
         val paths = DijkstraShortestPath<Device, DefaultEdge>(graph).getPaths(session.localDevice)
@@ -117,12 +123,14 @@ internal data class NetworkGraph(private val session: NetworkSession,
                 if (device != session.localDevice && graph.edgesOf(device).isNotEmpty()) {
                     routingMap[device] = paths.getPath(device).vertexList[1]
                 }
-            } catch (ignored: Exception) {}
+            } catch (ignored: Exception) {
+            }
         }
 
         return RoutingTable(routingMap)
     }
 
+    @Synchronized
     fun merge(xml: String, mergeFrom: Device, session: NetworkSession) {
         val otherGraph = NetworkGraph.import(xml, session)
 
@@ -139,6 +147,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
         }
     }
 
+    @Synchronized
     private fun getDistance(first: Device, second: Device): Int {
         return try {
             val paths = DijkstraShortestPath<Device, DefaultEdge>(graph).getPaths(first)
@@ -151,6 +160,7 @@ internal data class NetworkGraph(private val session: NetworkSession,
 
     companion object {
         @JvmStatic
+        @Synchronized
         fun import(xml: String, session: NetworkSession): NetworkGraph {
             val graph = SimpleGraph<Device, DefaultEdge>(DefaultEdge::class.java)
             val vertexProvider = VertexProvider<Device> { id, attributes ->

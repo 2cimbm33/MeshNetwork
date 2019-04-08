@@ -7,27 +7,26 @@ import uni.cimbulka.network.packets.handlers.PacketHandler
 import java.util.*
 
 internal object PacketSender {
+    @Synchronized
     @Suppress("UNCHECKED_CAST")
     fun <T : BasePacket> send(packet: T, session: NetworkSession) {
-        synchronized(packet) {
-            packet.trace[packet.trace.size + 1] = session.localDevice
-            println("Sending packet [NetworkController]: $packet")
+        packet.trace[packet.trace.size + 1] = session.localDevice
+        //println("Sending packet [NetworkController]: $packet")
 
-            val handler = PacketHandler.getHandler(packet::class) as? PacketHandler<T> ?: return
-            handler.send(packet, session)
+        val handler = PacketHandler.getHandler(packet::class) as? PacketHandler<T> ?: return
+        handler.send(packet, session)
 
-            if (packet is DataPacket) {
-                for (packets in session.pendingPackets.values) {
-                    for (pending in packets) {
-                        if (pending == packet) {
-                            return
-                        }
+        if (packet is DataPacket) {
+            for (packets in session.pendingPackets.values) {
+                for (pending in packets) {
+                    if (pending == packet) {
+                        return
                     }
                 }
             }
-
-            session.processedPackets.add(packet)
         }
+
+        session.processedPackets.add(packet)
     }
 
     internal fun getCommService(recipient: Device, session: NetworkSession): CommService? {

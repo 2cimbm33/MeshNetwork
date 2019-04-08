@@ -28,14 +28,13 @@ open class ContinuousSimulator(private val callbacks: SimulationCallbacks) : Abs
                     if (event == null || event.time > time) break
                     if (event is ShutdownEvent) break@main
 
-                    synchronized(this@ContinuousSimulator) {
-                        launch {
-                            event(this@ContinuousSimulator)
-                            callbacks.executed(event, time)
-                        }
-                        events.remove(event)
-                        setTime()
+                    launch {
+                        event(this@ContinuousSimulator)
+                        callbacks.executed(event, time)
                     }
+
+                    events.remove(event)
+                    setTime()
                 }
 
                 delay(1)

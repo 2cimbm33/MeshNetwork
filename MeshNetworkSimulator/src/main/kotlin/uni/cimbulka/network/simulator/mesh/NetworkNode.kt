@@ -22,6 +22,7 @@ class NetworkNode(var device: Device, position: Position = Position())
 
     override fun equals(other: Any?): Boolean {
         return when (other) {
+            is NetworkNode -> this.id == other.id
             is Node -> this.id == other.id
             else -> false
         }

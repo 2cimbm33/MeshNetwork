@@ -27,6 +27,7 @@ import uni.cimbulka.network.simulator.physical.events.*
 import kotlin.coroutines.EmptyCoroutineContext
 
 class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dimension2D) : ContinuousSimulator(callbacks) {
+
     private var moveJob: Job? = null
     private val phy = PhysicalLayer()
     private val generator = RandomTickGenerator(RandomTickGeneratorConfiguration(
@@ -41,16 +42,24 @@ class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dime
 
     val connections: List<Connection>
         get() {
-            val result = mutableListOf<Connection>()
-            for (adapter in AdapterPool.adapters.values) {
-                for (id in adapter.connections.keys) {
-                    val connection = Connection(adapter.node.id, id)
-                    if (connection !in result) {
-                        result.add(connection)
+            AdapterPool.lock.lock()
+            try {
+                val result = mutableListOf<Connection>()
+                for (adapter in AdapterPool.adapters.values) {
+                    for (id in adapter.connections.keys) {
+                        val connection = Connection(adapter.node.id, id)
+                        if (connection !in result) {
+                            result.add(connection)
+                        }
                     }
                 }
+
+                return result
+            } catch (e: Exception) {
+                throw e
+            } finally {
+                AdapterPool.lock.unlock()
             }
-            return result
         }
 
     init {
@@ -61,8 +70,7 @@ class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dime
                 when (tick) {
                     is MoveTick -> {
                         synchronized(tick) {
-                            val node = generator.nodes.keys.firstOrNull { it.id == tick.node.id } ?: return
-                            generator.nodes.replace(node, tick.vector)
+                            generator.updateNode(tick.node, tick.vector)
                         }
                     }
 
@@ -88,7 +96,7 @@ class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dime
                 insertNode()
             }
 
-            generator.nodes[node] = generator.getRandomVector()
+            generator.addNode(node)
             return node
         }
     }
@@ -96,7 +104,7 @@ class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dime
     fun removeNode(node: NetworkNode, delay: Double = 0.0) {
         node.controller?.stop()
         insert(RemoveNodeEvent(time + delay, RemoveNodeEventArgs(node, phy)))
-        generator.nodes.remove(node)
+        generator.removeNode(node)
     }
 
     override fun start() {

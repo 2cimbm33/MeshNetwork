@@ -15,11 +15,12 @@ import java.util.concurrent.ThreadLocalRandom
 import kotlin.coroutines.EmptyCoroutineContext
 
 class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
-    val nodes = mutableMapOf<NetworkNode, Vec2d>()
     var callbacks: GeneratorCallbacks? = null
+    var interval: Long = 1 * 1000
+    val nodes: Map<NetworkNode, Vec2d>
+        get() = internalNodes.toMap()
 
-    var interval: Long = 500
-
+    private val internalNodes = mutableMapOf<NetworkNode, Vec2d>()
     private val simulator = configuration.simulator
     private var mainJob: Job? = null
 
@@ -52,6 +53,29 @@ class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
         mainJob?.let {
             if (it.isActive)
                 it.cancel()
+        }
+    }
+
+    fun addNode(node: NetworkNode) {
+        synchronized(node) {
+            val temp = internalNodes.keys.firstOrNull { it.id == node.id }
+            if (temp == null)
+                internalNodes[node] = getRandomVector()
+        }
+    }
+
+    fun updateNode(node: NetworkNode, vector: Vec2d) {
+        synchronized(node) {
+            val temp = internalNodes.keys.firstOrNull { it.id == node.id } ?: return
+            internalNodes.replace(temp, vector)
+        }
+    }
+
+    fun removeNode(node: NetworkNode) {
+        synchronized(node) {
+            val duplicateNodes = mutableListOf<NetworkNode>()
+            internalNodes.keys.forEach { if (it.id == node.id) duplicateNodes.add(it); }
+            duplicateNodes.forEach { internalNodes.remove(it) }
         }
     }
 
@@ -91,7 +115,7 @@ class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
             else
                 RandomTick.Types.SEND_MESSAGE
 
-            1 -> if (canSend)
+            1 -> if (canRemove)
                 RandomTick.Types.REMOVE_NODE
             else if (!canSend)
                 RandomTick.Types.MOVE_NODE

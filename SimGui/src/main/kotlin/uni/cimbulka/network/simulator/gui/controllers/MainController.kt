@@ -36,7 +36,7 @@ class MainController : Controller() {
 
     init {
         simIdProperty().onChange {
-            println(it)
+            //println(it)
             //openFile("simulationReport.json")
             simDao.getSnapshots()
             simDao.getSimNodes()
@@ -56,7 +56,7 @@ class MainController : Controller() {
 
     fun handleEventListClicked(item: String?) {
         val id = item?.split(" ")?.firstOrNull()?.toIntOrNull() ?: return
-        println("($id) $item")
+        //println("($id) $item")
         snapDao.getSnapshot(id)
     }
 

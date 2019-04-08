@@ -6,7 +6,7 @@ import uni.cimbulka.network.packets.PacketProcessor
 
 internal class MessageListener(private val session: NetworkSession) {
     fun onMessageReceived(json: String) {
-        println("MessageListener:onMessageReceived")
+        //println("MessageListener:onMessageReceived")
 
         val packet = BasePacket.fromJson(json) ?: return
         PacketProcessor.process(packet, session)
@@ -22,6 +22,6 @@ internal class MessageListener(private val session: NetworkSession) {
             }
 
         }*/
-        println("Done processing")
+        //println("Done processing")
     }
 }

@@ -116,7 +116,8 @@ class SimulationDao : Controller() {
                             "WHERE sim.simId = \$simId " +
                             "RETURN s", mapOf("simId" to mainController.simId))
 
-                    val record = rs.single()
+                    if (!rs.iterator().hasNext()) return@readTransaction  ""
+                    val record = rs.iterator().next()
                     val node = record["s"].asNode()
                     node["value"].asString()
                 }

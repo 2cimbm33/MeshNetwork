@@ -16,10 +16,15 @@ class BluetoothAdapter(@JsonIgnore private val physicalLayer: PhysicalLayer, val
         private set
 
     @JsonIgnore
-    val connections = mutableMapOf<String, BluetoothAdapter>()
-
-    val connectionKeys: List<String>
-        get() = connections.keys.toList()
+    val connections: MutableMap<String, BluetoothAdapter> = mutableMapOf()
+        get() {
+            AdapterPool.lock.lock()
+            try {
+                return field
+            } finally {
+                AdapterPool.lock.unlock()
+            }
+        }
 
     init {
         val id = node.id

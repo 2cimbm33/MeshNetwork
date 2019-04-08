@@ -8,7 +8,7 @@ import uni.cimbulka.network.packets.PacketSender
 
 internal class DataPacketHandler : PacketHandler<DataPacket> {
     override fun receive(packet: DataPacket, session: NetworkSession) {
-        println("Processing Data packet")
+        //println("Processing Data packet")
         if (session.localDevice in packet.recipients) {
             DataProcessor.process(packet.data, session)
         }

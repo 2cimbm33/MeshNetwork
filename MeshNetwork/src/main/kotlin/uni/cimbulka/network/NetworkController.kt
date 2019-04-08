@@ -44,10 +44,12 @@ class NetworkController(friendlyName: String) {
         networkSession.mainJob = false
     }
 
+    @Synchronized
     fun send(packet: BroadcastPacket) {
         PacketSender.send(packet, networkSession)
     }
 
+    @Synchronized
     fun send(packet: DataPacket) {
         PacketSender.send(packet, networkSession)
     }

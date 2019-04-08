@@ -4,7 +4,6 @@ import javafx.beans.property.ReadOnlyProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.geometry.Dimension2D
-import javafx.scene.control.Alert
 import tornadofx.*
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
@@ -18,9 +17,11 @@ import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.models.PositionNode
 import uni.cimbulka.network.simulator.gui.views.dialogs.SendMessageDialog
 import uni.cimbulka.network.simulator.mesh.InteractiveSimulation
+import java.util.logging.Logger
 
 class InteractiveSimulationController : Controller() {
     private lateinit var simulator: InteractiveSimulation
+    private lateinit var dimensions: Dimension2D
 
     var time: Double by property()
     fun timeProperty() = getProperty(InteractiveSimulationController::time) as ReadOnlyProperty<Double>
@@ -45,7 +46,7 @@ class InteractiveSimulationController : Controller() {
             val positionNodes = mutableListOf<PositionNode>()
             simulator.nodes.forEach { positionNodes.add(PositionNode(it.id, it.device.name, it.position)) }
 
-            fire(RedrawCanvas(positionNodes, simulator.connections))
+            fire(RedrawCanvas(positionNodes, simulator.connections, dimensions))
         }
 
         subscribe<ClickedCanvas> {
@@ -102,18 +103,17 @@ class InteractiveSimulationController : Controller() {
     }
 
     fun onDataReceived(data: ApplicationData, name: String) {
-        Alert(Alert.AlertType.INFORMATION).apply {
-            title = "Message received"
-            headerText = "$name received a message"
-            contentText = data.toString()
-        }.show()
+        Logger.getLogger(this::class.java.simpleName).info("$name received a message: $data")
     }
 
     private fun start() {
         if (!running) {
+            dimensions = Dimension2D(25.0, 25.0)
             simulator = InteractiveSimulation(SimulationCallbacksImpl(this), Dimension2D(100.0, 100.0))
             simulator.start()
             running = true
+
+            fire(RedrawCanvas(emptyList(), emptyList(), dimensions))
         }
     }
 

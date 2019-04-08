@@ -11,7 +11,7 @@ import uni.cimbulka.network.packets.PacketSender
 
 internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
     override fun receive(packet: HandshakeRequest, session: NetworkSession) {
-        println("Processing Handshake request")
+        //println("Processing Handshake request")
         val source = packet.source
         val data = packet.data as HandshakeData
 

@@ -17,13 +17,15 @@ class NeighborListener(private val session: NetworkSession) {
         }
 
         for (device in session.allDevices.filter { it !in session.neighbours.values }) {
-            if (device == session.localDevice) continue
-
-            for (service in session.services) {
-                val connString = device.communications[service::class.qualifiedName] ?: continue
-                if (service.connect(connString)) {
-                    val update = connect(device) ?: continue
-                    updateData.updates.add(update)
+            synchronized(device) {
+                if (device != session.localDevice) {
+                    for (service in session.services) {
+                        val connString = device.communications[service::class.qualifiedName] ?: continue
+                        if (service.connect(connString)) {
+                            val update = connect(device) ?: continue
+                            updateData.updates.add(update)
+                        }
+                    }
                 }
             }
         }

@@ -1,11 +1,13 @@
 package uni.cimbulka.network.simulator.gui.controllers
 
+import javafx.geometry.Dimension2D
 import tornadofx.*
 import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.models.Report
 
 class SlideshowController : Controller() {
     private val mainController: MainController by inject()
+    private val dimensions = Dimension2D(100.0, 100.0)
 
     val report: Report?
         get() = mainController.report
@@ -21,7 +23,7 @@ class SlideshowController : Controller() {
             runAsync {
                 Thread.sleep(delay.toLong())
             } ui {
-                fire(RedrawCanvas(snapshot.nodes, snapshot.connections))
+                fire(RedrawCanvas(snapshot.nodes, snapshot.connections, dimensions))
             }
         }
         playing = false
