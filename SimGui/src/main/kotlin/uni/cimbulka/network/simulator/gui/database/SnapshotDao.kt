@@ -9,7 +9,6 @@ import uni.cimbulka.network.simulator.gui.controllers.MainController
 import uni.cimbulka.network.simulator.gui.models.Event
 import uni.cimbulka.network.simulator.gui.models.PositionNode
 import uni.cimbulka.network.simulator.gui.models.Snapshot
-import uni.cimbulka.network.simulator.mesh.reporting.Aggregation
 import uni.cimbulka.network.simulator.mesh.reporting.Connection
 
 class SnapshotDao : Controller() {
@@ -26,19 +25,17 @@ class SnapshotDao : Controller() {
             var snapshot: Snapshot? = null
             driver.session().run {
                 readTransaction { tx ->
-                    val rs = tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (snap)-->(e:Event), (snap)-->(stats:Stats), (snap)-[r:CONTAINS]->(n:Node) " +
+                    val rs = tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (snap)-->(e:Event), (snap)-[r:CONTAINS]->(n:Node) " +
                             "WHERE sim.simId = \$simId AND snap.id = \$id " +
-                            "RETURN e, stats, r, n", mapOf("simId" to mainController.simId, "id" to id))
+                            "RETURN e, r, n", mapOf("simId" to mainController.simId, "id" to id))
 
                     val records = rs.list()
                     val first = records.firstOrNull() ?: return@readTransaction
                     val eventNode = first["e"].asNode()
                     val eventTime = eventNode["time"].asDouble()
                     val eventArgs = mapper.readTree(eventNode["args"].asString())
-                    val statsNode = first["stats"].asNode()
 
                     val event = Event(eventTime, getEventName(eventNode), eventArgs)
-                    val aggregation = mapper.readValue(statsNode["value"].asString(), Aggregation::class.java)
                     val nodes = mutableListOf<PositionNode>()
                     val connections = mutableListOf<Connection>()
 
@@ -56,7 +53,7 @@ class SnapshotDao : Controller() {
                             }
                         }
                     }
-                    snapshot = Snapshot(id, event, nodes, connections, aggregation)
+                    snapshot = Snapshot(id, event, nodes, connections)
                 }
 
                 snapshot

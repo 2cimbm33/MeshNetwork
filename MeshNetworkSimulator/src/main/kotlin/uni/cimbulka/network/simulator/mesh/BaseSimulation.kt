@@ -13,8 +13,14 @@ import java.util.*
 
 abstract class BaseSimulation(type: String, driver: Driver) :
         NetworkSimulator(NetworkMonitor(UUID.randomUUID().toString() ,PhysicalLayer(), type, driver)) {
+
     final override val monitor: NetworkMonitor = super.monitor as NetworkMonitor
-    protected val phy = monitor.physicalLayer
+    protected val phy: PhysicalLayer
+        get() = monitor.physicalLayer
+    
+    init {
+        monitor.simulator = this
+    }
 
     var simulationCallbacks: BaseSimulationCallbacks?
         get() = monitor.callbacks

@@ -4,6 +4,8 @@ import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 
 abstract class AbstractSimulator {
     protected abstract val events: OrderedSet<EventInterface>
+    val numberOfEvents: Int
+        get() = events.size
 
     var time: Double = 0.0
         protected set

@@ -29,7 +29,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dimension2D) : ContinuousSimulator(callbacks) {
 
     private var moveJob: Job? = null
-    private val phy = PhysicalLayer()
+    private val phy = PhysicalLayer(dimensions.width, dimensions.height)
     private val generator = RandomTickGenerator(RandomTickGeneratorConfiguration(
             this,
             RandomTickGeneratorConfiguration.Rule.CONTINUOUS,
@@ -125,8 +125,11 @@ class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dime
                 for ((node, vector) in generator.nodes) {
                     val (x, y) = node.position
 
-                    if (x == .0 || x >= dimensions.width) vector.x = vector.x * -1
-                    if (y == .0 || y >= dimensions.height) vector.y = vector.y * -1
+                    val newX = x + (vector.x / 10)
+                    val newY = y + (vector.y / 10)
+
+                    if (newX < 0.0 || newX >= dimensions.width) vector.x *= -1
+                    if (newY + vector.y == .0 || newY + vector.y >= dimensions.height) vector.y *= -1
 
                     insert(MoveNodeEvent(time, MoveNodeEventArgs(
                             node.id, vector.x / 10, vector.y / 10, phy

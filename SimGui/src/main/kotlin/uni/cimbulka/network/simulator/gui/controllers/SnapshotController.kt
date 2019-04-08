@@ -27,9 +27,6 @@ class SnapshotController : Controller() {
     var connections: String by property("")
     fun connectionsProperty() = getProperty(SnapshotController::connections)
 
-    var stats: String by property("")
-    fun statsProperty() = getProperty(SnapshotController::stats)
-
     init {
         snapDao.snapshotProperty().onChange { snapshot ->
             snapshot?.let {
@@ -63,13 +60,6 @@ class SnapshotController : Controller() {
             builder.appendln()
         }
         connections = builder.toString()
-
-        builder.clear()
-        snapshot.aggregation.stats.forEach {
-            builder.appendln(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
-            builder.appendln()
-        }
-        stats = builder.toString()
 
         fire(RedrawCanvas(snapshot.nodes, snapshot.connections, dimensions))
     }

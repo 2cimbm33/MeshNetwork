@@ -1,7 +1,6 @@
 package uni.cimbulka.network.simulator.mesh.reporting
 
 import uni.cimbulka.network.simulator.bluetooth.AdapterPool
-import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.models.Event
 import uni.cimbulka.network.simulator.mesh.NetworkNode
 import uni.cimbulka.network.simulator.physical.PhysicalLayer

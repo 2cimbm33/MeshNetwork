@@ -13,7 +13,7 @@ class SnapshotView : View() {
     override val root = borderpane {
         top = hbox {
             alignment = Pos.CENTER
-            padding = Insets(10.0)
+            paddingAll = 10.0
             spacing = 20.0
 
             hbox {
@@ -44,7 +44,7 @@ class SnapshotView : View() {
 
             tab("Args") {
                 scrollpane {
-                    padding = Insets(10.0)
+                    paddingAll = 10.0
 
                     label {
                         bind(controller.argsProperty())
@@ -68,16 +68,6 @@ class SnapshotView : View() {
                         }
                     }
 
-                }
-            }
-
-            tab("Stats") {
-                scrollpane {
-                    padding = Insets(10.0)
-
-                    label {
-                        bind(controller.statsProperty())
-                    }
                 }
             }
 

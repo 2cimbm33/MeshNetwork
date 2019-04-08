@@ -9,6 +9,7 @@ import uni.cimbulka.network.simulator.gui.database.Database
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.database.SnapshotDao
 import uni.cimbulka.network.simulator.gui.models.Report
+import uni.cimbulka.network.simulator.gui.views.dialogs.RandomSimulationConfigDialog
 import uni.cimbulka.network.simulator.gui.views.dialogs.SimulationsDialog
 import uni.cimbulka.network.simulator.mesh.*
 
@@ -30,17 +31,12 @@ class MainController : Controller() {
     var nodes: String by property("")
     fun nodesProperty() = getProperty(MainController::nodes)
 
-    val stats: String
-        get() = simDao.simStats
-    fun statsProperty() = simDao.simStatsProperty()
-
     init {
         simIdProperty().onChange {
             //println(it)
             //openFile("simulationReport.json")
             simDao.getSnapshots()
             simDao.getSimNodes()
-            simDao.getSimStats()
         }
 
         simDao.simNodeList.onChange {
@@ -52,6 +48,10 @@ class MainController : Controller() {
     fun openSimulationPicker() {
         if (!simulationRunning)
             find<SimulationsDialog>().openModal(escapeClosesWindow = true, block = true)
+    }
+
+    fun refreshSimulation() {
+        simDao.getSnapshots()
     }
 
     fun handleEventListClicked(item: String?) {
@@ -83,15 +83,24 @@ class MainController : Controller() {
     }
 
     private fun getSimulation(type: String): BaseSimulation? {
-        val result = when (type) {
+        val result: BaseSimulation? = when (type) {
             "Simulation1" -> Simulation1(Database.driver)
             "Simulation2" -> Simulation2(Database.driver)
             "Simulation3" -> Simulation3(Database.driver)
             "Simulation4" -> Simulation4(Database.driver)
+            "RandomSimulation" -> {
+                val result = RandomSimulationConfigDialog().showAndWait()
+
+                if (result.isPresent) {
+                    RandomSimulation(Database.driver, result.get())
+                } else {
+                    null
+                }
+            }
             else -> null
         } ?: return null
 
-        result.simulationCallbacks = object : BaseSimulationCallbacks {
+        result?.simulationCallbacks = object : BaseSimulationCallbacks {
             override fun simulationFinished(id: String) {
                 Platform.runLater {
                     simulationRunning = false

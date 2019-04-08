@@ -56,11 +56,11 @@ class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
         }
     }
 
-    fun addNode(node: NetworkNode) {
+    fun addNode(node: NetworkNode, vector: Vec2d = getRandomVector()) {
         synchronized(node) {
             val temp = internalNodes.keys.firstOrNull { it.id == node.id }
             if (temp == null)
-                internalNodes[node] = getRandomVector()
+                internalNodes[node] = vector
         }
     }
 

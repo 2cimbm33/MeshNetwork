@@ -18,10 +18,6 @@ class SimulationDao : Controller() {
     val snapshotList: ObservableList<String> = FXCollections.observableArrayList()
     val simNodeList: ObservableList<Node> = FXCollections.observableArrayList()
 
-    var simStats: String by property()
-        private set
-    fun simStatsProperty() = getProperty(SimulationDao::simStats) as ReadOnlyProperty<String>
-
     fun getSimulations() {
         runAsync {
             val result = mutableListOf<Simulation>()
@@ -105,25 +101,6 @@ class SimulationDao : Controller() {
         } ui {
             simNodeList.clear()
             simNodeList.addAll(it)
-        }
-    }
-
-    fun getSimStats() {
-        runAsync<String> {
-            driver.session().run {
-                readTransaction { tx ->
-                    val rs = tx.run("MATCH (sim:Simulation)-->(s:Stats) " +
-                            "WHERE sim.simId = \$simId " +
-                            "RETURN s", mapOf("simId" to mainController.simId))
-
-                    if (!rs.iterator().hasNext()) return@readTransaction  ""
-                    val record = rs.iterator().next()
-                    val node = record["s"].asNode()
-                    node["value"].asString()
-                }
-            }
-        } ui {
-            simStats = it
         }
     }
 }

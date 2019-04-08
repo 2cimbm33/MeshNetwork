@@ -8,7 +8,6 @@ import uni.cimbulka.network.simulator.gui.controllers.MainController
 class MainView : View("Main View") {
     private val controller: MainController by inject()
     private val snapshotView: SnapshotView by inject()
-    private val slideshowView: SlideshowView by inject()
     private val interactiveSimulationView: InteractiveSimulationView by inject()
 
     override val root = tabpane {
@@ -20,37 +19,44 @@ class MainView : View("Main View") {
             borderpane {
                 left = vbox {
                     button("Run Simulation1") {
-                        userData = "Simulation1"
                         action {
                             controller.runSimulation("Simulation1")
                         }
                     }
 
                     button("Run Simulation2") {
-                        userData = "Simulation1"
                         action {
                             controller.runSimulation("Simulation2")
                         }
                     }
 
                     button("Run Simulation3") {
-                        userData = "Simulation1"
                         action {
                             controller.runSimulation("Simulation3")
                         }
                     }
 
                     button("Run Simulation4") {
-                        userData = "Simulation1"
                         action {
                             controller.runSimulation("Simulation4")
                         }
                     }
 
+                    button("Run random simulation") {
+                        action {
+                            controller.runSimulation("RandomSimulation")
+                        }
+                    }
+
                 }
 
-                center = button("Open Simulation") {
-                    action(controller::openSimulationPicker)
+                center = vbox {
+                    button("Open Simulation") {
+                        action(controller::openSimulationPicker)
+                    }
+                    button("Refresh") {
+                        action(controller::refreshSimulation)
+                    }
                 }
             }
         }
@@ -81,22 +87,6 @@ class MainView : View("Main View") {
                 label {
                     bind(controller.nodesProperty())
                 }
-            }
-        }
-
-        tab("Stats") {
-            scrollpane {
-                padding = Insets(10.0)
-
-                label {
-                    bind(controller.statsProperty())
-                }
-            }
-        }
-
-        tab("Slideshow") {
-            scrollpane {
-                add(slideshowView)
             }
         }
     }

@@ -12,6 +12,7 @@ import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEvent
 import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.core.interfaces.MonitorInterface
+import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import uni.cimbulka.network.simulator.core.models.Event
 import uni.cimbulka.network.simulator.mesh.events.StartNodeEvent
 import uni.cimbulka.network.simulator.mesh.reporting.Report
@@ -22,19 +23,32 @@ import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.MoveNodeEvent
 import uni.cimbulka.network.simulator.physical.events.RemoveNodeEvent
+import java.util.*
+import java.util.concurrent.locks.ReentrantLock
 
 @Suppress("Duplicates")
 class NetworkMonitor(val simulationId: String,
-                     val physicalLayer: PhysicalLayer,
+                     physicalLayer: PhysicalLayer,
                      simulatorType: String,
                      private val driver: Driver) : MonitorInterface {
 
+    private val lock = ReentrantLock()
+    private var started = false
     private val report = Report()
     private val mapper = ObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)
     }
 
+    private var firstEvent: Long = 0
+
     private var numberOfEvents = 0
+
+    lateinit var simulator: AbstractSimulator
+
+    var physicalLayer: PhysicalLayer = physicalLayer
+        set(value) {
+            if (!started) field = value
+        }
 
     internal var callbacks: BaseSimulationCallbacks? = null
 
@@ -48,6 +62,13 @@ class NetworkMonitor(val simulationId: String,
     }
 
     override fun record(event: EventInterface) {
+        if (!started) {
+            started = true
+            firstEvent = Date().time
+        }
+
+        println("Event -> $numberOfEvents; ${simulator.numberOfEvents} left to go; time: ${simulator.time}")
+
         if (event is Event<*>) {
             when (event) {
                 is EndDiscoveryEvent -> {
@@ -118,6 +139,7 @@ class NetworkMonitor(val simulationId: String,
                 )
             }
         }
+        println("Simulation finished in ${Date().time - firstEvent}ms")
 
         callbacks?.simulationFinished(simulationId)
     }
@@ -155,7 +177,7 @@ class NetworkMonitor(val simulationId: String,
                             mapOf("simId" to simulationId, "nodeId" to node.id, "nodeName" to node.device.name)
                     )
 
-                    val connections = getConnections(snapshot, node)
+                            val connections = getConnections(snapshot, node)
 
                     tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
                             "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
