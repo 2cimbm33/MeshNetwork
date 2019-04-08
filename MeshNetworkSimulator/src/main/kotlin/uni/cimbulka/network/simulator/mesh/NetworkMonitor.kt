@@ -157,12 +157,12 @@ class NetworkMonitor(val simulationId: String,
 
     private fun saveSnapshot(snapshot: SimulationSnapshot) {
         driver.session().apply {
-            writeTransaction { tx ->
+            writeTransactionAsync { tx ->
                 val id = numberOfEvents
                 val event = snapshot.event
                 val name = event.name.replace("\\s".toRegex(), "").split("-").first()
 
-                tx.run(
+                tx.runAsync(
                         "MATCH (sim:Simulation {simId: \$simId}) " +
                                 "CREATE (n:Snapshot) SET n.id = \$id, n.name = \$name " +
                                 "CREATE (sim)-[:CONTAINS]->(n)",
@@ -170,7 +170,7 @@ class NetworkMonitor(val simulationId: String,
                 )
 
                 snapshot.nodes.forEach { node ->
-                    tx.run(
+                    tx.runAsync(
                             "MATCH (s:Simulation {simId: \$simId}) " +
                                     "MERGE (n:Node {id: \$nodeId, name: \$nodeName}) " +
                                     "MERGE (s)-[:CONTAINS]->(n)",
@@ -179,7 +179,7 @@ class NetworkMonitor(val simulationId: String,
 
                             val connections = getConnections(snapshot, node)
 
-                    tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
+                    tx.runAsync("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
                             "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
                             "CREATE (snap)-[r:CONTAINS]->(n) " +
                             "SET r.x = ${node.position.x}, r.y = ${node.position.y}, r.conn = \$conn", mapOf(
@@ -195,7 +195,7 @@ class NetworkMonitor(val simulationId: String,
                         val connections = getConnections(snapshot, it)
                         val inRange = getInRange(it)
 
-                        tx.run("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
+                        tx.runAsync("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
                                 "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
                                 "CREATE (snap)-[r:MAIN]->(n) " +
                                 "SET r.x = ${it.position.x}, r.y = ${it.position.y}, r.conn = \$conn, r.range = \$range", mapOf(
@@ -208,7 +208,7 @@ class NetworkMonitor(val simulationId: String,
                     }
                 }
 
-                tx.run(
+                tx.runAsync(
                         "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
                                 "CREATE (e:$name:Event {time: \$time, args: \$args, name: \$name}) " +
                                 "CREATE (snap)-[:HAS]->(e)",
@@ -222,7 +222,7 @@ class NetworkMonitor(val simulationId: String,
                 )
 
                 val stats = snapshot.aggregation
-                tx.run(
+                tx.runAsync(
                         "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
                                 "CREATE (stats:Stats {value: \$value}) " +
                                 "CREATE (snap)-[:HAS]->(stats)",

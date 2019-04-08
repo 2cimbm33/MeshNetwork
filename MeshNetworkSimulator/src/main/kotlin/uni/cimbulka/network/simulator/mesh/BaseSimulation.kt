@@ -17,7 +17,7 @@ abstract class BaseSimulation(type: String, driver: Driver) :
     final override val monitor: NetworkMonitor = super.monitor as NetworkMonitor
     protected val phy: PhysicalLayer
         get() = monitor.physicalLayer
-    
+
     init {
         monitor.simulator = this
     }

@@ -14,9 +14,9 @@ import uni.cimbulka.network.simulator.mesh.random.ticks.*
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.coroutines.EmptyCoroutineContext
 
-class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
+class RandomTickGenerator(private val configuration: RandomTickGeneratorConfiguration) {
     var callbacks: GeneratorCallbacks? = null
-    var interval: Long = 1 * 1000
+    private var interval: Long = 1 * 1000
     val nodes: Map<NetworkNode, Vec2d>
         get() = internalNodes.toMap()
 
@@ -28,7 +28,7 @@ class RandomTickGenerator(val configuration: RandomTickGeneratorConfiguration) {
         get() = nodes.size < configuration.maxNumberOfNodes
 
     private val canRemove: Boolean
-        get() = nodes.isNotEmpty() && configuration.maxNumberOfNodes != -1
+        get() = nodes.size > configuration.maxNumberOfNodes - 5 && configuration.maxNumberOfNodes != -1
 
     private val canSend: Boolean
         get() = nodes.size > 1
