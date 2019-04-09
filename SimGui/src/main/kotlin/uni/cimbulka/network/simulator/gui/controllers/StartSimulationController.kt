@@ -8,8 +8,8 @@ import uni.cimbulka.network.simulator.mesh.RandomSimulationConfiguration
 class StartSimulationController : Controller() {
     private val mainController: MainController by inject()
 
-    var numberOfNodes: Int by property(10)
-    fun numberOfNodesProperty() = getProperty(StartSimulationController::numberOfNodes)
+    var createProbability: Number by property(50)
+    fun createProbabilityProperty() = getProperty(StartSimulationController::createProbability)
 
     var numberOfPrefabs: Int by property(10)
     fun numberOfPrefabsProperty() = getProperty(StartSimulationController::numberOfPrefabs)
@@ -42,7 +42,7 @@ class StartSimulationController : Controller() {
     }
 
     fun runSimulation() {
-        val config = RandomSimulationConfiguration(numberOfNodes, numberOfPrefabs, dimensions, time)
+        val config = RandomSimulationConfiguration(createProbability.toInt(), numberOfPrefabs, dimensions, time)
         mainController.runSimulation(config)
     }
 }

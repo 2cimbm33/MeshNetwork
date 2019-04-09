@@ -19,14 +19,14 @@ import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.*
 import java.util.concurrent.ThreadLocalRandom
 
-data class RandomSimulationConfiguration(val numberOfNodes: Int,
+data class RandomSimulationConfiguration(val createProbability: Int,
                                          val preCreatedNumberOfNodes: Int,
                                          val dimensions: Dimension2D,
                                          val duration: Double)
 
 class RandomSimulation(private val config: RandomSimulationConfiguration, collection: CoroutineCollection<Snapshot>) : BaseSimulation(collection) {
     private val generator = RandomTickGenerator(RandomTickGeneratorConfiguration(
-            this, RandomTickGeneratorConfiguration.Rule.EVENT_DRIVEN, config.numberOfNodes, config.dimensions
+            this, RandomTickGeneratorConfiguration.Rule.EVENT_DRIVEN, config.createProbability, config.dimensions
     ))
 
     init {
@@ -39,11 +39,6 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
                         getNode("Node ${generator.nodes.size + 1}", tick.initPosition).apply {
                             insertNode(time)
                         }
-                    }
-
-                    is RemoveTick -> {
-                        insert(RemoveNodeEvent(time, RemoveNodeEventArgs(tick.node, phy)))
-                        generator.removeNode(tick.node)
                     }
 
                     is MoveTick -> {
@@ -90,12 +85,19 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
                 val newX = x + (vector.x / 10)
                 val newY = y + (vector.y / 10)
 
-                if (newX < 0.0 || newX >= config.dimensions.width) vector.x *= -1
-                if (newY + vector.y == .0 || newY + vector.y >= config.dimensions.height) vector.y *= -1
+                var remove = false
 
-                insert(MoveNodeEvent(time, MoveNodeEventArgs(
-                        node, vector.x / 10, vector.y / 10, phy
-                )))
+                if (newX < 0.0 || newX >= config.dimensions.width) remove = true
+                if (newY + vector.y == .0 || newY + vector.y >= config.dimensions.height) remove = true
+
+                if (remove) {
+                    insert(RemoveNodeEvent(time, RemoveNodeEventArgs(node, phy)))
+                    generator.removeNode(node)
+                } else {
+                    insert(MoveNodeEvent(time, MoveNodeEventArgs(
+                            node, vector.x / 10, vector.y / 10, phy
+                    )))
+                }
             }
         }))
 

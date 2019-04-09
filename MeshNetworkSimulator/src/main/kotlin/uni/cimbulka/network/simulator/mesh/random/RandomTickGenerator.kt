@@ -10,7 +10,10 @@ import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.TimerEvent
 import uni.cimbulka.network.simulator.core.events.TimerEventArgs
 import uni.cimbulka.network.simulator.mesh.NetworkNode
-import uni.cimbulka.network.simulator.mesh.random.ticks.*
+import uni.cimbulka.network.simulator.mesh.random.ticks.CreateTick
+import uni.cimbulka.network.simulator.mesh.random.ticks.MoveTick
+import uni.cimbulka.network.simulator.mesh.random.ticks.RandomTick
+import uni.cimbulka.network.simulator.mesh.random.ticks.SendTick
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -23,12 +26,6 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
     private val internalNodes = mutableMapOf<NetworkNode, Vec2d>()
     private val simulator = configuration.simulator
     private var mainJob: Job? = null
-
-    private val canCreate: Boolean
-        get() = nodes.size < configuration.maxNumberOfNodes
-
-    private val canRemove: Boolean
-        get() = nodes.size > configuration.maxNumberOfNodes - 5 && configuration.maxNumberOfNodes != -1
 
     private val canSend: Boolean
         get() = nodes.size > 1
@@ -80,6 +77,10 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
     }
 
     private fun generate() {
+        createNode()?.let{
+            callbacks?.generated(it)
+        }
+
         for (node in nodes.keys) {
             if (callbacks != null) {
                 val tick = generateForNode(node) ?: continue
@@ -90,14 +91,27 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
 
     private fun generateAsync() {
         synchronized(nodes) {
+            createNode()?.let{
+                callbacks?.generated(it)
+            }
+
             for (node in nodes.keys) {
                 if (callbacks != null) {
-                    CoroutineScope(EmptyCoroutineContext).launch {
-                        val tick = generateForNode(node) ?: return@launch
-                        callbacks?.generated(tick)
-                    }
+                    val tick = generateForNode(node) ?: continue
+                    callbacks?.generated(tick)
                 }
             }
+        }
+    }
+
+    private fun createNode(): CreateTick? {
+        val range = 1..100
+        val number = range.random()
+
+        return if (configuration.createProbability <= number) {
+            genCreateTick()
+        } else {
+            null
         }
     }
 
@@ -106,40 +120,19 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
         if (range.random() != 0) return null
 
         val type = when (range.random()) {
-            0 -> if(canCreate)
-                RandomTick.Types.CREATE_NODE
-            else if (!canSend)
-                RandomTick.Types.MOVE_NODE
-            else if (range.random() != 0)
-                RandomTick.Types.MOVE_NODE
-            else
-                RandomTick.Types.SEND_MESSAGE
-
-            1 -> if (canRemove)
-                RandomTick.Types.REMOVE_NODE
-            else if (!canSend)
-                RandomTick.Types.MOVE_NODE
-            else if (range.random() != 0)
-                RandomTick.Types.MOVE_NODE
-            else
-                RandomTick.Types.SEND_MESSAGE
-
-            2 -> RandomTick.Types.MOVE_NODE
-
-            3 -> if (canSend) RandomTick.Types.SEND_MESSAGE else RandomTick.Types.SEND_MESSAGE
-            else -> return null
+            0 -> if (canSend) RandomTick.Types.SEND_MESSAGE else RandomTick.Types.SEND_MESSAGE
+            else -> RandomTick.Types.MOVE_NODE
         }
 
         return when (type) {
-            RandomTick.Types.CREATE_NODE -> genCreateTick(node)
-            RandomTick.Types.REMOVE_NODE -> genRemoveTick(node)
             RandomTick.Types.MOVE_NODE -> genMoveTick(node)
             RandomTick.Types.SEND_MESSAGE -> genSendTick(node)
+            else -> genMoveTick(node)
         }
     }
 
-    private fun genCreateTick(node: NetworkNode): CreateTick {
-        synchronized(node) {
+    private fun genCreateTick(): CreateTick {
+        synchronized(this) {
             val range = -Constants.Bluetooth.BLUETOOTH_RANGE..Constants.Bluetooth.BLUETOOTH_RANGE
 
             val position = if (nodes.isNotEmpty()) {
@@ -151,12 +144,8 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
 
             val initVector = getRandomVector()
 
-            return CreateTick(node, position, initVector)
+            return CreateTick(position, initVector)
         }
-    }
-
-    private fun genRemoveTick(node: NetworkNode): RemoveTick {
-        return RemoveTick(node)
     }
 
     private fun genMoveTick(node: NetworkNode): MoveTick {

@@ -2,6 +2,7 @@ package uni.cimbulka.network.simulator.gui.views
 
 import javafx.util.converter.DoubleStringConverter
 import javafx.util.converter.IntegerStringConverter
+import javafx.util.converter.NumberStringConverter
 import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.StartSimulationController
 
@@ -10,8 +11,20 @@ class StartSimulationView : View("Start Simulation") {
 
     override val root = form {
         fieldset("Nodes") {
-            field("Number of nodes") {
-                textfield().textProperty().bindBidirectional(controller.numberOfNodesProperty(), IntegerStringConverter())
+            field("Create probability") {
+                slider(0..100) {
+                    valueProperty().bindBidirectional(controller.createProbabilityProperty())
+
+                    isShowTickMarks = true
+                    majorTickUnit = 10.0
+                    blockIncrement = 5.0
+                }
+            }
+
+            field("Probability") {
+                label {
+                    bind(controller.createProbabilityProperty(), true, NumberStringConverter())
+                }
             }
 
             field("Number of prefab nodes") {

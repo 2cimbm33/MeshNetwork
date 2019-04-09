@@ -50,17 +50,18 @@ class MainController : Controller() {
 
     fun runSimulation(config: RandomSimulationConfiguration) {
         dimensions = config.dimensions
-        val simulator = RandomSimulation(config, Database.getCollection("batch2"))
+        val simulator = RandomSimulation(config, Database.getCollection("test"))
+
         simulator.simulationCallbacks = object : BaseSimulationCallbacks {
             override fun eventExecuted(snapshot: Snapshot, time: Long) {
                 Platform.runLater {
                     this@MainController.time = snapshot.time
-                    this@MainController.times.add(time)
-                    this@MainController.numberOfEvents++
+                    times.add(time)
+                    numberOfEvents++
 
                     var total = 0L
-                    this@MainController.times.forEach { total += it }
-                    this@MainController.avgEventTime =  total.toDouble() / this@MainController.numberOfNodes
+                    times.forEach { total += it }
+                    avgEventTime =  total.toDouble() / this@MainController.numberOfNodes
 
                     when (snapshot.eventName) {
                         "AddNode" -> {
@@ -68,14 +69,7 @@ class MainController : Controller() {
                                     ?: Position(Double.MIN_VALUE, Double.MIN_VALUE))
 
                             nodes.add(posNode)
-                            if (snapshot.connections.isNotEmpty()) {
-                                for (id in snapshot.connections) {
-                                    val conn = Connection(posNode.id, id)
-                                    if (conn !in connections) {
-                                        connections.add(conn)
-                                    }
-                                }
-                            }
+                            updateConnections(snapshot)
                         }
 
                         "RemoveNode" -> {
@@ -88,7 +82,10 @@ class MainController : Controller() {
                             val node = nodes.firstOrNull { it.id == snapshot.nodeId } ?: return@runLater
 
                             node.position = position
+                            updateConnections(snapshot)
                         }
+
+                        else -> updateConnections(snapshot)
                     }
                 }
             }
@@ -108,6 +105,24 @@ class MainController : Controller() {
         }
 
         timeline.play()
+    }
+
+    private fun updateConnections(snapshot: Snapshot) {
+        if (snapshot.nodeId == "null" || snapshot.connections.isEmpty()) return
+        val nodeConnections = connections.filter { snapshot.nodeId in it }.toMutableList()
+
+        if (snapshot.connections.isNotEmpty()) {
+            for (id in snapshot.connections) {
+                val conn = Connection(snapshot.nodeId, id)
+
+                if (conn !in connections) {
+                    connections.add(conn)
+                    nodeConnections.remove(conn)
+                }
+            }
+        }
+
+        connections.removeAll(nodeConnections)
     }
 
     val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {

@@ -6,7 +6,7 @@ import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 data class RandomTickGeneratorConfiguration(
         val simulator: AbstractSimulator,
         val rule: Rule,
-        val maxNumberOfNodes: Int,
+        val createProbability: Int,
         val dimension: Dimension2D = Dimension2D(100.0, 100.0)) {
 
     enum class Rule(val useEvents: Boolean) {
