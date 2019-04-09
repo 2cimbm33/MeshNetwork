@@ -1,9 +1,7 @@
 package uni.cimbulka.network.simulator.gui.controllers.dialogs
 
 import javafx.collections.ObservableList
-import tornadofx.Controller
-import tornadofx.getProperty
-import tornadofx.property
+import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.MainController
 import uni.cimbulka.network.simulator.gui.database.SimulationDao
 import uni.cimbulka.network.simulator.gui.events.CloseEvent
@@ -33,10 +31,10 @@ class SimulationsController : Controller() {
     }
 
     fun handleOpenClicked() {
-        selected?.let {
-            mainController.simId = it.id
-            fire(CloseEvent<SimulationsDialog>())
-        }
+        //selected?.let {
+        //    mainController.simId = it.id
+        //    fire(CloseEvent<SimulationsDialog>())
+        //}
     }
 
     fun handleCloseClicked() {

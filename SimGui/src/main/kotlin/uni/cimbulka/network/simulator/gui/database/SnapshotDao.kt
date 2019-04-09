@@ -4,12 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import javafx.beans.property.ReadOnlyProperty
 import org.neo4j.driver.v1.types.Node
 import tornadofx.*
-import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.gui.controllers.MainController
-import uni.cimbulka.network.simulator.gui.models.Event
-import uni.cimbulka.network.simulator.gui.models.PositionNode
 import uni.cimbulka.network.simulator.gui.models.Snapshot
-import uni.cimbulka.network.simulator.mesh.reporting.Connection
 
 class SnapshotDao : Controller() {
     private val mainController: MainController by inject()
@@ -21,7 +17,7 @@ class SnapshotDao : Controller() {
     fun snapshotProperty() = getProperty(SnapshotDao::snapshot) as ReadOnlyProperty<Snapshot?>
 
     fun getSnapshot(id: Int) {
-        runAsync {
+/*        runAsync {
             var snapshot: Snapshot? = null
             driver.session().run {
                 readTransaction { tx ->
@@ -32,10 +28,10 @@ class SnapshotDao : Controller() {
                     val records = rs.list()
                     val first = records.firstOrNull() ?: return@readTransaction
                     val eventNode = first["e"].asNode()
-                    val eventTime = eventNode["time"].asDouble()
+                    val avgEventTime = eventNode["time"].asDouble()
                     val eventArgs = mapper.readTree(eventNode["args"].asString())
 
-                    val event = Event(eventTime, getEventName(eventNode), eventArgs)
+                    val event = Event(avgEventTime, getEventName(eventNode), eventArgs)
                     val nodes = mutableListOf<PositionNode>()
                     val connections = mutableListOf<Connection>()
 
@@ -60,7 +56,7 @@ class SnapshotDao : Controller() {
             }
         } ui {
             snapshot = it
-        }
+        }*/
     }
 
     private fun getEventName(event: Node): String {

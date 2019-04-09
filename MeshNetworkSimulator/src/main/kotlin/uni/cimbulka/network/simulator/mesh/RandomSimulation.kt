@@ -1,7 +1,6 @@
 package uni.cimbulka.network.simulator.mesh
 
 import javafx.geometry.Dimension2D
-import org.neo4j.driver.v1.Driver
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
@@ -23,7 +22,7 @@ data class RandomSimulationConfiguration(val numberOfNodes: Int,
                                          val dimensions: Dimension2D,
                                          val duration: Double)
 
-class RandomSimulation(driver: Driver, private val config: RandomSimulationConfiguration) : BaseSimulation("RandomSimulation", driver) {
+class RandomSimulation(private val config: RandomSimulationConfiguration) : BaseSimulation("RandomSimulation") {
     private val generator = RandomTickGenerator(RandomTickGeneratorConfiguration(
             this, RandomTickGeneratorConfiguration.Rule.EVENT_DRIVEN, config.numberOfNodes, config.dimensions
     ))
@@ -93,7 +92,7 @@ class RandomSimulation(driver: Driver, private val config: RandomSimulationConfi
                 if (newY + vector.y == .0 || newY + vector.y >= config.dimensions.height) vector.y *= -1
 
                 insert(MoveNodeEvent(time, MoveNodeEventArgs(
-                        node.id, vector.x / 10, vector.y / 10, phy
+                        node, vector.x / 10, vector.y / 10, phy
                 )))
             }
         }))

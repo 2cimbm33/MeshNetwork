@@ -1,6 +1,5 @@
 package uni.cimbulka.network.simulator.gui.database
 
-import javafx.beans.property.ReadOnlyProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import tornadofx.*
@@ -51,56 +50,4 @@ class SimulationDao : Controller() {
         return ""
     }
 
-    fun getSnapshots() {
-        runAsync {
-            val result = mutableListOf<String>()
-
-            driver.session().run {
-                readTransaction { tx ->
-                    val rs = tx.run("MATCH (sim:Simulation)-->(snap:Snapshot) " +
-                            "WHERE sim.simId = \$simId " +
-                            "RETURN snap " +
-                            "ORDER BY snap.id", mapOf("simId" to mainController.simId))
-
-                    for (record in rs) {
-                        val node = record["snap"].asNode() ?: continue
-                        val snapId = node["id"].asInt()
-                        val snapName = node["name"].asString()
-                        result.add("$snapId $snapName")
-                    }
-                }
-            }
-
-            result
-        } ui {
-            snapshotList.clear()
-            snapshotList.addAll(it)
-        }
-    }
-
-    fun getSimNodes() {
-        runAsync {
-            val result = mutableListOf<Node>()
-
-            driver.session().run {
-                readTransaction { tx ->
-                    val rs = tx.run("MATCH (s:Simulation)-->(n:Node) " +
-                            "WHERE s.simId = \$simId " +
-                            "RETURN n", mapOf("simId" to mainController.simId))
-
-                    for (record in rs) {
-                        val node = record["n"].asNode() ?: continue
-                        val nodeId = node["id"].asString() ?: continue
-                        val nodeName = node["name"].asString() ?: continue
-
-                        result.add(Node(nodeId, nodeName))
-                    }
-                }
-            }
-            result
-        } ui {
-            simNodeList.clear()
-            simNodeList.addAll(it)
-        }
-    }
 }

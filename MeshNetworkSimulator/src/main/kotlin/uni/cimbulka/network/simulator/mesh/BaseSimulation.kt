@@ -1,6 +1,5 @@
 package uni.cimbulka.network.simulator.mesh
 
-import org.neo4j.driver.v1.Driver
 import uni.cimbulka.network.NetworkController
 import uni.cimbulka.network.simulator.NetworkSimulator
 import uni.cimbulka.network.simulator.common.Position
@@ -11,8 +10,8 @@ import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.AddNodeEventArgs
 import java.util.*
 
-abstract class BaseSimulation(type: String, driver: Driver) :
-        NetworkSimulator(NetworkMonitor(UUID.randomUUID().toString() ,PhysicalLayer(), type, driver)) {
+abstract class BaseSimulation(type: String) :
+        NetworkSimulator(NetworkMonitor(UUID.randomUUID().toString() ,PhysicalLayer())) {
 
     final override val monitor: NetworkMonitor = super.monitor as NetworkMonitor
     protected val phy: PhysicalLayer
