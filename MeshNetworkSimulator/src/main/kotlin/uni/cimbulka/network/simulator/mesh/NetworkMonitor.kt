@@ -1,10 +1,17 @@
 package uni.cimbulka.network.simulator.mesh
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
-import org.neo4j.driver.v1.Driver
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.mongodb.client.model.WriteModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
+import org.litote.kmongo.coroutine.CoroutineCollection
+import org.litote.kmongo.insertOne
+import uni.cimbulka.network.NetworkConstants
 import uni.cimbulka.network.packets.*
+import uni.cimbulka.network.simulator.bluetooth.AdapterPool
 import uni.cimbulka.network.simulator.bluetooth.events.EndDiscoveryEvent
 import uni.cimbulka.network.simulator.bluetooth.events.ReceivePacketEvent
 import uni.cimbulka.network.simulator.bluetooth.events.SendPacketEvent
@@ -12,255 +19,114 @@ import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEvent
 import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.core.interfaces.MonitorInterface
-import uni.cimbulka.network.simulator.core.models.AbstractSimulator
-import uni.cimbulka.network.simulator.core.models.Event
 import uni.cimbulka.network.simulator.mesh.events.StartNodeEvent
-import uni.cimbulka.network.simulator.mesh.reporting.Report
-import uni.cimbulka.network.simulator.mesh.reporting.SimulationSnapshot
-import uni.cimbulka.network.simulator.mesh.reporting.Statistics
+import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 import uni.cimbulka.network.simulator.mobility.events.RunMobilityEvent
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.MoveNodeEvent
 import uni.cimbulka.network.simulator.physical.events.RemoveNodeEvent
 import java.util.*
-import java.util.concurrent.locks.ReentrantLock
+import kotlin.coroutines.EmptyCoroutineContext
 
-@Suppress("Duplicates")
-class NetworkMonitor(val simulationId: String,
+class NetworkMonitor(private val simId: String,
                      physicalLayer: PhysicalLayer,
-                     simulatorType: String,
-                     private val driver: Driver) : MonitorInterface {
+                     private val collection: CoroutineCollection<Snapshot>) : MonitorInterface {
 
-    private val lock = ReentrantLock()
+    private val snapshots = mutableListOf<Snapshot>()
+    internal var callbacks: BaseSimulationCallbacks? = null
+
     private var started = false
-    private val report = Report()
-    private val mapper = ObjectMapper().apply {
+    private val mapper = jacksonObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)
     }
 
     private var firstEvent: Long = 0
-
-    private var numberOfEvents = 0
-
-    lateinit var simulator: AbstractSimulator
+    private var numberOfEvents = 1
+    private var previousEvent: Long = 0
 
     var physicalLayer: PhysicalLayer = physicalLayer
         set(value) {
             if (!started) field = value
         }
 
-    internal var callbacks: BaseSimulationCallbacks? = null
-
-    init {
-        driver.session().apply {
-            writeTransaction { tx ->
-                tx.run("CREATE (n:Simulation:$simulatorType {simId: \$simId})",
-                        mapOf("simId" to simulationId))
-            }
-        }
-    }
-
     override fun record(event: EventInterface) {
-        if (!started) {
+        val timeDelta = if (!started) {
             started = true
             firstEvent = Date().time
+            0L
+        } else {
+            Date().time - previousEvent
+        }
+        val time = event.time
+        val name = event.name
+
+        val node = getNode(event)
+
+        val pair: Pair<List<String>, List<String>> = if (node != null)
+            getConnections(node) to getInRange(node)
+        else
+            Pair(emptyList(), emptyList())
+
+        val snapshot = Snapshot(
+                numberOfEvents, simId, time, name, getEventArgs(event), node?.id ?: "null",
+                node?.position, pair.first, pair.second
+        )
+
+        snapshots.add(snapshot)
+        callbacks?.eventExecuted(snapshot, timeDelta)
+
+        if (snapshots.size == 3000) {
+            saveSnapshots(snapshots.map { it.copy() })
+            snapshots.clear()
         }
 
-        println("Event -> $numberOfEvents; ${simulator.numberOfEvents} left to go; time: ${simulator.time}")
-
-        if (event is Event<*>) {
-            when (event) {
-                is EndDiscoveryEvent -> {
-                    val id = event.args.adapter.node.id
-                    getStats(id).discoveriesCompleted++
-                }
-
-                is SendPacketEvent -> {
-                    val id = event.args.adapter.node.id
-                    val stats = getStats(id)
-                    val packet = BasePacket.fromJson(event.args.packet.data)
-
-                    when (packet) {
-                        is BroadcastPacket -> stats.broadcastPacketSent++
-                        is DataPacket -> stats.dataPacketSent++
-                        is HandshakeRequest -> stats.handshakeRequestsSent++
-                        is HandshakeResponse -> stats.handshakeResponsesSent++
-                        is RouteDiscoveryRequest -> stats.routeDiscoveryRequestsSent++
-                        is RouteDiscoveryResponse -> stats.routeDiscoveryResponsesSent++
-                    }
-
-                    stats.totalPacketsSent++
-                }
-
-                is ReceivePacketEvent -> {
-                    val id = event.args.adapter.node.id
-                    val stats = getStats(id)
-                    val packet = BasePacket.fromJson(event.args.packet.data)
-
-                    when (packet) {
-                        is BroadcastPacket -> stats.broadcastPacketReceived++
-                        is DataPacket -> stats.dataPacketReceived++
-                        is HandshakeRequest -> stats.handshakeRequestsReceived++
-                        is HandshakeResponse -> stats.handshakeResponsesReceived++
-                        is RouteDiscoveryRequest -> stats.routeDiscoveryRequestsReceived++
-                        is RouteDiscoveryResponse -> stats.routeDiscoveryResponsesReceived++
-                    }
-
-                    stats.totalPacketsReceived++
-                }
-            }
-
-            val snapshot = SimulationSnapshot(event, report.aggregation, physicalLayer)
-            val json = mapper.valueToTree<JsonNode>(snapshot)
-
-            report.events["[$numberOfEvents] [${event.time}] ${event.name}"] = json
-            //println("\n[$numberOfEvents] [${event.time}]:\n${mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json)}\n")
-
-            saveSnapshot(snapshot)
-
-            numberOfEvents++
-        }
+        numberOfEvents++
+        previousEvent = Date().time
     }
 
     override fun printRecords() {
-        report.nodes = physicalLayer.getAll().toMutableList()
-        //writeToFile(mapper.writeValueAsString(report))
-
-        driver.session().apply {
-            writeTransaction { tx ->
-                val id = numberOfEvents++
-                val stats = report.aggregation
-                tx.run(
-                        "MATCH (sim:Simulation {simId: \$simId}) " +
-                        "CREATE (n:Stats {value: \$value}) " +
-                        "CREATE (sim)-[:HAS]->(n)",
-                        mapOf("value" to mapper.writeValueAsString(stats), "id" to id, "simId" to simulationId)
-                )
-            }
+        if (snapshots.isNotEmpty()) {
+            saveSnapshots(snapshots.map { it.copy() })
+            snapshots.clear()
         }
         println("Simulation finished in ${Date().time - firstEvent}ms")
-
-        callbacks?.simulationFinished(simulationId)
+        callbacks?.simulationFinished(simId)
     }
 
-    private fun getStats(id: String): Statistics {
-        var stats = report.aggregation.stats.firstOrNull { it.node == id }
-
-        if (stats == null) {
-            stats = Statistics(id)
-            report.aggregation.stats.add(stats)
-        }
-
-        return stats
-    }
-
-    private fun saveSnapshot(snapshot: SimulationSnapshot) {
-        driver.session().apply {
-            writeTransactionAsync { tx ->
-                val id = numberOfEvents
-                val event = snapshot.event
-                val name = event.name.replace("\\s".toRegex(), "").split("-").first()
-
-                tx.runAsync(
-                        "MATCH (sim:Simulation {simId: \$simId}) " +
-                                "CREATE (n:Snapshot) SET n.id = \$id, n.name = \$name " +
-                                "CREATE (sim)-[:CONTAINS]->(n)",
-                        mapOf("simId" to simulationId, "id" to id, "name" to name)
-                )
-
-                snapshot.nodes.forEach { node ->
-                    tx.runAsync(
-                            "MATCH (s:Simulation {simId: \$simId}) " +
-                                    "MERGE (n:Node {id: \$nodeId, name: \$nodeName}) " +
-                                    "MERGE (s)-[:CONTAINS]->(n)",
-                            mapOf("simId" to simulationId, "nodeId" to node.id, "nodeName" to node.device.name)
-                    )
-
-                            val connections = getConnections(snapshot, node)
-
-                    tx.runAsync("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
-                            "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
-                            "CREATE (snap)-[r:CONTAINS]->(n) " +
-                            "SET r.x = ${node.position.x}, r.y = ${node.position.y}, r.conn = \$conn", mapOf(
-                            "simId" to simulationId,
-                            "id" to id,
-                            "nodeId" to node.id,
-                            "conn" to mapper.writeValueAsString(connections)
-                    ))
-                }
-
-                getMainNodeId(event)?.let{ mainNodeId ->
-                    physicalLayer[mainNodeId]?.let {
-                        val connections = getConnections(snapshot, it)
-                        val inRange = getInRange(it)
-
-                        tx.runAsync("MATCH (sim:Simulation)-->(snap:Snapshot), (sim)-->(n:Node) " +
-                                "WHERE sim.simId = \$simId AND snap.id = \$id AND n.id = \$nodeId " +
-                                "CREATE (snap)-[r:MAIN]->(n) " +
-                                "SET r.x = ${it.position.x}, r.y = ${it.position.y}, r.conn = \$conn, r.range = \$range", mapOf(
-                                "simId" to simulationId,
-                                "id" to id,
-                                "nodeId" to it.id,
-                                "conn" to mapper.writeValueAsString(connections),
-                                "range" to mapper.writeValueAsString(inRange)
-                        ))
-                    }
-                }
-
-                tx.runAsync(
-                        "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
-                                "CREATE (e:$name:Event {time: \$time, args: \$args, name: \$name}) " +
-                                "CREATE (snap)-[:HAS]->(e)",
-                        mapOf(
-                                "simId" to simulationId,
-                                "id" to id,
-                                "time" to event.time,
-                                "args" to mapper.writeValueAsString(event.args),
-                                "name" to name
-                        )
-                )
-
-                val stats = snapshot.aggregation
-                tx.runAsync(
-                        "MATCH (:Simulation {simId: \$simId})-->(snap:Snapshot {id: \$id}) " +
-                                "CREATE (stats:Stats {value: \$value}) " +
-                                "CREATE (snap)-[:HAS]->(stats)",
-                        mapOf("simId" to simulationId, "id" to id, "value" to mapper.writeValueAsString(stats))
-                )
+    private fun saveSnapshots(snapshots: List<Snapshot>) {
+        CoroutineScope(EmptyCoroutineContext).launch {
+            val requests = mutableListOf<WriteModel<Snapshot>>()
+            snapshots.forEach {
+                requests.add(insertOne(it))
             }
+
+            collection.bulkWrite(requests)
         }
     }
 
-    private fun getMainNodeId(event: EventInterface): String? {
-        return when (event) {
-            is AddNodeEvent -> event.args.node.id
-            is MoveNodeEvent -> event.args.id
-            is RemoveNodeEvent -> event.args.node.id
-            is RunMobilityEvent -> event.args.rule.node
-            is StartDiscoveryEvent -> event.args.adapter.node.id
-            is EndDiscoveryEvent -> event.args.adapter.node.id
-            is SendPacketEvent -> event.args.adapter.node.id
-            is ReceivePacketEvent -> event.args.adapter.node.id
-            is StartNodeEvent -> event.args.node.id
-
-            else -> null
-        }
+    private fun getNode(event: EventInterface) = when (event) {
+        is AddNodeEvent -> event.args.node
+        is MoveNodeEvent -> event.args.node
+        is RemoveNodeEvent -> event.args.node
+        is RunMobilityEvent -> physicalLayer[event.args.rule.node]
+        is StartDiscoveryEvent -> event.args.adapter.node
+        is EndDiscoveryEvent -> event.args.adapter.node
+        is SendPacketEvent -> event.args.adapter.node
+        is ReceivePacketEvent -> event.args.adapter.node
+        is StartNodeEvent -> event.args.node
+        else -> null
     }
 
-    private fun getConnections(snapshot: SimulationSnapshot, node: Node): List<String> {
-        val connections = mutableListOf<String>()
-        snapshot.connections.forEach { conn ->
-            if (node.id in conn) {
-                val other = if (conn.first == node.id) {
-                    conn.second
-                } else {
-                    conn.first
-                }
-                connections.add(other)
-            }
+    private fun getConnections(node: Node): List<String> {
+        val result = mutableListOf<String>()
+
+        val adapter = AdapterPool.adapters[node.id] ?: return emptyList()
+        adapter.connections.forEach { id, _ ->
+            result.add(id)
         }
-        return connections.toList()
+
+        return result
     }
 
     private fun getInRange(node: Node): List<String> {
@@ -273,5 +139,60 @@ class NetworkMonitor(val simulationId: String,
         }
 
         return inRange
+    }
+
+    private fun getEventArgs(event: EventInterface): JsonNode {
+        return mapper.createObjectNode().apply {
+            when (event) {
+                is MoveNodeEvent -> {
+                    put("dx", event.args.dx)
+                    put("dy", event.args.dy)
+                }
+
+                is SendPacketEvent -> {
+                    putPacket(BasePacket.fromJson(event.args.packet.data))
+                }
+
+                is ReceivePacketEvent -> {
+                    putPacket(BasePacket.fromJson(event.args.packet.data))
+                }
+            }
+        }
+    }
+
+    private fun ObjectNode.putPacket(packet: BasePacket?) {
+        if (packet == null) return
+
+        put("id", packet.id)
+        put("source", packet.source.id.toString())
+        when (packet) {
+            is BroadcastPacket -> put("type", NetworkConstants.BROADCAST_PACKET_TYPE)
+
+            is DataPacket -> {
+                put("type", NetworkConstants.DATA_PACKET_TYPE)
+                putArray("recipients").apply {
+                    packet.recipients.forEach { add(it.id.toString()) }
+                }
+            }
+
+            is HandshakeRequest -> put("type", NetworkConstants.HANDSHAKE_REQUEST)
+
+            is HandshakeResponse -> {
+                put("type", NetworkConstants.HANDSHAKE_RESPONSE)
+                put("recipient", packet.recipient.id.toString())
+            }
+
+            is RouteDiscoveryRequest -> {
+                put("type", NetworkConstants.ROUTE_DISCOVERY_REQUEST)
+                put("requester", packet.requester.id.toString())
+                put("recipient", packet.recipient.id.toString())
+                put("target", packet.target.id.toString())
+            }
+
+            is RouteDiscoveryResponse -> {
+                put("type", NetworkConstants.ROUTE_DISCOVERY_RESPONSE)
+                put("recipient", packet.recipient.id.toString())
+            }
+        }
     }
 }

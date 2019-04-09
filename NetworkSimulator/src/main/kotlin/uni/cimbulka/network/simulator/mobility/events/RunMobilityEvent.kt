@@ -36,9 +36,11 @@ class RunMobilityEvent(override val time: Double, args: MobilityEventArgs) :
                     MobilityRule.Direction.UP -> dy += step
                 }
 
-                simulator.insert(MoveNodeEvent(it, MoveNodeEventArgs(
-                        rule.node, dx, dy, rule.physicalLayer
-                )))
+                rule.physicalLayer[rule.node]?.let { n ->
+                    simulator.insert(MoveNodeEvent(it, MoveNodeEventArgs(
+                           n , dx, dy, rule.physicalLayer
+                    )))
+                }
             }
             simulator.insert(TimerEvent(time, timerEventArgs))
         }

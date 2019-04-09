@@ -14,9 +14,5 @@ class Main : App(MainView::class) {
 
     companion object {
         var dbStarted = false
-
-        fun fireEvent(evnt: FXEvent) {
-
-        }
     }
 }

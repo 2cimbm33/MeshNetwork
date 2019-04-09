@@ -1,12 +1,13 @@
 package uni.cimbulka.network.simulator.mesh
 
-import org.neo4j.driver.v1.Driver
+import org.litote.kmongo.coroutine.CoroutineCollection
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
+import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 
-class Simulation4(driver: Driver) : BaseSimulation("Simulation4", driver) {
+class Simulation4(collection: CoroutineCollection<Snapshot>) : BaseSimulation(collection) {
     override fun run() {
         val nodes = mutableMapOf<Int, NetworkNode>()
         val separation = 8

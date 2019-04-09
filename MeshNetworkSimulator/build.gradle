@@ -16,10 +16,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compile "org.jetbrains.kotlin:kotlin-reflect"
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
+    compile 'org.litote.kmongo:kmongo-coroutine:3.10.0'
 
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+'
-    implementation 'org.neo4j.driver:neo4j-java-driver:1.7.2'
     
     compile project(":NetworkSimulator")
     compile project(":MeshNetwork")

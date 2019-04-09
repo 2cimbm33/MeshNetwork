@@ -1,115 +1,117 @@
 package uni.cimbulka.network.simulator.gui.controllers
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
 import javafx.application.Platform
+import javafx.beans.property.ReadOnlyProperty
+import javafx.collections.FXCollections
 import javafx.collections.ObservableList
-import javafx.scene.control.Alert
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
+import javafx.geometry.Dimension2D
+import javafx.util.Duration
 import tornadofx.*
+import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.gui.database.Database
-import uni.cimbulka.network.simulator.gui.database.SimulationDao
-import uni.cimbulka.network.simulator.gui.database.SnapshotDao
-import uni.cimbulka.network.simulator.gui.models.Report
-import uni.cimbulka.network.simulator.gui.views.dialogs.RandomSimulationConfigDialog
-import uni.cimbulka.network.simulator.gui.views.dialogs.SimulationsDialog
-import uni.cimbulka.network.simulator.mesh.*
+import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
+import uni.cimbulka.network.simulator.gui.events.SwitchViewEvent
+import uni.cimbulka.network.simulator.gui.models.PositionNode
+import uni.cimbulka.network.simulator.gui.views.RunView
+import uni.cimbulka.network.simulator.gui.views.StartSimulationView
+import uni.cimbulka.network.simulator.mesh.BaseSimulationCallbacks
+import uni.cimbulka.network.simulator.mesh.RandomSimulation
+import uni.cimbulka.network.simulator.mesh.RandomSimulationConfiguration
+import uni.cimbulka.network.simulator.mesh.reporting.Connection
+import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 
 class MainController : Controller() {
-    private val simDao: SimulationDao by inject()
-    private val snapDao: SnapshotDao by inject()
 
-    private var simulationRunning = false
+    private val times = mutableListOf<Long>()
+    private lateinit var dimensions: Dimension2D
 
-    val eventList: ObservableList<String>
-        get () = simDao.snapshotList
+    val nodes: ObservableList<PositionNode> = FXCollections.observableArrayList()
+    val connections: ObservableList<Connection> = FXCollections.observableArrayList()
 
-    var simId: String? by property("")
-    fun simIdProperty() = getProperty(MainController::simId)
+    var time: Double by property(0.0)
+        private set
+    fun timeProperty() = getProperty(MainController::time) as ReadOnlyProperty<Double>
 
-    var report: Report? by property()
-    fun reportProperty() = getProperty(MainController::report)
+    fun numberOfNodesProperty() = getProperty(MainController::numberOfNodes) as ReadOnlyProperty<Int>
+    var numberOfNodes: Int by property(0)
+        private set
 
-    var nodes: String by property("")
-    fun nodesProperty() = getProperty(MainController::nodes)
+    var avgEventTime: Double by property(.0)
+        private set
+    fun avgEventTimeProperty() = getProperty(MainController::avgEventTime) as ReadOnlyProperty<Double>
 
-    init {
-        simIdProperty().onChange {
-            //println(it)
-            //openFile("simulationReport.json")
-            simDao.getSnapshots()
-            simDao.getSimNodes()
-        }
+    var numberOfEvents: Int by property(0)
+        private set
+    fun numberOfEventsProperty() = getProperty(MainController::numberOfEvents) as ReadOnlyProperty<Int>
 
-        simDao.simNodeList.onChange {
-            val mapper = ObjectMapper()
-            nodes = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(simDao.simNodeList)
-        }
-    }
+    fun runSimulation(config: RandomSimulationConfiguration) {
+        dimensions = config.dimensions
+        val simulator = RandomSimulation(config, Database.getCollection("batch2"))
+        simulator.simulationCallbacks = object : BaseSimulationCallbacks {
+            override fun eventExecuted(snapshot: Snapshot, time: Long) {
+                Platform.runLater {
+                    this@MainController.time = snapshot.time
+                    this@MainController.times.add(time)
+                    this@MainController.numberOfEvents++
 
-    fun openSimulationPicker() {
-        if (!simulationRunning)
-            find<SimulationsDialog>().openModal(escapeClosesWindow = true, block = true)
-    }
+                    var total = 0L
+                    this@MainController.times.forEach { total += it }
+                    this@MainController.avgEventTime =  total.toDouble() / this@MainController.numberOfNodes
 
-    fun refreshSimulation() {
-        simDao.getSnapshots()
-    }
+                    when (snapshot.eventName) {
+                        "AddNode" -> {
+                            val posNode = PositionNode(snapshot.nodeId, "", snapshot.position
+                                    ?: Position(Double.MIN_VALUE, Double.MIN_VALUE))
 
-    fun handleEventListClicked(item: String?) {
-        val id = item?.split(" ")?.firstOrNull()?.toIntOrNull() ?: return
-        //println("($id) $item")
-        snapDao.getSnapshot(id)
-    }
+                            nodes.add(posNode)
+                            if (snapshot.connections.isNotEmpty()) {
+                                for (id in snapshot.connections) {
+                                    val conn = Connection(posNode.id, id)
+                                    if (conn !in connections) {
+                                        connections.add(conn)
+                                    }
+                                }
+                            }
+                        }
 
-    private val alert = Alert(Alert.AlertType.INFORMATION).apply {
-        title = "Simulation in progress"
-        headerText = null
-        contentText = "Simulation is currently in progress. Pleas wait until it finishes."
+                        "RemoveNode" -> {
+                            nodes.removeIf { it.id == snapshot.nodeId }
+                            connections.removeIf { snapshot.nodeId in it }
+                        }
 
-        setOnCloseRequest {
-            if (simulationRunning)
-                it.consume()
-        }
-    }
+                        "MoveNode" -> {
+                            val position = snapshot.position ?: return@runLater
+                            val node = nodes.firstOrNull { it.id == snapshot.nodeId } ?: return@runLater
 
-    fun runSimulation(type: String) {
-        val sim = getSimulation(type) ?: return
-        simulationRunning = true
-
-        runAsync {
-            sim.run()
-        }
-
-        alert.show()
-    }
-
-    private fun getSimulation(type: String): BaseSimulation? {
-        val result: BaseSimulation? = when (type) {
-            "Simulation1" -> Simulation1(Database.driver)
-            "Simulation2" -> Simulation2(Database.driver)
-            "Simulation3" -> Simulation3(Database.driver)
-            "Simulation4" -> Simulation4(Database.driver)
-            "RandomSimulation" -> {
-                val result = RandomSimulationConfigDialog().showAndWait()
-
-                if (result.isPresent) {
-                    RandomSimulation(Database.driver, result.get())
-                } else {
-                    null
+                            node.position = position
+                        }
+                    }
                 }
             }
-            else -> null
-        } ?: return null
 
-        result?.simulationCallbacks = object : BaseSimulationCallbacks {
             override fun simulationFinished(id: String) {
                 Platform.runLater {
-                    simulationRunning = false
-                    alert.close()
-                    simId = id
+                    timeline.stop()
+                    fire(SwitchViewEvent<StartSimulationView>())
                 }
             }
+
         }
 
-        return result
+        fire(SwitchViewEvent<RunView>())
+        runAsync {
+            simulator.run()
+        }
+
+        timeline.play()
     }
+
+    val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {
+        numberOfNodes = nodes.size
+        fire(RedrawCanvas(nodes, connections, dimensions))
+    })).apply { cycleCount = Timeline.INDEFINITE }
 }

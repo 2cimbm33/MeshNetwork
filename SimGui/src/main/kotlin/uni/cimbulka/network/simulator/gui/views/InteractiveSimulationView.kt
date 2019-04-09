@@ -1,9 +1,9 @@
 package uni.cimbulka.network.simulator.gui.views
 
 import javafx.scene.layout.AnchorPane
+import javafx.util.converter.DoubleStringConverter
 import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.InteractiveSimulationController
-import uni.cimbulka.network.simulator.gui.helpers.DoubleToStringConverter
 
 class InteractiveSimulationView : View("Interactive simulation") {
     private val controller: InteractiveSimulationController by inject()
@@ -20,7 +20,7 @@ class InteractiveSimulationView : View("Interactive simulation") {
             }
             label("Time: ")
             label {
-                bind(controller.timeProperty(), converter = DoubleToStringConverter())
+                bind(controller.timeProperty(), converter = DoubleStringConverter())
             }
         }
 

@@ -132,7 +132,7 @@ class InteractiveSimulation(callbacks: SimulationCallbacks, val dimensions: Dime
                     if (newY + vector.y == .0 || newY + vector.y >= dimensions.height) vector.y *= -1
 
                     insert(MoveNodeEvent(time, MoveNodeEventArgs(
-                            node.id, vector.x / 10, vector.y / 10, phy
+                            node, vector.x / 10, vector.y / 10, phy
                     )))
                 }
 
