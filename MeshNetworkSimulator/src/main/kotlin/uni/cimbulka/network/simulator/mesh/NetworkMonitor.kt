@@ -7,9 +7,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.mongodb.client.model.WriteModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import org.litote.kmongo.coroutine.coroutine
+import org.litote.kmongo.coroutine.CoroutineCollection
 import org.litote.kmongo.insertOne
-import org.litote.kmongo.reactivestreams.KMongo
 import uni.cimbulka.network.NetworkConstants
 import uni.cimbulka.network.packets.*
 import uni.cimbulka.network.simulator.bluetooth.AdapterPool
@@ -20,9 +19,7 @@ import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEvent
 import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.core.interfaces.MonitorInterface
-import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import uni.cimbulka.network.simulator.mesh.events.StartNodeEvent
-import uni.cimbulka.network.simulator.mesh.reporting.Connection
 import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 import uni.cimbulka.network.simulator.mobility.events.RunMobilityEvent
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
@@ -30,18 +27,16 @@ import uni.cimbulka.network.simulator.physical.events.AddNodeEvent
 import uni.cimbulka.network.simulator.physical.events.MoveNodeEvent
 import uni.cimbulka.network.simulator.physical.events.RemoveNodeEvent
 import java.util.*
-import java.util.concurrent.locks.ReentrantLock
 import kotlin.coroutines.EmptyCoroutineContext
 
-@Suppress("Duplicates")
 class NetworkMonitor(private val simId: String,
-                     physicalLayer: PhysicalLayer) : MonitorInterface {
+                     physicalLayer: PhysicalLayer,
+                     private val collection: CoroutineCollection<Snapshot>) : MonitorInterface {
 
     private val snapshots = mutableListOf<Snapshot>()
     internal var callbacks: BaseSimulationCallbacks? = null
 
     private var started = false
-    private val lock = ReentrantLock()
     private val mapper = jacksonObjectMapper().apply {
         enable(SerializationFeature.INDENT_OUTPUT)
     }
@@ -49,13 +44,6 @@ class NetworkMonitor(private val simId: String,
     private var firstEvent: Long = 0
     private var numberOfEvents = 1
     private var previousEvent: Long = 0
-
-    private val client = KMongo.createClient(
-            "mongodb+srv://user:WMRouMZdM439DGeg@centaurus-0wgaq.gcp.mongodb.net/mesh?retryWrites=true"
-    ).coroutine
-    private val col = client.getDatabase("mesh").getCollection<Snapshot>()
-
-    lateinit var simulator: AbstractSimulator
 
     var physicalLayer: PhysicalLayer = physicalLayer
         set(value) {
@@ -75,10 +63,10 @@ class NetworkMonitor(private val simId: String,
 
         val node = getNode(event)
 
-        val pair: Pair<List<Connection>, List<String>> = if (node != null)
+        val pair: Pair<List<String>, List<String>> = if (node != null)
             getConnections(node) to getInRange(node)
         else
-            emptyList<Connection>() to emptyList()
+            Pair(emptyList(), emptyList())
 
         val snapshot = Snapshot(
                 numberOfEvents, simId, time, name, getEventArgs(event), node?.id ?: "null",
@@ -113,7 +101,7 @@ class NetworkMonitor(private val simId: String,
                 requests.add(insertOne(it))
             }
 
-            col.bulkWrite(requests)
+            collection.bulkWrite(requests)
         }
     }
 
@@ -130,12 +118,12 @@ class NetworkMonitor(private val simId: String,
         else -> null
     }
 
-    private fun getConnections(node: Node): List<Connection> {
-        val result = mutableListOf<Connection>()
+    private fun getConnections(node: Node): List<String> {
+        val result = mutableListOf<String>()
 
         val adapter = AdapterPool.adapters[node.id] ?: return emptyList()
         adapter.connections.forEach { id, _ ->
-            result.add(Connection(node.id, id))
+            result.add(id)
         }
 
         return result

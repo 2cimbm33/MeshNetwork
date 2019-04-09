@@ -10,5 +10,5 @@ data class Snapshot(val index: Int,
                     val eventArgs: JsonNode,
                     val nodeId: String,
                     val position: Position?,
-                    val connections: List<Connection>,
+                    val connections: List<String>,
                     val nodesInRange: List<String>)

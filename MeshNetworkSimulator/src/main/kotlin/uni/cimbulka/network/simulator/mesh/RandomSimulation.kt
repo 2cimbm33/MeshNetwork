@@ -1,6 +1,7 @@
 package uni.cimbulka.network.simulator.mesh
 
 import javafx.geometry.Dimension2D
+import org.litote.kmongo.coroutine.CoroutineCollection
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
@@ -13,6 +14,7 @@ import uni.cimbulka.network.simulator.mesh.random.GeneratorCallbacks
 import uni.cimbulka.network.simulator.mesh.random.RandomTickGenerator
 import uni.cimbulka.network.simulator.mesh.random.RandomTickGeneratorConfiguration
 import uni.cimbulka.network.simulator.mesh.random.ticks.*
+import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.*
 import java.util.concurrent.ThreadLocalRandom
@@ -22,7 +24,7 @@ data class RandomSimulationConfiguration(val numberOfNodes: Int,
                                          val dimensions: Dimension2D,
                                          val duration: Double)
 
-class RandomSimulation(private val config: RandomSimulationConfiguration) : BaseSimulation("RandomSimulation") {
+class RandomSimulation(private val config: RandomSimulationConfiguration, collection: CoroutineCollection<Snapshot>) : BaseSimulation(collection) {
     private val generator = RandomTickGenerator(RandomTickGeneratorConfiguration(
             this, RandomTickGeneratorConfiguration.Rule.EVENT_DRIVEN, config.numberOfNodes, config.dimensions
     ))

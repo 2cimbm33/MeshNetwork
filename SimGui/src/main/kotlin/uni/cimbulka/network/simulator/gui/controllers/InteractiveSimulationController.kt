@@ -6,7 +6,6 @@ import javafx.collections.ObservableList
 import javafx.geometry.Dimension2D
 import tornadofx.*
 import uni.cimbulka.network.data.ApplicationData
-import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.gui.NetworkCallbacksImpl
@@ -15,7 +14,6 @@ import uni.cimbulka.network.simulator.gui.events.ClickedCanvas
 import uni.cimbulka.network.simulator.gui.events.ClickedNode
 import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.models.PositionNode
-import uni.cimbulka.network.simulator.gui.views.dialogs.SendMessageDialog
 import uni.cimbulka.network.simulator.mesh.InteractiveSimulation
 import java.util.logging.Logger
 
@@ -86,20 +84,6 @@ class InteractiveSimulationController : Controller() {
     }
 
     fun sendMessage() {
-        if (running) {
-            val names = mutableListOf<String>()
-            simulator.nodes.forEach { names.add(it.device.name) }
-
-            SendMessageDialog(names).showAndWait().ifPresent { result ->
-                val sender = simulator.nodes.firstOrNull { it.device.name == result.sender } ?: return@ifPresent
-                val recipient = simulator.nodes.firstOrNull { it.device.name == result.recipient } ?: return@ifPresent
-                val data = ApplicationData(result.message)
-
-                sender.controller?.let {
-                    it.send(DataPacket.create(data, it, recipient.device))
-                }
-            }
-        }
     }
 
     fun onDataReceived(data: ApplicationData, name: String) {

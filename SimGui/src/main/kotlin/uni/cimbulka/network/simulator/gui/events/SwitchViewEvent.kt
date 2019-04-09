@@ -1,4 +1,4 @@
-package uni.cimbulka.network.simulator.gui.views
+package uni.cimbulka.network.simulator.gui.events
 
 import tornadofx.*
 

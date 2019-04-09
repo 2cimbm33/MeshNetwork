@@ -5,6 +5,7 @@ import uni.cimbulka.network.simulator.gui.controllers.RunController
 
 class RunView : View("Run View") {
     private val controller: RunController by inject()
+    private val graphView: GraphView by inject()
 
     override val root = borderpane {
         top = hbox {
@@ -19,6 +20,8 @@ class RunView : View("Run View") {
             label(" ms")
         }
 
+        center = graphView.root
+
         left = vbox {
             hbox {
                 label("Current number of nodes: ")
@@ -29,7 +32,7 @@ class RunView : View("Run View") {
                 }
             }
             hbox {
-                label("Total number of nodes: ")
+                label("Total number of events: ")
                 label {
                     controller.numberOfEventProperty.onChange {
                         text = it.toString()
@@ -46,5 +49,11 @@ class RunView : View("Run View") {
                 }
             }
         }
+    }
+
+    init {
+        graphView.fireEvents = false
+
+
     }
 }

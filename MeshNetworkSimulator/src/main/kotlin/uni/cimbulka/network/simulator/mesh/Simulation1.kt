@@ -1,11 +1,13 @@
 package uni.cimbulka.network.simulator.mesh
 
+import org.litote.kmongo.coroutine.CoroutineCollection
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
+import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 
-class Simulation1() : BaseSimulation("Simulation1") {
+class Simulation1(collection: CoroutineCollection<Snapshot>) : BaseSimulation(collection) {
     override fun run() {
         val nodeA = getNode("Node A", Position(10.0, 10.0))
         val nodeB = getNode("Node B", Position(18.0, 10.0))
