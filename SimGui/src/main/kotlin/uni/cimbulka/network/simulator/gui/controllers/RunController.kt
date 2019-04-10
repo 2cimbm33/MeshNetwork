@@ -8,7 +8,7 @@ class RunController : Controller() {
     private val mainController: MainController by inject()
 
     val timeProperty = SimpleDoubleProperty().apply { bind(mainController.timeProperty()) }
-    val numberOfNodesProperty = SimpleIntegerProperty().apply { bind(mainController.numberOfNodesProperty()) }
+    val numberOfNodesProperty = SimpleIntegerProperty().apply { bind(mainController.numberOfNodesProperty) }
     val eventTimeProperty = SimpleDoubleProperty().apply { bind(mainController.avgEventTimeProperty()) }
     val numberOfEventProperty = SimpleIntegerProperty().apply { bind(mainController.numberOfEventsProperty()) }
 }

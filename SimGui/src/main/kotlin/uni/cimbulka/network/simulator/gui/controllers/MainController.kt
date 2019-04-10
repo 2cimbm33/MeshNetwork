@@ -1,19 +1,15 @@
 package uni.cimbulka.network.simulator.gui.controllers
 
-import javafx.animation.KeyFrame
-import javafx.animation.Timeline
 import javafx.application.Platform
+import javafx.beans.property.ReadOnlyIntegerProperty
 import javafx.beans.property.ReadOnlyProperty
+import javafx.beans.property.SimpleIntegerProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
-import javafx.event.ActionEvent
-import javafx.event.EventHandler
 import javafx.geometry.Dimension2D
-import javafx.util.Duration
 import tornadofx.*
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.gui.database.Database
-import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
 import uni.cimbulka.network.simulator.gui.events.SwitchViewEvent
 import uni.cimbulka.network.simulator.gui.models.PositionNode
 import uni.cimbulka.network.simulator.gui.views.RunView
@@ -25,7 +21,7 @@ import uni.cimbulka.network.simulator.mesh.reporting.Connection
 import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 
 class MainController : Controller() {
-
+    private val graphController: GraphController by inject()
     private val times = mutableListOf<Long>()
     private lateinit var dimensions: Dimension2D
 
@@ -36,9 +32,8 @@ class MainController : Controller() {
         private set
     fun timeProperty() = getProperty(MainController::time) as ReadOnlyProperty<Double>
 
-    fun numberOfNodesProperty() = getProperty(MainController::numberOfNodes) as ReadOnlyProperty<Int>
-    var numberOfNodes: Int by property(0)
-        private set
+    val numberOfNodesProperty = SimpleIntegerProperty(). apply { bind(nodes.sizeProperty) } as ReadOnlyIntegerProperty
+    val numberOfNodes: Int by numberOfNodesProperty
 
     var avgEventTime: Double by property(.0)
         private set
@@ -48,8 +43,15 @@ class MainController : Controller() {
         private set
     fun numberOfEventsProperty() = getProperty(MainController::numberOfEvents) as ReadOnlyProperty<Int>
 
+    init {
+        graphController.nodes.bind(nodes) { it }
+        graphController.connections.bind(connections) { it }
+    }
+
     fun runSimulation(config: RandomSimulationConfiguration) {
         dimensions = config.dimensions
+        graphController.dimensions = config.dimensions
+
         val simulator = RandomSimulation(config, Database.getCollection("test"))
 
         simulator.simulationCallbacks = object : BaseSimulationCallbacks {
@@ -92,7 +94,6 @@ class MainController : Controller() {
 
             override fun simulationFinished(id: String) {
                 Platform.runLater {
-                    timeline.stop()
                     fire(SwitchViewEvent<StartSimulationView>())
                 }
             }
@@ -103,8 +104,6 @@ class MainController : Controller() {
         runAsync {
             simulator.run()
         }
-
-        timeline.play()
     }
 
     private fun updateConnections(snapshot: Snapshot) {
@@ -124,9 +123,4 @@ class MainController : Controller() {
 
         connections.removeAll(nodeConnections)
     }
-
-    val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {
-        numberOfNodes = nodes.size
-        fire(RedrawCanvas(nodes, connections, dimensions))
-    })).apply { cycleCount = Timeline.INDEFINITE }
 }

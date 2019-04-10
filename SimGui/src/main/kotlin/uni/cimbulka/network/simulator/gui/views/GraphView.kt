@@ -1,28 +1,75 @@
 package uni.cimbulka.network.simulator.gui.views
 
-import javafx.scene.layout.AnchorPane
+import javafx.animation.KeyFrame
+import javafx.animation.Timeline
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.event.ActionEvent
+import javafx.event.EventHandler
+import javafx.scene.layout.Region
+import javafx.util.Duration
 import tornadofx.*
-import uni.cimbulka.network.simulator.gui.events.RedrawCanvas
+import uni.cimbulka.network.simulator.gui.controllers.GraphController
 
 class GraphView : View("Graph view") {
-    private val canvas = PannableCanvas()
+    private val controller: GraphController by inject()
 
-    var fireEvents: Boolean by property(true)
-    fun fireEventsProperty() = getProperty(GraphView::fireEvents)
+    val fireEventsProperty = SimpleBooleanProperty().apply { onChange { controller.fireEvents = it } }
+    var fireEvents: Boolean by fireEventsProperty
 
-    override val root = anchorpane() {
-        add(canvas)
-        AnchorPane.setLeftAnchor(canvas, 0.0)
-        AnchorPane.setTopAnchor(canvas, 0.0)
-        AnchorPane.setRightAnchor(canvas, 0.0)
-        AnchorPane.setBottomAnchor(canvas, 0.0)
+    private val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {
+        controller.draw(canvas.graphicsContext2D)
+    })).apply { cycleCount = Timeline.INDEFINITE }
+
+    private val canvas = canvas {
+        parentProperty().onChange { parent ->
+            (parent as? Region)?.let {
+                this.widthProperty().bind(it.widthProperty())
+                this.heightProperty().bind(it.heightProperty())
+            }
+        }
+
+        controller.heightProperty.bind(this.heightProperty())
+        controller.widthProperty.bind(this.heightProperty())
+
+        heightProperty().onChange {
+            controller.draw(graphicsContext2D)
+        }
+
+        widthProperty().onChange {
+            controller.draw(graphicsContext2D)
+        }
+
+        controller.scaleProperty().onChange {
+            controller.draw(graphicsContext2D)
+        }
+
+        controller.offsetProperty().onChange {
+            controller.draw(graphicsContext2D)
+        }
+
+        setOnMousePressed(controller::handleMousePressed)
+        setOnMouseReleased(controller::handleMouseReleased)
+        setOnMouseDragged(controller::handelMouseDragged)
+        setOnScroll(controller::handleScroll)
+
+        setOnDragDetected {
+            startFullDrag()
+            controller.handleDragDetected()
+        }
     }
 
-    init {
-        canvas.fireEventsProperty().bind(fireEventsProperty())
+    override val root = borderpane {
+        minWidth = 320.0
+        minHeight = 150.0
 
-        subscribe<RedrawCanvas> { event ->
-            canvas.draw(event.nodes, event.connections, event.dimension)
-        }
+        center = canvas
+    }
+
+    override fun onDock() {
+        timeline.play()
+    }
+
+    override fun onUndock() {
+        timeline.stop()
     }
 }

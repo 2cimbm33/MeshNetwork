@@ -7,8 +7,8 @@ class RunView : View("Run View") {
     private val controller: RunController by inject()
     private val graphView: GraphView by inject()
 
-    override val root = borderpane {
-        top = hbox {
+    override val root = vbox {
+        hbox {
             label("Time: ") {
                 style = "-fx-font-weight: bold"
             }
@@ -20,28 +20,24 @@ class RunView : View("Run View") {
             label(" ms")
         }
 
-        center = graphView.root
-
-        left = vbox {
-            hbox {
-                label("Current number of nodes: ")
-                label {
-                    controller.numberOfNodesProperty.onChange {
-                        text = it.toString()
-                    }
+        hbox {
+            label("Current number of nodes: ")
+            label {
+                controller.numberOfNodesProperty.onChange {
+                    text = it.toString()
                 }
             }
-            hbox {
-                label("Total number of events: ")
-                label {
-                    controller.numberOfEventProperty.onChange {
-                        text = it.toString()
-                    }
+        }
+        hbox {
+            label("Total number of events: ")
+            label {
+                controller.numberOfEventProperty.onChange {
+                    text = it.toString()
                 }
             }
         }
 
-        bottom = hbox {
+        hbox {
             label("Avg time per event: ")
             label {
                 controller.eventTimeProperty.onChange {
@@ -49,11 +45,16 @@ class RunView : View("Run View") {
                 }
             }
         }
+
+        button("Open graph view") {
+            action {
+                graphView.openWindow()
+            }
+        }
     }
 
-    init {
+    override fun onDock() {
+        graphView.openWindow()
         graphView.fireEvents = false
-
-
     }
 }

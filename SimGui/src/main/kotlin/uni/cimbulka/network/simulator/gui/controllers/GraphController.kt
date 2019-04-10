@@ -1,12 +1,17 @@
-package uni.cimbulka.network.simulator.gui.views
+package uni.cimbulka.network.simulator.gui.controllers
 
 import com.sun.javafx.geom.Vec2d
 import javafx.beans.property.ReadOnlyProperty
+import javafx.beans.property.SimpleBooleanProperty
+import javafx.beans.property.SimpleDoubleProperty
+import javafx.beans.property.SimpleObjectProperty
+import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import javafx.geometry.Dimension2D
 import javafx.geometry.Point2D
-import javafx.scene.canvas.Canvas
 import javafx.scene.canvas.GraphicsContext
-import javafx.scene.layout.Region
+import javafx.scene.input.MouseEvent
+import javafx.scene.input.ScrollEvent
 import javafx.scene.paint.Color
 import tornadofx.*
 import uni.cimbulka.network.simulator.common.Position
@@ -15,168 +20,125 @@ import uni.cimbulka.network.simulator.gui.events.ClickedNode
 import uni.cimbulka.network.simulator.gui.models.PositionNode
 import uni.cimbulka.network.simulator.mesh.reporting.Connection
 import java.util.concurrent.locks.ReentrantLock
-import java.util.logging.Logger
 import kotlin.concurrent.withLock
 
-class PannableCanvas : Canvas() {
+class  GraphController : Controller() {
     private val lock = ReentrantLock()
-
-    private var nodes = emptyList<PositionNode>()
-    private var connections = emptyList<Connection>()
-    private var dimensions = Dimension2D(20.0, 20.0);
     private val scaleFloor = 10.0
-    private val visibleNodes = mutableListOf<PositionNode>()
 
     private var initialDragPoint = Point2D(.0, .0)
     private var initialDragOffset = Vec2d()
     private var dragVector = Vec2d(.0, .0)
     private var drag = false
 
+    val nodes: ObservableList<PositionNode> = FXCollections.observableArrayList()
+    val connections: ObservableList<Connection> = FXCollections.observableArrayList()
+
+    val fireEventsProperty = SimpleBooleanProperty()
+    var fireEvents: Boolean by fireEventsProperty
+
+    val dimensionsProperty = SimpleObjectProperty<Dimension2D>(Dimension2D(25.0, 25.0))
+    var dimensions: Dimension2D by dimensionsProperty
+
+    val widthProperty = SimpleDoubleProperty()
+    val width: Double by widthProperty
+
+    val heightProperty = SimpleDoubleProperty()
+    val height: Double by heightProperty
 
     var minScale: Double by property(15.0)
         private set
-    fun minScalePropery() = getProperty(PannableCanvas::minScale) as ReadOnlyProperty<Double>
+    fun minScalePropery() = getProperty(GraphController::minScale) as ReadOnlyProperty<Double>
 
     var nodeRadius: Double by property(.15)
-    fun nodeRadiusProperty() = getProperty(PannableCanvas::nodeRadius)
-
-    var fireEvents: Boolean by property(true)
-    fun fireEventsProperty() = getProperty(GraphView::fireEvents)
+    fun nodeRadiusProperty() = getProperty(GraphController::nodeRadius)
 
     var zoom: Int by property(1)
         private set
-    fun zoomProperty() = getProperty(PannableCanvas::zoom) as ReadOnlyProperty<Int>
+    fun zoomProperty() = getProperty(GraphController::zoom) as ReadOnlyProperty<Int>
 
     var scale: Double by property(10.0)
         private set
-    fun scaleProperty() = getProperty(PannableCanvas::scale) as ReadOnlyProperty<Double>
+    fun scaleProperty() = getProperty(GraphController::scale) as ReadOnlyProperty<Double>
 
     var offset: Vec2d by property(Vec2d(.0, .0))
         private set
-    fun offsetProperty() = getProperty(PannableCanvas::offset) as ReadOnlyProperty<Vec2d>
+    fun offsetProperty() = getProperty(GraphController::offset) as ReadOnlyProperty<Vec2d>
 
-    init {
-        parentProperty().onChange {parent ->
-            (parent as? Region)?.let {
-                this.widthProperty().bind(it.widthProperty())
-                this.heightProperty().bind(it.heightProperty())
-            }
-        }
+    fun handleMousePressed(event: MouseEvent) {
+        initialDragPoint = Point2D(event.x, event.y)
+        initialDragOffset.set(offset)
+        dragVector = Vec2d()
+        event.consume()
+    }
 
-        widthProperty().onChange {
-            calcScale()
-            redraw()
-        }
-
-        heightProperty().onChange {
-            println("New height: $it")
-            calcScale()
-            redraw()
-        }
-
-        scaleProperty().onChange { value ->
-            value?.let {
-                redraw()
-            }
-        }
-
-        offsetProperty().onChange { value ->
-            value?.let {
-                redraw()
-            }
-        }
-
-        setOnMousePressed {
-            initialDragPoint = Point2D(it.x, it.y)
-            initialDragOffset.set(offset)
+    fun handleMouseReleased(event: MouseEvent) {
+        if (drag) {
+            drag = false
+            initialDragPoint = Point2D(0.0, 0.0)
+            initialDragOffset = Vec2d()
             dragVector = Vec2d()
-            it.consume()
-        }
+        } else if (fireEvents) {
+            val hit = detectHit(Position(event.x, event.y))
 
-        setOnMouseReleased {
-            if (drag) {
-                drag = false
-                initialDragPoint = Point2D(0.0, 0.0)
-                initialDragOffset = Vec2d()
-                dragVector = Vec2d()
-            } else if (fireEvents) {
-                val hit = detectHit(Position(it.x, it.y))
-
-                if (hit == null) {
-                    FX.eventbus.fire(ClickedCanvas(Position((it.x + offset.x) / scale, (it.y + offset.y) / scale)))
-                } else {
-                    FX.eventbus.fire(ClickedNode(hit.id))
-                }
+            if (hit == null) {
+                FX.eventbus.fire(ClickedCanvas(Position((event.x + offset.x) / scale, (event.y + offset.y) / scale)))
+            } else {
+                FX.eventbus.fire(ClickedNode(hit.id))
             }
-        }
-
-        setOnDragDetected {
-            this.startFullDrag()
-            drag = true
-        }
-
-        setOnMouseDragged {
-            dragVector.set(
-                    it.x - initialDragPoint.x,
-                    it.y - initialDragPoint.y
-            )
-
-            offset.x = initialDragOffset.x + initialDragPoint.x - it.x
-            offset.y = initialDragOffset.y + initialDragPoint.y - it.y
-
-            if (offset.x < 0) offset.x = .0
-            else if (offset.x + width > dimensions.width * scale) offset.x = dimensions.width * scale - width
-
-            if (offset.y < 0) offset.y = .0
-            else if (offset.y + height > dimensions.height * scale) offset.y = dimensions.height * scale - height
-
-            redraw()
-        }
-
-        setOnScroll {
-            var newScale = scale + (it.deltaY / 10)
-            if (newScale < minScale) newScale = minScale
-
-            if (offset.x < 0) offset.x = .0
-            else if (offset.x + width > dimensions.width * scale) offset.x = dimensions.width * scale - width
-
-            if (offset.y < 0) offset.y = .0
-            else if (offset.y + height > dimensions.height * scale) offset.y = dimensions.height * scale - height
-
-            scale = newScale
         }
     }
 
-    override fun isResizable() = true
+    fun handleDragDetected() {
+        drag = true
+    }
 
-    fun draw(nodes: List<PositionNode>, connections: List<Connection>, dimensions: Dimension2D) {
+    fun handelMouseDragged(event: MouseEvent) {
+        dragVector.set(
+                event.x - initialDragPoint.x,
+                event.y - initialDragPoint.y
+        )
+
+        val newOffset = Vec2d(
+                initialDragOffset.x + initialDragPoint.x - event.x,
+                initialDragOffset.y + initialDragPoint.y - event.y
+        )
+
+        offset = verifyOffset(newOffset)
+    }
+
+    fun handleScroll(event: ScrollEvent) {
+        var newScale = scale + (event.deltaY / 10)
+        if (newScale < minScale) newScale = minScale
+
+        offset = verifyOffset(offset)
+
+        scale = newScale
+    }
+
+    fun draw(context: GraphicsContext) {
         lock.withLock {
             val recalculateScale = this.dimensions != dimensions
-            this.nodes = nodes
-            this.connections = connections
-            this.dimensions = dimensions
-
-
             if (recalculateScale) calcScale()
 
-            redraw()
+            redraw(context)
         }
     }
 
-    private fun calcScale() {
+    fun calcScale() {
         val widthScale = width / dimensions.width
         val heightScale = height / dimensions.height
 
         minScale = Math.max(scaleFloor, Math.max(widthScale, heightScale))
-        scale = minScale
-        offset = Vec2d()
+        scale = if (scale < minScale) minScale else scale
 
-        Logger.getLogger(this::class.java.simpleName).info("Min scale: $minScale")
+
+        offset = Vec2d()
     }
 
-    private fun redraw() {
+    private fun redraw(context: GraphicsContext) {
         lock.withLock {
-            graphicsContext2D.run {
+            context.run {
                 clearRect(0.0, 0.0, width, height)
 
                 drawGrid()
@@ -184,6 +146,16 @@ class PannableCanvas : Canvas() {
                 drawConnections()
             }
         }
+    }
+
+    private fun verifyOffset(offset: Vec2d): Vec2d {
+        if (offset.x < 0) offset.x = .0
+        else if (offset.x + width > dimensions.width * scale) offset.x = dimensions.width * scale - width
+
+        if (offset.y < 0) offset.y = .0
+        else if (offset.y + height > dimensions.height * scale) offset.y = dimensions.height * scale - height
+
+        return offset
     }
 
     private fun GraphicsContext.drawGrid() {

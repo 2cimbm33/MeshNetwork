@@ -1,6 +1,5 @@
 package uni.cimbulka.network.simulator.gui.views
 
-import javafx.scene.Parent
 import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Font
 import javafx.scene.text.TextAlignment
@@ -23,28 +22,51 @@ class MainView : View("Main View") {
             textAlignment = TextAlignment.CENTER
         }
 
-        center = getCenter(startSimulationView)
+        center = anchorpane {
+            paddingAll = 15
+
+            add(startSimulationView)
+
+            AnchorPane.setLeftAnchor(startSimulationView.root, 0.0)
+            AnchorPane.setTopAnchor(startSimulationView.root, 0.0)
+            AnchorPane.setRightAnchor(startSimulationView.root, 0.0)
+            AnchorPane.setBottomAnchor(startSimulationView.root, 0.0)
+        }
     }
 
     init {
         subscribe<SwitchViewEvent<StartSimulationView>> {
-            root.center = getCenter(startSimulationView)
+            val node = startSimulationView.root
+
+            AnchorPane.setLeftAnchor(node, 0.0)
+            AnchorPane.setTopAnchor(node, 0.0)
+            AnchorPane.setRightAnchor(node, 0.0)
+            AnchorPane.setBottomAnchor(node, 0.0)
+
+            val center = root.center
+            if (center is AnchorPane) {
+                center.children.clear()
+                center.add(node)
+            } else {
+                root.center = node
+            }
         }
 
         subscribe<SwitchViewEvent<RunView>> {
-            root.center = getCenter(runView)
-        }
-    }
+            val node = runView.root
 
-    private fun getCenter(view: View): Parent {
-        return anchorpane {
-            paddingAll = 15
-            add(view)
+            AnchorPane.setLeftAnchor(node, 0.0)
+            AnchorPane.setTopAnchor(node, 0.0)
+            AnchorPane.setRightAnchor(node, 0.0)
+            AnchorPane.setBottomAnchor(node, 0.0)
 
-            AnchorPane.setLeftAnchor(view.root, 0.0)
-            AnchorPane.setTopAnchor(view.root, 0.0)
-            AnchorPane.setRightAnchor(view.root, 0.0)
-            AnchorPane.setBottomAnchor(view.root, 0.0)
+            val center = root.center
+            if (center is AnchorPane) {
+                center.children.clear()
+                center.add(node)
+            } else {
+                root.center = node
+            }
         }
     }
 }

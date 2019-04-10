@@ -7,7 +7,7 @@ import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 
 object Database {
     private val client = KMongo.createClient(
-            "mongodb+srv://user:WMRouMZdM439DGeg@centaurus-0wgaq.gcp.mongodb.net/mesh?retryWrites=true"
+            "mongodb://admin:nimda@cimbulka.win/admin?retryWrites=true"
     ).coroutine
 
     private val database = client.getDatabase("mesh")

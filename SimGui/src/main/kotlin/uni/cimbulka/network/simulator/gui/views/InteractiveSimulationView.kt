@@ -37,7 +37,7 @@ class InteractiveSimulationView : View("Interactive simulation") {
         }
     }
 
-    init {
+    override fun onDock() {
         graphView.fireEvents = true
     }
 }
