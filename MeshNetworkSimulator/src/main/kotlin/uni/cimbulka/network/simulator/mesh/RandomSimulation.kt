@@ -2,18 +2,18 @@ package uni.cimbulka.network.simulator.mesh
 
 import javafx.geometry.Dimension2D
 import org.litote.kmongo.coroutine.CoroutineCollection
-import uni.cimbulka.network.data.ApplicationData
-import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
 import uni.cimbulka.network.simulator.core.events.TimerEvent
 import uni.cimbulka.network.simulator.core.events.TimerEventArgs
-import uni.cimbulka.network.simulator.mesh.events.StartNodeEvent
-import uni.cimbulka.network.simulator.mesh.events.StartNodeEventArgs
+import uni.cimbulka.network.simulator.mesh.events.*
 import uni.cimbulka.network.simulator.mesh.random.GeneratorCallbacks
 import uni.cimbulka.network.simulator.mesh.random.RandomTickGenerator
 import uni.cimbulka.network.simulator.mesh.random.RandomTickGeneratorConfiguration
-import uni.cimbulka.network.simulator.mesh.random.ticks.*
+import uni.cimbulka.network.simulator.mesh.random.ticks.CreateTick
+import uni.cimbulka.network.simulator.mesh.random.ticks.MoveTick
+import uni.cimbulka.network.simulator.mesh.random.ticks.RandomTick
+import uni.cimbulka.network.simulator.mesh.random.ticks.SendTick
 import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 import uni.cimbulka.network.simulator.physical.PhysicalLayer
 import uni.cimbulka.network.simulator.physical.events.*
@@ -46,12 +46,7 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
                     }
 
                     is SendTick -> {
-                        tick.sender.controller?.let {
-                            val senderId = tick.sender.id
-                            val recipientId = tick.recipient.id
-
-                            it.send(DataPacket.create(ApplicationData("Message from $senderId to $recipientId"), it, tick.recipient.device))
-                        } ?: return
+                        insert(SendRandomMessageEvent(time, SendRandomMessageArgs(tick.sender, tick.recipient)))
                     }
                 }
             }
@@ -88,7 +83,7 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
                 var remove = false
 
                 if (newX < 0.0 || newX >= config.dimensions.width) remove = true
-                if (newY + vector.y == .0 || newY + vector.y >= config.dimensions.height) remove = true
+                if (newY < 0.0 || newY >= config.dimensions.height) remove = true
 
                 if (remove) {
                     insert(RemoveNodeEvent(time, RemoveNodeEventArgs(node, phy)))
@@ -121,8 +116,6 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
         val simulator = this@RandomSimulation
         simulator.insert(AddNodeEvent(time, AddNodeEventArgs(this, phy)))
         simulator.insert(StartNodeEvent(time + 1, StartNodeEventArgs(this, phy)))
-        insert(0.0, "AddNodeToGenerator") {
-            generator.addNode(this)
-        }
+        insert(AddNodeToGeneratorEvent(time, AddNodeToGeneratorEventArgs(this, generator)))
     }
 }

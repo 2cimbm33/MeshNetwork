@@ -1,6 +1,5 @@
 package uni.cimbulka.network.simulator.gui.views
 
-import javafx.scene.layout.AnchorPane
 import javafx.scene.text.Font
 import javafx.scene.text.TextAlignment
 import tornadofx.*
@@ -22,51 +21,16 @@ class MainView : View("Main View") {
             textAlignment = TextAlignment.CENTER
         }
 
-        center = anchorpane {
-            paddingAll = 15
-
-            add(startSimulationView)
-
-            AnchorPane.setLeftAnchor(startSimulationView.root, 0.0)
-            AnchorPane.setTopAnchor(startSimulationView.root, 0.0)
-            AnchorPane.setRightAnchor(startSimulationView.root, 0.0)
-            AnchorPane.setBottomAnchor(startSimulationView.root, 0.0)
-        }
+        center = startSimulationView.root
     }
 
     init {
         subscribe<SwitchViewEvent<StartSimulationView>> {
-            val node = startSimulationView.root
-
-            AnchorPane.setLeftAnchor(node, 0.0)
-            AnchorPane.setTopAnchor(node, 0.0)
-            AnchorPane.setRightAnchor(node, 0.0)
-            AnchorPane.setBottomAnchor(node, 0.0)
-
-            val center = root.center
-            if (center is AnchorPane) {
-                center.children.clear()
-                center.add(node)
-            } else {
-                root.center = node
-            }
+            root.center.replaceWith(startSimulationView.root)
         }
 
         subscribe<SwitchViewEvent<RunView>> {
-            val node = runView.root
-
-            AnchorPane.setLeftAnchor(node, 0.0)
-            AnchorPane.setTopAnchor(node, 0.0)
-            AnchorPane.setRightAnchor(node, 0.0)
-            AnchorPane.setBottomAnchor(node, 0.0)
-
-            val center = root.center
-            if (center is AnchorPane) {
-                center.children.clear()
-                center.add(node)
-            } else {
-                root.center = node
-            }
+            root.center.replaceWith(runView.root)
         }
     }
 }

@@ -19,6 +19,8 @@ import uni.cimbulka.network.simulator.bluetooth.events.StartDiscoveryEvent
 import uni.cimbulka.network.simulator.common.Node
 import uni.cimbulka.network.simulator.core.interfaces.EventInterface
 import uni.cimbulka.network.simulator.core.interfaces.MonitorInterface
+import uni.cimbulka.network.simulator.mesh.events.AddNodeToGeneratorEvent
+import uni.cimbulka.network.simulator.mesh.events.SendRandomMessageEvent
 import uni.cimbulka.network.simulator.mesh.events.StartNodeEvent
 import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 import uni.cimbulka.network.simulator.mobility.events.RunMobilityEvent
@@ -29,7 +31,7 @@ import uni.cimbulka.network.simulator.physical.events.RemoveNodeEvent
 import java.util.*
 import kotlin.coroutines.EmptyCoroutineContext
 
-class NetworkMonitor(private val simId: String,
+class NetworkMonitor(val simId: String,
                      physicalLayer: PhysicalLayer,
                      private val collection: CoroutineCollection<Snapshot>) : MonitorInterface {
 
@@ -76,8 +78,8 @@ class NetworkMonitor(private val simId: String,
         snapshots.add(snapshot)
         callbacks?.eventExecuted(snapshot, timeDelta)
 
-        if (snapshots.size == 3000) {
-            saveSnapshots(snapshots.map { it.copy() })
+        if (snapshots.size == 5000) {
+            //saveSnapshots(snapshots.map { it.copy() })
             snapshots.clear()
         }
 
@@ -87,7 +89,7 @@ class NetworkMonitor(private val simId: String,
 
     override fun printRecords() {
         if (snapshots.isNotEmpty()) {
-            saveSnapshots(snapshots.map { it.copy() })
+            //saveSnapshots(snapshots.map { it.copy() })
             snapshots.clear()
         }
         println("Simulation finished in ${Date().time - firstEvent}ms")
@@ -107,11 +109,13 @@ class NetworkMonitor(private val simId: String,
 
     private fun getNode(event: EventInterface) = when (event) {
         is AddNodeEvent -> event.args.node
+        is AddNodeToGeneratorEvent -> event.args.node
         is MoveNodeEvent -> event.args.node
         is RemoveNodeEvent -> event.args.node
         is RunMobilityEvent -> physicalLayer[event.args.rule.node]
         is StartDiscoveryEvent -> event.args.adapter.node
         is EndDiscoveryEvent -> event.args.adapter.node
+        is SendRandomMessageEvent -> event.args.sender
         is SendPacketEvent -> event.args.adapter.node
         is ReceivePacketEvent -> event.args.adapter.node
         is StartNodeEvent -> event.args.node

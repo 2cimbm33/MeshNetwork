@@ -56,13 +56,24 @@ class GraphView : View("Graph view") {
             startFullDrag()
             controller.handleDragDetected()
         }
+
+        style {
+            borderColor += box(c("#222222"))
+        }
+
+
     }
 
-    override val root = borderpane {
-        minWidth = 320.0
-        minHeight = 150.0
+    override val root = anchorpane(canvas) {
+        prefWidth = 900.0
+        prefHeight = 600.0
 
-        center = canvas
+        canvas.widthProperty().bind(widthProperty())
+        canvas.heightProperty().bind(heightProperty())
+
+        style {
+            borderColor += box(c("#222222"))
+        }
     }
 
     override fun onDock() {

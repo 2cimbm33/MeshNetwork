@@ -19,7 +19,7 @@ import kotlin.coroutines.EmptyCoroutineContext
 
 class RandomTickGenerator(private val configuration: RandomTickGeneratorConfiguration) {
     var callbacks: GeneratorCallbacks? = null
-    private var interval: Long = 1 * 1000
+    private var interval: Long = 250
     val nodes: Map<NetworkNode, Vec2d>
         get() = internalNodes.toMap()
 
