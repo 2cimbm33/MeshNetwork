@@ -16,11 +16,10 @@ class ReceivePacketEvent(override val time: Double, args: ReceivePacketEventArgs
         lock.withLock {
             val ( packet, adapter, sender ) = args
 
-            if (!adapter.hasConnection(packet.from)) {
-                adapter.createConnection(sender, false)
+            if (adapter.hasConnection(packet.from)) {
+                adapter.receivedPacket(packet)
             }
 
-            adapter.receivedPacket(packet)
         }
     }
 }

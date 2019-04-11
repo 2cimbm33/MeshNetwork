@@ -1,10 +1,10 @@
 package uni.cimbulka.network.simulator.mesh
 
 import org.litote.kmongo.coroutine.CoroutineCollection
-import uni.cimbulka.network.data.ApplicationData
-import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
+import uni.cimbulka.network.simulator.mesh.events.SendRandomMessageEvent
+import uni.cimbulka.network.simulator.mesh.events.SendRandomMessageEventArgs
 import uni.cimbulka.network.simulator.mesh.reporting.Snapshot
 
 class Simulation1(collection: CoroutineCollection<Snapshot>) : BaseSimulation(collection) {
@@ -17,10 +17,7 @@ class Simulation1(collection: CoroutineCollection<Snapshot>) : BaseSimulation(co
         nodeB.insertNode(20)
         nodeC.insertNode(50)
 
-        insert(90.0 * 1000, "SendPacketFromA-C") {
-            nodeA.controller?.send(DataPacket(1, nodeA.device, nodeC.device, ApplicationData("Hello C!")))
-        }
-
+        insert(SendRandomMessageEvent(90.0 * 1000, SendRandomMessageEventArgs(nodeA, nodeC, 3 * 1000 * 1000)))
         insert(ShutdownEvent(100.0 * 1000))
         start()
     }

@@ -63,7 +63,7 @@ class MainController : Controller() {
 
                     var total = 0L
                     times.forEach { total += it }
-                    avgEventTime =  total.toDouble() / this@MainController.numberOfNodes
+                    avgEventTime =  total.toDouble() / numberOfEvents
 
                     when (snapshot.eventName) {
                         "AddNode" -> {

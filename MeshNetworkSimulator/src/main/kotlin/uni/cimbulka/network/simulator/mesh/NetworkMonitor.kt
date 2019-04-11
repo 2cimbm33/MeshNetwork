@@ -79,7 +79,7 @@ class NetworkMonitor(val simId: String,
         callbacks?.eventExecuted(snapshot, timeDelta)
 
         if (snapshots.size == 5000) {
-            //saveSnapshots(snapshots.map { it.copy() })
+            saveSnapshots(snapshots.map { it.copy() })
             snapshots.clear()
         }
 
@@ -89,7 +89,7 @@ class NetworkMonitor(val simId: String,
 
     override fun printRecords() {
         if (snapshots.isNotEmpty()) {
-            //saveSnapshots(snapshots.map { it.copy() })
+            saveSnapshots(snapshots.map { it.copy() })
             snapshots.clear()
         }
         println("Simulation finished in ${Date().time - firstEvent}ms")
@@ -174,6 +174,7 @@ class NetworkMonitor(val simId: String,
 
             is DataPacket -> {
                 put("type", NetworkConstants.DATA_PACKET_TYPE)
+                put("size", packet.data.toString().toByteArray().size)
                 putArray("recipients").apply {
                     packet.recipients.forEach { add(it.id.toString()) }
                 }

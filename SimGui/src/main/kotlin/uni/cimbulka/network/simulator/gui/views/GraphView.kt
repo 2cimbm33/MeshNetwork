@@ -1,80 +1,45 @@
 package uni.cimbulka.network.simulator.gui.views
 
-import javafx.animation.KeyFrame
-import javafx.animation.Timeline
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.event.ActionEvent
-import javafx.event.EventHandler
-import javafx.scene.layout.Region
-import javafx.util.Duration
+import javafx.scene.layout.AnchorPane
 import tornadofx.*
 import uni.cimbulka.network.simulator.gui.controllers.GraphController
 
 class GraphView : View("Graph view") {
     private val controller: GraphController by inject()
+    private val canvas = GraphCanvas()
 
-    val fireEventsProperty = SimpleBooleanProperty().apply { onChange { controller.fireEvents = it } }
-    var fireEvents: Boolean by fireEventsProperty
+    var fireEvents: Boolean by property(true)
+    fun fireEventsProperty() = getProperty(GraphView::fireEvents)
 
-    private val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {
-        controller.draw(canvas.graphicsContext2D)
+    override val root = anchorpane() {
+        prefWidth = 920.0
+        prefHeight = 680.0
+
+        add(canvas)
+        AnchorPane.setLeftAnchor(canvas, 0.0)
+        AnchorPane.setTopAnchor(canvas, 0.0)
+        AnchorPane.setRightAnchor(canvas, 0.0)
+        AnchorPane.setBottomAnchor(canvas, 0.0)
+    }
+
+    init {
+        controller.nodes.onChange {
+            canvas.draw(it.list, controller.connections, controller.dimensions)
+        }
+
+        controller.connections.onChange {
+            canvas.draw(controller.nodes, it.list, controller.dimensions)
+        }
+    }
+
+    override fun onDock() {
+        canvas.draw(emptyList(), emptyList(), controller.dimensions)
+    }
+
+    /*private val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {
+        canvas.draw(controller.nodes, controller.connections, controller.dimensions)
     })).apply { cycleCount = Timeline.INDEFINITE }
 
-    private val canvas = canvas {
-        parentProperty().onChange { parent ->
-            (parent as? Region)?.let {
-                this.widthProperty().bind(it.widthProperty())
-                this.heightProperty().bind(it.heightProperty())
-            }
-        }
-
-        controller.heightProperty.bind(this.heightProperty())
-        controller.widthProperty.bind(this.heightProperty())
-
-        heightProperty().onChange {
-            controller.draw(graphicsContext2D)
-        }
-
-        widthProperty().onChange {
-            controller.draw(graphicsContext2D)
-        }
-
-        controller.scaleProperty().onChange {
-            controller.draw(graphicsContext2D)
-        }
-
-        controller.offsetProperty().onChange {
-            controller.draw(graphicsContext2D)
-        }
-
-        setOnMousePressed(controller::handleMousePressed)
-        setOnMouseReleased(controller::handleMouseReleased)
-        setOnMouseDragged(controller::handelMouseDragged)
-        setOnScroll(controller::handleScroll)
-
-        setOnDragDetected {
-            startFullDrag()
-            controller.handleDragDetected()
-        }
-
-        style {
-            borderColor += box(c("#222222"))
-        }
-
-
-    }
-
-    override val root = anchorpane(canvas) {
-        prefWidth = 900.0
-        prefHeight = 600.0
-
-        canvas.widthProperty().bind(widthProperty())
-        canvas.heightProperty().bind(heightProperty())
-
-        style {
-            borderColor += box(c("#222222"))
-        }
-    }
 
     override fun onDock() {
         timeline.play()
@@ -82,5 +47,5 @@ class GraphView : View("Graph view") {
 
     override fun onUndock() {
         timeline.stop()
-    }
+    }*/
 }

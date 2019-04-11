@@ -49,7 +49,7 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
                     }
 
                     is SendTick -> {
-                        insert(SendRandomMessageEvent(time, SendRandomMessageArgs(tick.sender, tick.recipient)))
+                        insert(SendRandomMessageEvent(time, SendRandomMessageEventArgs(tick.sender, tick.recipient, tick.size)))
                     }
                 }
             }
@@ -97,7 +97,7 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
         simulator.insert(AddNodeEvent(time, AddNodeEventArgs(this, phy)))
         simulator.insert(StartNodeEvent(time + 1, StartNodeEventArgs(this, phy)))
         insert(AddNodeToGeneratorEvent(time, AddNodeToGeneratorEventArgs(this, generator)))
-        insert(TimerEvent(0.0, TimerEventArgs(100.0,-1) {
+        insert(TimerEvent(time, TimerEventArgs(100.0,-1) {
             val node = this@insertNode
             val vector = generator.nodes[node]
             if (vector == null) {

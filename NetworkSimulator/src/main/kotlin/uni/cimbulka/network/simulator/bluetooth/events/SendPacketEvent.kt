@@ -8,7 +8,6 @@ import uni.cimbulka.network.simulator.core.EventArgs
 import uni.cimbulka.network.simulator.core.models.AbstractSimulator
 import uni.cimbulka.network.simulator.core.models.Event
 import kotlin.concurrent.withLock
-import kotlin.random.Random
 
 data class SendPacketEventArgs(val packet: BluetoothPacket, val adapter: BluetoothAdapter) : EventArgs()
 
@@ -24,8 +23,9 @@ class SendPacketEvent(override val time: Double, args: SendPacketEventArgs) :
                 adapter.createConnection(recAdapter)
             }
 
+            val size = packet.data.toByteArray().size
+            val delay = size / Constants.Bluetooth.TRANSMISSION_RATE
 
-            val delay = Random.nextDouble(Constants.Bluetooth.TRANSPORT_DELAY_RANGE.start, Constants.Bluetooth.TRANSPORT_DELAY_RANGE.endInclusive)
             simulator.insert(ReceivePacketEvent(time + delay,
                     ReceivePacketEventArgs(packet, recAdapter, adapter)))
         }

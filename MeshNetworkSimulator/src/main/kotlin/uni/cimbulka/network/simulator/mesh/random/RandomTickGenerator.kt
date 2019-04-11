@@ -72,7 +72,7 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
         synchronized(node) {
             val duplicateNodes = mutableListOf<NetworkNode>()
             internalNodes.keys.forEach { if (it.id == node.id) duplicateNodes.add(it); }
-            duplicateNodes.forEach { internalNodes.remove(it) }
+            duplicateNodes.forEach { internalNodes.remove(it); internalNodes.keys.remove(it) }
         }
     }
 
@@ -174,7 +174,9 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
                 }
             } while (recipient == node)
 
-            return SendTick(node, recipient)
+            val size = (20..200000000).random()
+
+            return SendTick(node, recipient, size)
         }
     }
 

@@ -4,6 +4,8 @@
     <bytecodeTargetLevel>
       <module name="Simulator.cli.main" target="1.8" />
       <module name="Simulator.cli.test" target="1.8" />
+      <module name="Simulator.JNS.main" target="1.8" />
+      <module name="Simulator.JNS.test" target="1.8" />
       <module name="Simulator.sim-gui.main" target="1.8" />
       <module name="Simulator.sim-gui.test" target="1.8" />
     </bytecodeTargetLevel>
