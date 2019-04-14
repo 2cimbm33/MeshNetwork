@@ -1,6 +1,8 @@
 package uni.cimbulka.network.simulator.mesh
 
 import org.litote.kmongo.coroutine.CoroutineCollection
+import org.litote.kmongo.coroutine.coroutine
+import org.litote.kmongo.reactivestreams.KMongo
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
 import uni.cimbulka.network.simulator.mesh.events.SendRandomMessageEvent
@@ -17,8 +19,16 @@ class Simulation1(collection: CoroutineCollection<Snapshot>) : BaseSimulation(co
         nodeB.insertNode(20)
         nodeC.insertNode(50)
 
-        insert(SendRandomMessageEvent(90.0 * 1000, SendRandomMessageEventArgs(nodeA, nodeC, 3 * 1000 * 1000)))
+        insert(SendRandomMessageEvent(80.0 * 1000, SendRandomMessageEventArgs(nodeA, nodeC, 3 * 1000 * 1000)))
         insert(ShutdownEvent(100.0 * 1000))
         start()
     }
+}
+
+fun main() {
+    val col = KMongo.createClient(
+            "mongodb://admin:nimda@cimbulka.win/admin?retryWrites=true"
+    ).coroutine.getDatabase("mesh").getCollection<Snapshot>()
+
+    Simulation1(col).run()
 }

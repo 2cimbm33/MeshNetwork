@@ -6,6 +6,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import uni.cimbulka.network.simulator.Constants
+import uni.cimbulka.network.simulator.bluetooth.AdapterPool
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.TimerEvent
 import uni.cimbulka.network.simulator.core.events.TimerEventArgs
@@ -105,7 +106,7 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
     }
 
     private fun createNode(): CreateTick? {
-        val range = 1..100
+        val range = 0..100
         val number = range.random()
 
         return if (configuration.createProbability <= number) {
@@ -116,11 +117,11 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
     }
 
     private fun generateForNode(node: NetworkNode): RandomTick? {
-        val range = 0..3
-        if (range.random() != 0) return null
+        val range = 1..100
+        //if (range.random() != 0) return null
 
         val type = when (range.random()) {
-            0 -> if (canSend) RandomTick.Types.SEND_MESSAGE else RandomTick.Types.SEND_MESSAGE
+            in 0..25 -> if (canSend) RandomTick.Types.SEND_MESSAGE else RandomTick.Types.SEND_MESSAGE
             else -> RandomTick.Types.MOVE_NODE
         }
 
@@ -164,18 +165,13 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
 
     private fun genSendTick(node: NetworkNode): SendTick? {
         synchronized(node) {
-            lateinit var recipient: NetworkNode
+            val sub = getSubnetwork(node.id)
+            if (sub.isEmpty()) return null
 
-            do {
-                try {
-                    recipient = nodes.keys.random()
-                } catch (e: Exception) {
-                    return null
-                }
-            } while (recipient == node)
+            val rec = sub.random()
+            val recipient = nodes.keys.firstOrNull { it.id == rec } ?: return null
 
             val size = (20..200000000).random()
-
             return SendTick(node, recipient, size)
         }
     }
@@ -183,6 +179,25 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
     fun getRandomVector(): Vec2d {
         val range = -1.0..1.0
         return Vec2d(range.random(), range.random())
+    }
+
+    private fun getSubnetwork(nodeId: String, result: MutableList<String> = mutableListOf()): List<String> {
+        val adapter = AdapterPool.adapters[nodeId] ?: return result
+        if (adapter.connections.isEmpty()) return result
+
+        adapter.connections.forEach { id, _ ->
+            if (id !in result) {
+                result.add(id)
+
+                getSubnetwork(id, result).forEach {
+                    if (it !in result) {
+                        result.add(it)
+                    }
+                }
+            }
+        }
+
+        return result
     }
  }
 

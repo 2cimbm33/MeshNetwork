@@ -1,6 +1,8 @@
 package uni.cimbulka.network.simulator.mesh
 
 import org.litote.kmongo.coroutine.CoroutineCollection
+import org.litote.kmongo.coroutine.coroutine
+import org.litote.kmongo.reactivestreams.KMongo
 import uni.cimbulka.network.data.ApplicationData
 import uni.cimbulka.network.packets.DataPacket
 import uni.cimbulka.network.simulator.common.Position
@@ -40,4 +42,12 @@ class Simulation2(collection: CoroutineCollection<Snapshot>) : BaseSimulation(co
         insert(ShutdownEvent(60 * 1000.0))
         start()
     }
+}
+
+fun main() {
+    val col = KMongo.createClient(
+            "mongodb://admin:nimda@cimbulka.win/admin?retryWrites=true"
+    ).coroutine.getDatabase("mesh").getCollection<Snapshot>()
+
+    Simulation2(col).run()
 }

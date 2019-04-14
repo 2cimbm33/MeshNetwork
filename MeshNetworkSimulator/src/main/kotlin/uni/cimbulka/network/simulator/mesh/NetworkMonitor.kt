@@ -97,6 +97,7 @@ class NetworkMonitor(val simId: String,
     }
 
     private fun saveSnapshots(snapshots: List<Snapshot>) {
+        //snapshots.forEach { println(mapper.writeValueAsString(it)) }
         CoroutineScope(EmptyCoroutineContext).launch {
             val requests = mutableListOf<WriteModel<Snapshot>>()
             snapshots.forEach {

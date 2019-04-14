@@ -29,6 +29,7 @@ class GraphCanvas : Canvas() {
     private var initialDragOffset = Vec2d()
     private var dragVector = Vec2d(.0, .0)
     private var drag = false
+    private var imageCount = 1
 
 
     var minScale: Double by property(15.0)

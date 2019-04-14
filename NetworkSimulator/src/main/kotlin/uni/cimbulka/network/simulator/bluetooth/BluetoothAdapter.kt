@@ -91,6 +91,7 @@ class BluetoothAdapter(@JsonIgnore private val physicalLayer: PhysicalLayer, val
 
         if (result) {
             createConnection(adapter)
+            adapter.createConnection(this, false)
         }
 
         return result

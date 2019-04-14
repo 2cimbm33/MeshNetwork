@@ -75,6 +75,7 @@ class NetworkController(friendlyName: String) {
 
     private fun startMainJob() {
         networkSession.services.forEach { it.startScanning() }
+        startServices()
         networkSession.mainJob = true
     }
 }

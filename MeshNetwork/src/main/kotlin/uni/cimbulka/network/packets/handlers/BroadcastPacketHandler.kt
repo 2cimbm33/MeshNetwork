@@ -78,8 +78,8 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
             for (key in processedUpdatesKeys) {
                 val check = processedUpdates[key] ?: continue
                 val (first, second) = update.nodes
-                if ((first == first || first == first) &&
-                    (second == first || second == second)) {
+                if ((check.nodes.first == first || check.nodes.first == second) &&
+                    (check.nodes.second == first || check.nodes.second == second)) {
                     if (update.action != check.action) {
                         updatesToRun.add(update)
                     }

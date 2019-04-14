@@ -24,7 +24,9 @@ data class RandomSimulationConfiguration(val createProbability: Int,
                                          val dimensions: Dimension2D,
                                          val duration: Double)
 
-class RandomSimulation(private val config: RandomSimulationConfiguration, collection: CoroutineCollection<Snapshot>) : BaseSimulation(collection) {
+class RandomSimulation(private val config: RandomSimulationConfiguration, collection: CoroutineCollection<Snapshot>) :
+        BaseSimulation(collection) {
+
     private val generator = RandomTickGenerator(RandomTickGeneratorConfiguration(
             this, RandomTickGeneratorConfiguration.Rule.EVENT_DRIVEN, config.createProbability, config.dimensions
     ))
@@ -76,6 +78,29 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
             generator.addNode(node)
         }
 
+        insert(TimerEvent(0.0, TimerEventArgs(100.0,-1) {
+            for ((node, vector) in generator.nodes) {
+                val (x, y) = node.position
+
+                val newX = x + (vector.x / 10)
+                val newY = y + (vector.y / 10)
+
+                var remove = false
+
+                if (newX < 0.0 || newX >= config.dimensions.width) remove = true
+                if (newY < 0.0 || newY >= config.dimensions.height) remove = true
+
+                if (remove) {
+                    insert(RemoveNodeEvent(time, RemoveNodeEventArgs(node, phy)))
+                    generator.removeNode(node)
+                } else {
+                    insert(MoveNodeEvent(time, MoveNodeEventArgs(
+                            node, vector.x / 10, vector.y / 10, phy
+                    )))
+                }
+            }
+        }))
+
         insert(ShutdownEvent(config.duration))
         start()
     }
@@ -97,33 +122,5 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
         simulator.insert(AddNodeEvent(time, AddNodeEventArgs(this, phy)))
         simulator.insert(StartNodeEvent(time + 1, StartNodeEventArgs(this, phy)))
         insert(AddNodeToGeneratorEvent(time, AddNodeToGeneratorEventArgs(this, generator)))
-        insert(TimerEvent(time, TimerEventArgs(100.0,-1) {
-            val node = this@insertNode
-            val vector = generator.nodes[node]
-            if (vector == null) {
-                cancel()
-                return@TimerEventArgs
-            }
-
-            val (x, y) = node.position
-
-            val newX = x + (vector.x / 10)
-            val newY = y + (vector.y / 10)
-
-            var remove = false
-
-            if (newX < 0.0 || newX >= config.dimensions.width) remove = true
-            if (newY < 0.0 || newY >= config.dimensions.height) remove = true
-
-            if (remove) {
-                insert(RemoveNodeEvent(time, RemoveNodeEventArgs(node, phy)))
-                generator.removeNode(node)
-                cancel()
-            } else {
-                insert(MoveNodeEvent(time, MoveNodeEventArgs(
-                        node, vector.x / 10, vector.y / 10, phy
-                )))
-            }
-        }))
     }
 }

@@ -1,5 +1,7 @@
 package uni.cimbulka.network.simulator.bluetooth.events
 
+import uni.cimbulka.network.data.ApplicationData
+import uni.cimbulka.network.packets.BasePacket
 import uni.cimbulka.network.simulator.Constants
 import uni.cimbulka.network.simulator.bluetooth.AdapterPool
 import uni.cimbulka.network.simulator.bluetooth.BluetoothAdapter
@@ -23,7 +25,14 @@ class SendPacketEvent(override val time: Double, args: SendPacketEventArgs) :
                 adapter.createConnection(recAdapter)
             }
 
-            val size = packet.data.toByteArray().size
+            val data = BasePacket.fromJson(packet.data)?.data
+
+            val size = if (data is ApplicationData && data.applicationData.toIntOrNull() != null) {
+                data.applicationData.toInt() + packet.data.toByteArray().size
+            } else {
+                packet.data.toByteArray().size
+            }
+
             val delay = size / Constants.Bluetooth.TRANSMISSION_RATE
 
             simulator.insert(ReceivePacketEvent(time + delay,

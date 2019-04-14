@@ -1,2 +1,2 @@
 rootProject.name = 'Simulator'
-include 'Core', 'NetworkSimulator', 'MeshNetwork', 'MeshNetworkSimulator', 'SimGui', 'CLI'
+include 'Core', 'NetworkSimulator', 'MeshNetwork', 'MeshNetworkSimulator', 'SimGui', 'CLI', 'Akka'
