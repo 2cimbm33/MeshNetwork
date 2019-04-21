@@ -20,6 +20,7 @@ class Main : CliktCommand() {
     val height: Int by option(help = "Height of the simulation").int().default(75)
     val duration: Int by option(help = "Duration of the simulation in milliseconds").int().default(45000)
     val collection: String by option(help = "Collection name in the database").default("simulation")
+    val zone: Int by option(help = "The zone size of simulated network").int().default(5)
 
     private var numberOfEvents: Int = 0
     private var batchNumber: Int = 1
@@ -38,7 +39,8 @@ class Main : CliktCommand() {
                 probability,
                 nodes,
                 Dimension2D(width.toDouble(), height.toDouble()),
-                duration.toDouble()
+                duration.toDouble(),
+                zone
         )
 
         val simulator = RandomSimulation(configuration, mongoCollection)

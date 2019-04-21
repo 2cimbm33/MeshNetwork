@@ -2,6 +2,7 @@ package uni.cimbulka.network.simulator.mesh
 
 import javafx.geometry.Dimension2D
 import org.litote.kmongo.coroutine.CoroutineCollection
+import uni.cimbulka.network.NetworkConstants
 import uni.cimbulka.network.simulator.common.Position
 import uni.cimbulka.network.simulator.core.events.ShutdownEvent
 import uni.cimbulka.network.simulator.core.events.TimerEvent
@@ -22,7 +23,8 @@ import java.util.concurrent.ThreadLocalRandom
 data class RandomSimulationConfiguration(val createProbability: Int,
                                          val preCreatedNumberOfNodes: Int,
                                          val dimensions: Dimension2D,
-                                         val duration: Double)
+                                         val duration: Double,
+                                         val zoneSize: Int)
 
 class RandomSimulation(private val config: RandomSimulationConfiguration, collection: CoroutineCollection<Snapshot>) :
         BaseSimulation(collection) {
@@ -34,6 +36,7 @@ class RandomSimulation(private val config: RandomSimulationConfiguration, collec
     private var noOfNodes = 1
 
     init {
+        NetworkConstants.ZONE_SIZE = config.zoneSize
         monitor.physicalLayer = PhysicalLayer(config.dimensions.width, config.dimensions.height)
 
         generator.callbacks = object : GeneratorCallbacks {
