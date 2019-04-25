@@ -11,7 +11,6 @@ import uni.cimbulka.network.packets.PacketSender
 
 internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
     override fun receive(packet: HandshakeRequest, session: NetworkSession) {
-        //println("Processing Handshake request")
         val source = packet.source
         val data = packet.data as HandshakeData
 
@@ -25,6 +24,9 @@ internal class HandshakeRequestHandler : PacketHandler<HandshakeRequest> {
                 session.allDevices.add(it)
                 updateData.newDevices.add(it)
             }
+        }
+        if (data.devices.isNotEmpty()) {
+            session.networkCallbacks?.onNetworkChanged(session.allDevices.toList())
         }
 
         val graph = session.networkGraph.export()

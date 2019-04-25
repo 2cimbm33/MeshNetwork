@@ -25,6 +25,9 @@ internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
                             newDevices.add(it)
                         }
                     }
+                    if (newDevices.isNotEmpty()) {
+                        session.networkCallbacks?.onNetworkChanged(session.allDevices.toList())
+                    }
                 }
 
                 resend = (newUpdateData.updates.isNotEmpty() ||

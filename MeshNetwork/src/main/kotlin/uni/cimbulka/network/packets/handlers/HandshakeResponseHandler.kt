@@ -10,11 +10,9 @@ import uni.cimbulka.network.packets.PacketSender
 
 internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
     override fun receive(packet: HandshakeResponse, session: NetworkSession) {
-        //println("Importing graph")
         val ( xml, devices ) = packet.data as HandshakeData
         session.networkGraph.addEdge(session.localDevice, packet.source)
         session.networkGraph.merge(xml, packet.source, session)
-        //println("Marking inNetwork as true")
         session.isInNetwork = true
 
         val updateData = UpdateData()
@@ -23,6 +21,9 @@ internal class HandshakeResponseHandler : PacketHandler<HandshakeResponse> {
                 session.allDevices.add(it)
                 updateData.newDevices.add(it)
             }
+        }
+        if (devices.isNotEmpty()) {
+            session.networkCallbacks?.onNetworkChanged(session.allDevices.toList())
         }
 
         updateData.updates.add(Update(session.localDevice to packet.source, Update.CONNECTION_CREATED))

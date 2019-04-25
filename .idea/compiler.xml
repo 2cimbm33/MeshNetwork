@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="Simulator.Akka.main" target="1.8" />
+      <module name="Simulator.Akka.test" target="1.8" />
       <module name="Simulator.cli.main" target="1.8" />
       <module name="Simulator.cli.test" target="1.8" />
       <module name="Simulator.JNS.main" target="1.8" />
