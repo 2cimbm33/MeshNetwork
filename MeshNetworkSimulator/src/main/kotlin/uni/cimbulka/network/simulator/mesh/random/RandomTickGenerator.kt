@@ -118,7 +118,6 @@ class RandomTickGenerator(private val configuration: RandomTickGeneratorConfigur
 
     private fun generateForNode(node: NetworkNode): RandomTick? {
         val range = 1..100
-        //if (range.random() != 0) return null
 
         val type = when (range.random()) {
             in 0..25 -> if (canSend) RandomTick.Types.SEND_MESSAGE else RandomTick.Types.SEND_MESSAGE

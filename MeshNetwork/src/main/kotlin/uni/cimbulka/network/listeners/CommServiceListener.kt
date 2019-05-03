@@ -15,7 +15,6 @@ internal class CommServiceListener(controller: NetworkController) : CommServiceC
     }
 
     override fun onMessageReceived(packet: String) {
-        //println("\nCommServiceListener:onMessageReceived\n")
         messageListener.onMessageReceived(packet)
     }
 

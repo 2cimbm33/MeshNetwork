@@ -6,7 +6,7 @@ import uni.cimbulka.network.simulator.core.models.Event
 class AddNodeToGeneratorEvent(override val time: Double, args: AddNodeToGeneratorEventArgs) :
         Event<AddNodeToGeneratorEventArgs>("AddNodeToGenerator", args) {
     override fun invoke(simulator: AbstractSimulator) {
-        val (node, generartor) = args
-        generartor.addNode(node)
+        val (node, generator) = args
+        generator.addNode(node)
     }
 }

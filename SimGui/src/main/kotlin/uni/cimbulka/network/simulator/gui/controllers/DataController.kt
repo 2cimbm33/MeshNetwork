@@ -28,7 +28,6 @@ class DataController : Controller() {
                 val type = it.eventArgs.get("type").asText()
 
                 if (type == NetworkConstants.DATA_PACKET_TYPE) {
-                    //println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(it))
                     val id = it.eventArgs.get("id").asInt()
                     val sender = it.eventArgs.get("source").asText()
                     val recNode = it.eventArgs.get("recipients")

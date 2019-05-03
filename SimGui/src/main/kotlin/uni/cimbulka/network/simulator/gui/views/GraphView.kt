@@ -35,17 +35,4 @@ class GraphView : View("Graph view") {
     override fun onDock() {
         canvas.draw(emptyList(), emptyList(), controller.dimensions)
     }
-
-    /*private val timeline = Timeline(KeyFrame(Duration.millis(100.0), EventHandler<ActionEvent> {
-        canvas.draw(controller.nodes, controller.connections, controller.dimensions)
-    })).apply { cycleCount = Timeline.INDEFINITE }
-
-
-    override fun onDock() {
-        timeline.play()
-    }
-
-    override fun onUndock() {
-        timeline.stop()
-    }*/
 }

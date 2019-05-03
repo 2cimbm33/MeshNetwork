@@ -11,7 +11,6 @@ internal object PacketSender {
     @Suppress("UNCHECKED_CAST")
     fun <T : BasePacket> send(packet: T, session: NetworkSession) {
         packet.trace[packet.trace.size + 1] = session.localDevice
-        //println("Sending packet [NetworkController]: $packet")
 
         val handler = PacketHandler.getHandler(packet::class) as? PacketHandler<T> ?: return
         handler.send(packet, session)

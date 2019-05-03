@@ -1,19 +1,18 @@
 package uni.cimbulka.network.models
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import uni.cimbulka.network.helpers.UUIDJsonDeserilazer
+import uni.cimbulka.network.helpers.UUIDJsonDeserializer
 import uni.cimbulka.network.helpers.UUIDJsonSerializer
 import java.util.*
 
 data class Device(
         @JsonSerialize(using = UUIDJsonSerializer::class)
-        @JsonDeserialize(using = UUIDJsonDeserilazer::class)
+        @JsonDeserialize(using = UUIDJsonDeserializer::class)
         var id: UUID,
         var name: String) {
 

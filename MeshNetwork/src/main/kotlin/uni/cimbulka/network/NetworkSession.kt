@@ -68,6 +68,5 @@ class NetworkSession {
         services.forEach { it.startService() }
     }
 
-    //- Simulation stuff ----------------------------------------------------------------------------
     var mainJob = false
 }

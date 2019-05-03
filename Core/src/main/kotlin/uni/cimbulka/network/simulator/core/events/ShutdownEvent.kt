@@ -6,7 +6,6 @@ import uni.cimbulka.network.simulator.core.models.Event
 import kotlin.concurrent.withLock
 
 class ShutdownEvent(override val time: Double) : Event<EventArgs>("Shutdown", EventArgs.empty) {
-    @Synchronized
     override fun invoke(simulator: AbstractSimulator) {
         lock.withLock {
             simulator.stop()

@@ -18,7 +18,7 @@ class UUIDJsonSerializer : JsonSerializer<UUID>() {
     }
 }
 
-class UUIDJsonDeserilazer : JsonDeserializer<UUID>() {
+class UUIDJsonDeserializer : JsonDeserializer<UUID>() {
     override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): UUID {
         return UUID.fromString(p?.valueAsString)
     }

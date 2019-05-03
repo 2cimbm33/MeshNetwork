@@ -42,7 +42,7 @@ class StartSimulationController : Controller() {
     }
 
     fun runSimulation() {
-        val config = RandomSimulationConfiguration(createProbability.toInt(), numberOfPrefabs, dimensions, time)
+        val config = RandomSimulationConfiguration(createProbability.toInt(), numberOfPrefabs, dimensions, time, 5)
         mainController.runSimulation(config)
     }
 }

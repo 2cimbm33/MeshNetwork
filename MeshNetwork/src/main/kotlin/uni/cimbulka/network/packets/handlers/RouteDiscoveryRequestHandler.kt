@@ -9,7 +9,6 @@ import java.util.*
 
 internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryRequest> {
     override fun receive(packet: RouteDiscoveryRequest, session: NetworkSession) {
-        // Have I already processed this packet?
         session.processedPackets.forEach {
             if (it is RouteDiscoveryRequest) {
                 if (it.requester == packet.requester && it.target == packet.target) {
@@ -34,7 +33,6 @@ internal class RouteDiscoveryRequestHandler : PacketHandler<RouteDiscoveryReques
                 }
             }
         } else if (packet.recipient == session.localDevice) {
-            // Then check nodes in zone and either report back or rebroadcast the packet
             var dev: Device? = null
             for (it in session.routingTable.keys) {
                 if (it == packet.target) {

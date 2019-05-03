@@ -11,7 +11,6 @@ import uni.cimbulka.network.packets.PacketSender
 internal class BroadcastPacketHandler : PacketHandler<BroadcastPacket> {
     override fun receive(packet: BroadcastPacket, session: NetworkSession) {
         if (session.processedPackets.find { it.id == packet.id && it.source == packet.source } == null) {
-            // Check for updates that have already been applied, which should be filtered and ignored
             var resend = true
             var packetToResend: BasePacket? = null
 
